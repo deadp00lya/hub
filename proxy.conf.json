@@ -1,0 +1,50 @@
+{
+	"/neosuite/*": {
+		"target": "https://nwsuat.neeyamo.works",
+		"secure": false,
+		"changeOrigin": true,
+		"logLevel": "debug"
+	},
+	"/publicApi/*": {
+		"target": "https://neosuitesitapis.neeyamo.works",
+		"secure": false,
+		"changeOrigin": true,
+		"logLevel": "debug"
+	},
+	"/listViewApi/*": {
+		"target": "https://listviewcomponentuat.neeyamo.works",
+		"secure": false,
+		"changeOrigin": true,
+		"logLevel": "debug"
+	},
+	"/listViewBasicApi/*": {
+		"target": "https://listviewcomponentuat.neeyamo.works",
+		"secure": false,
+		"changeOrigin": true,
+		"logLevel": "debug"
+	},
+	"/Hub/Hub/*": {
+		"target": "https://du9n1fcply2l3.cloudfront.net",
+		"pathRewrite": {
+			"^/Hub": ""
+		}
+	},
+	"/hub/*": {
+		"target": "http://localhost:8090",
+		"secure": true,
+		"changeOrigin": false,
+		"logLevel": "debug"
+	},
+	"/neoforms/*": {
+		"target": "http://localhost:8077",
+		"secure": true,
+		"changeOrigin": false,
+		"logLevel": "debug"
+	},
+	"/convoAI/*": {
+		"target": "http://localhost:80",
+		"secure": false,
+		"changeOrigin": true,
+		"logLevel": "debug"
+	}
+}
