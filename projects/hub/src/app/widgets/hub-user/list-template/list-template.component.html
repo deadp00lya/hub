@@ -1,0 +1,37 @@
+<div id="viewComponentPage" *ngIf="listViewComponent&&!componentViewPage"
+  style="height: 100%; overflow-y: auto; overflow-x: hidden;">
+  <universal-list-view [(listViewFromSource)]="list" totalCount="{{count}}"
+    itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="{{listViewComponent}}"
+    (outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+</div>
+
+<div>
+  <app-loader *ngIf="loader" class="loading"></app-loader>
+</div>
+<div *ngIf="componentViewPage" style="height: 100%; overflow-y: auto; overflow-x: hidden;">
+  <app-update-template [eventList]="events" [widgetCode]="widgetCode" [keyRestrictions]="keyRestrictions"
+    style="height:100%; " [appCode]="appCode" component="{{component}}" [temporaryClientCode]="temporaryClientCode"
+    [visibleEventView]="visibleEventView" (nameEvent)="nameEventHander($event)"></app-update-template>
+</div>
+
+
+<div id="selectClientModal" class="modal">
+  <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+    <i id="closeModalIcon" class="col s2 material-icons left" (click)="closeModal()">close</i>
+    <p id="modalname" class="col s8 center">Client Specific List View
+      Configuration</p>
+    <i id="saveModalIcon" class="col s2 material-icons right" (click)="saveClient();">done</i>
+  </div>
+
+  <div class="modal-content">
+
+    <div class="row">
+      <div class="input-field col s12" style="margin-left: -8px;">
+        <i id="formIcon" class="material-icons prefix">description</i> <select [(ngModel)]="currentClientCodeValue">
+          <option value="" disabled selected>Select Client</option>
+          <option *ngFor="let client of clientListMDM " [ngValue]="client.clientCode">{{client.clientName}}</option>
+        </select> <label>Client</label>
+      </div>
+    </div>
+  </div>
+</div>

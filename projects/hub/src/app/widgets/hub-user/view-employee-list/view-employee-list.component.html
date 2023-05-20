@@ -1,0 +1,159 @@
+<div id="viewPage" *ngIf="!employeeViewPage && !createEmployeePage"
+  style="height: 100%; overflow-y: auto; overflow-x: hidden;">
+
+  <div class="row" *ngIf="showfutureDatedSwitch && !showTemplate">
+    <div class="col s12">
+      <div class="col s4"></div>
+      <div class="col s6">
+        <div class="col s12 switch">
+          <div>
+            <label> Current Employee List <input type="checkbox"
+              (click)="seeFutureDated()"> <span class="lever"></span>
+              Future Dated List
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="eventForm" class="modal">
+    <div class="modal-content">
+      <a class="right" style="color: #F24E4E; margin-right: -11px; cursor: pointer;"> <i
+          class="fa fa-times-circle  fa-border modal-close"></i>
+      </a>
+      <div *ngIf="eventHide">
+        <h4 translate>Events</h4>
+        <ul class="collection" style="cursor: pointer;">
+          <li class="collection-item" *ngFor="let event of events" (click)="openEventForm(event,employee);" translate>
+            {{event.eventName}}</li>
+        </ul>
+      </div>
+
+      <div *ngIf="!eventHide">
+        <h5 translate>
+          <i class="material-icons" (click)="backmodal();" style="cursor: pointer">reply</i>{{currentEvent}}
+        </h5>
+        <div class="row">
+          <div *ngFor="let eventC of eventConfig">
+
+            <fieldset>
+              <legend>
+                <label translate>{{eventC.field.fieldTitle}}</label>
+              </legend>
+              <div class="input-field col s12 margin0" *ngIf=" eventC.field.fieldType=='input'">
+                <input class="employeeInfo " type="text" id="eventInput"
+                  [(ngModel)]="personalDetail[eventC.field.fieldName]">
+              </div>
+
+              <div *ngIf="eventC.field.fieldType=='date' " class="input-field col s12 margin0">
+                <input #dateTime="ngModel" [(ngModel)]="personalDetail[eventC.field.fieldName]"
+                  (ngModelChange)="setDate($event,eventC.field.fieldName)" class="col s10 pexDateTime browser-default"
+                  id="targetDateInput" [min]="todayDate" [owlDateTimeTrigger]="targetDateInputPicker"
+                  [owlDateTime]="targetDateInputPicker"> <i class="far fa-calendar-alt right"></i>
+                <owl-date-time [pickerType]="'calendar'" #targetDateInputPicker></owl-date-time>
+              </div>
+              <div *ngIf="eventC.field.fieldType=='datetime' " class="input-field col s12 margin0">
+                <input #dateTime="ngModel" [(ngModel)]="personalDetail[eventC.field.fieldName]"
+                  (ngModelChange)="setDate($event,eventC.field.fieldName)" class="col s10 pexDateTime browser-default"
+                  id="targetDateTimeInput" [min]="todayDate" [owlDateTimeTrigger]="targetDateTimeInputPicker"
+                  [owlDateTime]="targetDateTimeInputPicker"> <i class="far fa-calendar-alt right"></i>
+                <owl-date-time #targetDateTimeInputPicker></owl-date-time>
+              </div>
+
+              <div class="input-field col s12 margin0"
+                *ngIf=" eventC.field.fieldType=='select' && !eventC.field.sdmValue">
+
+                <div>
+                  <select style="color: #007EE5 !important;" [(ngModel)]="personalDetail[eventC.field.fieldName]">
+                    <option value="" disabled selected translate>Choose
+                      your option</option>
+                    <option *ngFor="let value of selectMDMData[eventC.field.fieldCode]"
+                      [ngValue]="value[eventC.field.fieldName]">{{resolvePattern(value,eventC.field.fieldDisplay)}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+
+
+              <div class="input-field col s12 margin0" *ngIf=" eventC.field.fieldType=='autocomplete'">
+                <div id="pexAuto">
+                  <ng2-completer [(ngModel)]="autoComplete[eventC.field.fieldName]"
+                    [datasource]="suggestions[eventC.field.fieldCode]" [fillHighlighted]=false
+                    (keyup)="getAutoComplete($event,eventC.field)" [minSearchLength]="1"
+                    id="autoComplete[{{eventC.field.fieldName}}]" [inputName]="searchField"
+                    (selected)="onItemSelect($event,eventC.field.fieldName,eventC.field.fieldDisplay)" [autoMatch]=false
+                    [clearUnselected]=true [selectOnFocus]=false textNoResults="{{ 'No results found' | translate }}"
+                    textSearching="{{ 'Searching..' | translate }}" pause='500'
+                    placeholder=" {{ eventC.field.fieldTitle | translate }} "></ng2-completer>
+                </div>
+
+              </div>
+
+              <div class="input-field col s12 margin0"
+                *ngIf=" eventC.field.fieldType=='select'  && eventC.field.sdmValue">
+                <div>
+                  <select style="color: #007EE5 !important;" [(ngModel)]="personalDetail[eventC.field.fieldName]">
+                    <option value="" disabled selected translate>Choose
+                      your option</option>
+
+                    <option *ngFor="let value of selectData[eventC.field.fieldCode]" [ngValue]="value.value">
+                      {{value.value}}</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" (click)="updateEvent()" class="modal-close btn-flat"><span translate>UPDATE</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="preloader-background" *ngIf="loaderEvent">
+      <div class="medium center active">
+        <img src="{{cdnUrl}}/Hub/loader50.gif">
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <div id="eventmodal" class="modal">
+    <div class="modal-content">
+
+      <!-- <ul class="dropdown-content">
+			<li *ngFor="let event of events"
+				(change)="openEventForm(event,employee)"><a href="#!">{{event.eventName}}</a></li>
+		</ul> -->
+    </div>
+  </div>
+  <universal-list-view [(listViewFromSource)]="employeeViewList" totalCount="{{count}}"
+    itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="PexEmployeeList"
+    [advanceFilterComponent]="advanceFilter" [advanceFilterInputs] = "advanceList"
+    (outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+
+  <div class="preloader-background" *ngIf="loader">
+    <div class="medium center active">
+      <img src="{{cdnUrl}}/Hub/loader50.gif">
+    </div>
+  </div>
+
+</div>
+
+
+<div *ngIf="employeeViewPage" style="height: 100%; overflow-y: auto; overflow-x: hidden;">
+  <app-update-template [keyRestrictions]="keyRestrictions" [widgetCode]="widgetCode" [eventList]="events"
+    [actionList]="actions" [currentEmployeeId]="employee.employeeGlobalId" style="height:100%; " [viewId]="test"
+    [appCode]="appCode" [visibleEventView]="visibleEventView" (nameEvent)="nameEventHander($event)">
+  </app-update-template>
+</div>
+
+
+<!-- <div *ngIf="createEmployeePage" -->
+<!-- 	style="height: 100%; overflow-y: auto; overflow-x: hidden;"> -->
+<!-- 	<app-create-employee -->
+<!-- 		(nameEvent)="nameEventHander($event)"> </app-create-employee> -->
+<!-- </div> -->

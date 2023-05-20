@@ -1,0 +1,22 @@
+<svg width="26.999999999999996" height="26.999999999999996" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <defs>
+  <style>.a{fill:#007ee5;stroke:#007ee5;stroke-width:0.2px;}.b{fill:#fff;}.c{stroke:none;}.d{fill:none;}.e{filter:url(#a);}</style>
+ </defs>
+ <g>
+  <title>Layer 1</title>
+  <g stroke="null" id="svg_1">
+   <g stroke="null" id="svg_2" transform="matrix(1.6749624057771586,0,0,1.4052607708567904,-11.627024873479186,-6.014211561079485) " class="e">
+    <g stroke="null" id="svg_3" class="a">
+     <circle stroke="null" id="svg_4" r="12" cy="13.83744" cx="14.06847" class="c"/>
+     <circle stroke="null" id="svg_5" r="11.9" cy="13.83744" cx="14.06847" class="d"/>
+    </g>
+   </g>
+   <g stroke="null" id="svg_6">
+    <g stroke="null" id="svg_7">
+     <path stroke="null" id="svg_8" d="m22.64851,6.78552a0.82073,0.68858 0 0 0 -1.16242,0l-9.85715,8.24748l-3.55595,-3.24053a0.82241,0.68998 0 1 0 -1.20932,0.9345l4.13548,3.76891a0.82073,0.68858 0 0 0 0.58624,0.22203l0.01675,0a0.82241,0.68998 0 0 0 0.57954,-0.20095l10.46182,-8.75477a0.82073,0.68858 0 0 0 0.00502,-0.97666z" class="b"/>
+    </g>
+    <path stroke="null" id="svg_9" d="m22.45087,12.74102a0.82241,0.68998 0 0 0 -0.82241,0.68998a9.25752,7.76688 0 1 1 -9.25584,-7.76688a0.82241,0.68998 0 1 0 0,-1.37856a10.90066,9.14544 0 1 0 10.90066,9.14544a0.82241,0.68998 0 0 0 -0.82241,-0.68998z" class="b"/>
+   </g>
+  </g>
+ </g>
+</svg>

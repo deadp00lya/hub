@@ -1,0 +1,69 @@
+<div id="pex_profile" style="height: 100%; overflow-y: auto; overflow-x: hidden;">
+
+  <div class="row center" *ngIf="!showEvent && eventList"
+    style="position: relative; width: 100%; overflow: hidden; transform: translateX(0px); margin-top: 45px">
+    <div class="left">
+      <b translate>Events : </b>
+    </div>
+    <div class="col 12"
+      style="display: flex; flex-wrap: wrap; margin: 20px; margin-top: 0px; justify-content: center; width: 95%;">
+      <div class="col" *ngFor="let event of eventList"
+        style="padding: 5px 10px; margin: 10px; display: inline-block; margin-left: 20px;">
+        <div style="display: table-caption;">
+          <div (click)="fetchEventForm(event)" class="card center pointer"
+            style="cursor: pointer; height: 140px; width: 140px; border-radius: 50%;">
+            <i *ngIf="event.eventIcons;else othericon" class="material-icons large"
+              style="margin: 25px;">{{event.eventIcons}}</i>
+            <ng-template #othericon> <i class="material-icons large" style="margin: 25px;">account_circle</i>
+            </ng-template>
+          </div>
+          <div>
+            <p class="center" style="margin: 0px;" translate>{{event.eventName}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row center" *ngIf="!showEvent && actionList"
+    style="position: relative; width: 100%; overflow: hidden; transform: translateX(0px); margin-top: 45px">
+    <div class="left">
+      <b translate>Actions : </b>
+    </div>
+    <div class="col 12"
+      style="display: flex; flex-wrap: wrap; margin: 20px; margin-top: 0px; justify-content: center; width: 95%;">
+      <div class="col" *ngFor="let action of actionList"
+        style="padding: 5px 10px; margin: 10px; display: inline-block; margin-left: 20px;">
+        <div style="display: table-caption;">
+          <div (click)="fetchEventForm(action)" class="card center pointer"
+            style="cursor: pointer; height: 140px; width: 140px; border-radius: 50%;">
+            <i *ngIf="action.actionIcons;else othericon" class="material-icons large"
+              style="margin: 25px;">{{action.actionIcons}}</i>
+            <ng-template #othericon> <i class="material-icons large" style="margin: 25px;">account_circle</i>
+            </ng-template>
+          </div>
+          <div>
+            <p class="center" style="margin: 0px;" translate>{{action.actionName}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <app-form-template style="height:100%; " *ngIf="showEvent&&!loading" [appCode]="appCode" [formCode]="formCode"
+    [data]="employeeData" [validationMsg]="validationMsg" [oneTimeUpdatedView]="oneTimeUpdatedView"
+    [preferredLang]="preferredLang" [keyRestrictions]="keyRestrictions" [countryCode]="keyRestrictions['countryCode']"
+    [businessunitCode]="keyRestrictions['businessunitCode']" [legalEntityCode]="keyRestrictions['legalEntityCode']" [convoAI] = "convoAI"
+    [additionalValue]="additionalValue" (outPutToParentComponent)="outputFromFormView($event)"></app-form-template>
+
+</div>
+<!-- <div class="preloader-background" *ngIf="loader">
+	<div class="medium center active">
+		<img src="../../../../Hub/Hub/loader50.gif">
+	</div>
+</div> -->

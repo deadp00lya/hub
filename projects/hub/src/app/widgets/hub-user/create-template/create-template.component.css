@@ -1,0 +1,349 @@
+.pexActiveTab {
+	color: cornflowerblue !important;
+	font-weight: 900;
+}
+
+.PexTabIndicator {
+	border-bottom: 3px solid #2482d0 !important;
+}
+
+.pexTabItem {
+	display: inline-block;
+	text-align: center;
+	line-height: 48px;
+	height: 48px;
+	padding: 0;
+	margin: 0;
+	text-transform: uppercase;
+}
+
+#createDiv ::ng-deep .pexDateTime {
+	border-bottom: none !important;
+	color: #077dde !important;
+	margin-bottom: -6px !important;
+	margin-top: -6px !important;
+}
+
+#createDiv {
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.myCard {
+	padding: 10px !important;
+}
+
+#createDiv ::ng-deep .img1 {
+	position: relative;
+	padding-top: 29px !important;
+	z-index: 0;
+}
+
+.colicon {
+	margin-left: -4vw;
+}
+
+h4 {
+	font-weight: bold;
+}
+
+.pexAutoHeight {
+	height: auto !important;
+}
+
+#pexTab ::ng-deep li .active {
+	font-weight: 800 !important;
+}
+
+#pexAuto ::ng-deep .completer-dropdown {
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.pexTab {
+	max-height: 48px !important;
+}
+
+span {
+	color: #007EE5;
+	font-family: sans-serif;
+}
+
+#scale-demo {
+	background-color: #FF6F79 !important;
+}
+
+.btn-floating i {
+	font-size: 1.5rem;
+}
+
+#createDiv ::ng-deep .indicator {
+	background-color: #007EE5 !important;
+}
+
+legend {
+	color: #6B6B94;
+}
+
+fieldset {
+	border: 0;
+	border-radius: 5px;
+}
+
+#createDiv ::ng-deep input[type=text] {
+	border-bottom: none;
+	color: #007EE5;
+/* 	height: 100% !important; */
+}
+
+.editColor {
+	color: #007EE5;
+	font-weight: bold !important;
+}
+
+progress {
+	border: 0;
+	height: 36px;
+	width: 90%;
+	border-radius: 20px;
+}
+
+progress::-webkit-progress-bar {
+	border: 1px solid green;
+	height: 36px;
+	border-radius: 20px;
+	background: transparent !important;
+}
+
+progress::-webkit-progress-value {
+	border: 0;
+	height: 36;
+	border-radius: 20px;
+	background: #00C383 !important;
+}
+
+progress::-moz-progress-bar {
+	border: 0;
+	height: 36px;
+	border-radius: 20px;
+	background: transparent !important;
+}
+
+.row {
+	/* 	margin-bottom: 1px; */
+	
+}
+
+.marginsize {
+	margin-left: 21% !important;
+	color: white !important;
+}
+
+i.fa {
+	border-radius: 60px;
+	background: #FFDFE4;
+}
+
+fieldset ::ng-deep input[type=date] {
+	border-bottom: none;
+	height: 100% !important;
+}
+
+fieldset::ng-deep .select-wrapper input.select-dropdown {
+	height: 105% !important;
+}
+
+::ng-deep .dropdown-content {
+	max-height: 280px !important;
+	overflow-y: auto;
+}
+
+.loading {
+	top: 50%;
+	bottom: 50%;
+	position: absolute;
+	left: 50%;
+}
+
+#viewEmployeeIdModal {
+	/* 	width: 40% !important; */
+	width: 33% !important;
+}
+
+.pexBorderStyle {
+	color: black !important;
+	border-width: 1px;
+	border-style: solid;
+	min-height: 24px !important;
+}
+
+#viewGlobalIdModal {
+	/* 	width: 40% !important; */
+	width: 33% !important;
+}
+
+#changeColour {
+	color: red !important;
+}
+
+.coloumnwrap {
+	display: flex !important;
+	flex-wrap: wrap !important;;
+	margin: 0px !important
+}
+
+#closeModalIcon {
+	font-size: 34px !important;
+	margin-left: -2% !important;
+	cursor: pointer;
+	/* 	color: #F44336 !important; */
+	color: #95a1ab;
+	display: inline-flex;
+}
+
+#saveModalIcon {
+	font-size: 34px !important;
+	margin-right: -2% !important;
+	cursor: pointer;
+	/* 	color: #26a69a; */
+	color: #55b2f9;
+	display: inline-flex;
+}
+
+#modalname {
+	font-size: 22px !important;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+#formIcon {
+	font-size: 27px !important;
+	color: #7a8086;
+}
+
+#draftModal {
+	width: 31%;
+	overflow-y: unset !important;
+}
+
+.draftModal2 {
+	width: 90% !important;
+	overflow-y: unset !important;
+}
+
+#draftViewModal {
+	width: 31% !important;
+	overflow-y: unset !important;
+	height: auto !important;
+}
+
+#draftViewModal ::ng-deep .select-wrapper {
+	margin-top: 2% !important;
+}
+
+#draftModal ::ng-deep .select-wrapper {
+	margin-top: 2% !important;
+}
+
+.preloader-background {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: transparent;
+	z-index: 999;
+	
+}
+
+#configurableFieldsModal {
+	border-radius: 10px;
+	overflow-y: unset !important;
+	overflow-x: unset !important;
+	height: auto !important;
+	width: 70% !important;
+}
+
+#configurableFieldsModal .modal-header {
+	/* height: 25px !important; */
+	height: auto !important;
+	padding: 5px 10px 0px 10px;
+	background: #e5f2fd;
+	font-size: 12px;
+	font-weight: 600;
+	margin: 0px;
+	width: 100% !important;
+}
+
+#configurableFieldsModal a {
+	margin-right: 21px;
+}
+
+#deleteDraftModal {
+	width: 31% !important;
+	overflow-y: unset !important;
+	height: 34% !important;
+}
+
+#deleteDraftModal ::ng-deep .select-wrapper {
+	margin-top: 2% !important;
+}
+
+::ng-deep .ng-input>input {
+    height: 1rem !important;	
+}
+
+div.toggle input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+div.toggle label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 60px;
+	height: 30px;
+	background: #EEEEEE;
+	display: block;
+	border-radius: 100px;
+	position: relative;
+}
+
+div.toggle label:after {
+	content: '';
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 20px;
+	height: 20px;
+	background: black;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+div.toggle input:checked + label {
+	background: #EEEEEE;
+}
+
+div.toggle input:checked + label:after {
+	left: calc(100% - 5px);
+	transform: translateX(-100%);
+}
+
+input {
+	border: none;
+	outline: none;
+	width: 100%;
+}
+
+td, th {
+    padding: 6px 5px;
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+    border-radius: 2px;
+    border: 1px solid #d5cccc;
+}
+

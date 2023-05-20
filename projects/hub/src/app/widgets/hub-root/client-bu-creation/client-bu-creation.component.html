@@ -1,0 +1,197 @@
+<div id="hub_client_bu_creation" style="overflow: auto; height: 100% !important">
+
+  <!-------------------------- Start : Side Nev Bar  ------------------------------>
+
+  <div style="overflow: auto; cursor: pointer;">
+    <a (click)="openSideNav()"><i class="material-icons" style="cursor: pointer" title="Menu">menu</i></a>
+    <ul id="pexSlideOut" class="sidenav pexsidenav  no-padding">
+      <li *ngIf="this.currentRole=='cmasLegal'||this.currentRole=='cmasAccountManagemant'"><a class=""
+          (click)="setConfigPage(0)">Create Client</a></li>
+      <li *ngIf="this.currentRole !='cmasAccountManagemant'"><a class="" (click)="setConfigPage(1)">List/Update
+          Client</a></li>
+      <li *ngIf="this.currentRole=='cmasLegal'||this.currentRole=='cmasAccountManagemant'"><a class=""
+          (click)="setConfigPage(2)">Create LegalEntity</a></li>
+      <li *ngIf="this.currentRole !='cmasAccountManagemant'"><a class="" (click)="setConfigPage(3)">List/Update
+          LegalEntity</a></li>
+      <li *ngIf="this.currentRole=='cmasLegal'"><a class=""
+          (click)="setConfigPage(4)">Create SOW</a></li>
+      <li *ngIf="this.currentRole !='cmasAccountManagemant'"><a class="" (click)="setConfigPage(5)">List/Update SOW</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-------------------------- End : Side Nev Bar  ------------------------------>
+
+
+
+  <!-------------------------- Start : BU Page  ------------------------------>
+
+  <div class="row" *ngIf="businessunitListPage" style="margin: 1px;">
+
+    <div class="row" style="margin-bottom: 0">
+      <div class="col s3">
+        <label class="labels" for="client">{{ 'Select Client'}}</label>
+        <ng-select [items]="clientList" placeholder="{{ 'Select Client' }}" bindLabel="clientName"
+          bindValue="clientCode" (open)="selectRefresh()" notFoundText="{{ 'Client Not Found' }}"
+          [(ngModel)]="seletedClientList" [disabled]="updateFlag" multiple="true" (change)="getBusinessunitList();">
+        </ng-select>
+      </div>
+    </div>
+
+    <!-------------------------- Start : BU List ----------------------------------->
+
+    <div class="row" style="padding-top: 1%; padding-left: 10px; padding-right: 10px;">
+      <universal-list-view [(listViewFromSource)]="businessunitList" totalCount="{{count}}"
+        itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="HubBusinessunitList"
+        (outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+    </div>
+
+    <!-------------------------- End : BU List ------------------------------------->
+
+  </div>
+
+  <div class="row" *ngIf="businessunitFormPage" style="margin: 1px;">
+
+    <!-------------------------- Start : BU Form ----------------------------------->
+
+    <app-form-template *ngIf="businessunitFormPage" style="height:100%; " [appCode]="appCode" [formCode]="formCode"
+      [clientCode]="keyRestrictions['clientCode']" [countryCode]="keyRestrictions['countryCode']"
+      [businessunitCode]="keyRestrictions['businessunitCode']" [keyRestrictions]="keyRestrictions"
+      [additionalValue]="additionalValue" (outPutToParentComponent)="outputFromFormView($event)"></app-form-template>
+
+    <!-------------------------- End : BU Form ----------------------------------->
+
+  </div>
+
+  <!-------------------------- Start : LE Client Modal ----------------------------------->
+
+  <div id="le_client_modal" class="modal">
+    <div class="modal-content">
+      <h4>Select Legal Entity Client</h4>
+      <div class="row">
+        <div class="col s10">
+          <label class="labels" for="clientCode">{{ 'Client'|
+						translate}}</label>
+          <ng-select [items]="clientList" placeholder="{{ 'Select Client' | translate}}" bindLabel="clientName"
+            bindValue="clientCode" (open)="selectRefresh()" notFoundText="{{ 'Client Not Found' | translate}}"
+            [(ngModel)]="leClient"></ng-select>
+        </div>
+      </div>
+
+      <div class="row right" style="margin: 10px 0px;">
+        <a class="btn-flat" (click)="onLeClientSelect();"><b>Proceed</b></a>
+        <a class="btn-flat" (click)="onLeClientCancel();"><b>Cancel</b></a>
+      </div>
+    </div>
+  </div>
+
+  <!-------------------------- End : LE Client Modal ----------------------------------->
+
+  <!--------------------------------- End : BU Page  ------------------------------>
+
+
+
+  <!-------------------------- Start : Client Page  ------------------------------>
+
+  <!-------------------------- Start : Client List ----------------------------------->
+
+  <div class="row" *ngIf="clientListPage" style="margin: 1px;">
+    <div class="row" style="padding-top: 1%; padding-left: 10px; padding-right: 10px;">
+      <universal-list-view [(listViewFromSource)]="clientList" totalCount="{{count}}"
+        itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="HubClientList"
+        (outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+    </div>
+  </div>
+
+  <!-------------------------- End : Client List ------------------------------------->
+
+  <div class="row" *ngIf="clientFormPage" style="margin: 1px;">
+
+    <!-------------------------- Start : Client Form ----------------------------------->
+
+
+    <app-form-template *ngIf="clientFormPage" style="height:100%; " [appCode]="appCode" [formCode]="formCode"
+      [clientCode]="keyRestrictions['clientCode']" [countryCode]="keyRestrictions['countryCode']"
+      [businessunitCode]="keyRestrictions['businessunitCode']" [keyRestrictions]="keyRestrictions"
+      [additionalValue]="additionalValue" (outPutToParentComponent)="outputFromFormView($event)"></app-form-template>
+
+    <!-------------------------- End : Client Form ----------------------------------->
+
+  </div>
+
+  <!-------------------------- End : Client Page  ------------------------------>
+
+
+
+  <!-------------------------- Start : SOW Page  ------------------------------>
+
+  <div class="row" *ngIf="sowListPage" style="margin: 1px;">
+
+    <div class="row" style="margin-bottom: 0">
+      <div class="col s3">
+        <label class="labels" for="clientCode">{{ 'Client'|
+					translate}}</label>
+        <ng-select [items]="clientList" placeholder="{{ 'Select Client' | translate}}" bindLabel="clientName"
+          bindValue="clientCode" (open)="selectRefresh()" notFoundText="{{ 'Client Not Found' | translate}}"
+          [(ngModel)]="sowClient" (change)="getSowListOverClient();"></ng-select>
+      </div>
+      <div class="col s3">
+        <label class="labels" for="lob">{{ 'Select Lob'}}</label>
+        <ng-select [items]="lobList" placeholder="{{ 'Select Lob' }}" bindLabel="lobName" bindValue="lobCode"
+          (open)="selectRefresh()" notFoundText="{{ 'Lob Not Found' }}" [(ngModel)]="seletedLobList" multiple="true"
+          (change)="getSowListOverLob();"></ng-select>
+      </div>
+    </div>
+
+    <!-------------------------- Start : SOW List ----------------------------------->
+
+    <div class="row" style="padding-top: 1%; padding-left: 10px; padding-right: 10px;">
+      <universal-list-view [(listViewFromSource)]="sowList" totalCount="{{count}}"
+        itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="HubSowList"
+        (outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+    </div>
+
+    <!-------------------------- End : SOW List ------------------------------------->
+
+  </div>
+
+  <div class="row" *ngIf="sowFormPage" style="margin: 1px;">
+
+    <!-------------------------- Start : SOW Form ----------------------------------->
+
+    <app-form-template *ngIf="sowFormPage" style="height:100%; " [appCode]="appCode" [formCode]="formCode"
+      [clientCode]="sowClient" [countryCode]="keyRestrictions['countryCode']"
+      [businessunitCode]="keyRestrictions['businessunitCode']" [keyRestrictions]="keyRestrictions"
+      [additionalValue]="additionalValue" (outPutToParentComponent)="outputFromFormView($event)"></app-form-template>
+
+    <!-------------------------- End : SOW Form ----------------------------------->
+
+  </div>
+
+  <!-------------------------- Start : SOW Client Modal ----------------------------------->
+
+  <div id="sow_client_modal" class="modal">
+    <div class="modal-content">
+      <h4>Select SOW Client</h4>
+      <div class="row">
+        <div class="col s10">
+          <label class="labels" for="clientCode">{{ 'Client'|
+						translate}}</label>
+          <ng-select [items]="clientList" placeholder="{{ 'Select Client' | translate}}" bindLabel="clientName"
+            bindValue="clientCode" (open)="selectRefresh()" notFoundText="{{ 'Client Not Found' | translate}}"
+            [(ngModel)]="sowClient"></ng-select>
+        </div>
+      </div>
+
+      <div class="row right" style="margin: 10px 0px;">
+        <a class="btn-flat" (click)="onSowClientSelect();"><b>Proceed</b></a>
+        <a class="btn-flat" (click)="onSowClientCancel();"><b>Cancel</b></a>
+      </div>
+    </div>
+  </div>
+
+  <!-------------------------- End : SOW Client Modal ----------------------------------->
+
+  <!-------------------------- End : SOW Page  ------------------------------------------>
+
+</div>

@@ -1,0 +1,454 @@
+<div id="createDiv" style="border: 1px solid #ECF5FC">
+
+  <div id="viewEmployeeIdModal" class="modal">
+    <div>
+      <div class="row">
+        <i class="small material-icons col s4">announcement</i> <span class="col s8 centre"
+          style="font-size: 21px; color: black;" translate>User Id Generated</span>
+      </div>
+
+      <div style="margin-left: 15%; margin-right: 15%; margin-top: 2%; background-color: #c4e2f9;">
+
+        <div style="text-align: center;">
+          <span style="font-size: 32px; color: black;" translate>User
+            Id</span>
+
+        </div>
+        <div style="text-align: center;">
+          <span style="font-size: 32px; color: black;">{{employeeDTO.employeeId}}</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 4%; margin-bottom: 15%;">
+        <a class=" btn right" (click)="cancleEmployeeIdModal();"
+          style="margin-right: 4%; font-size: 10px; border-radius: 15px; color: black; background-color: transparent;"
+          translate><i class="small material-icons left" style="margin-right: 3px;">loop</i>OK</a>
+        <!-- 					<a class="  btn left" -->
+        <!-- 					(click)="globalIdAutoGenerate();" -->
+        <!-- 					style="margin-left: 4%; font-size: 10px; border-radius: 15px; color: black; background-color: transparent;" -->
+        <!-- 					translate><i class="small material-icons left" -->
+        <!-- 					style="margin-right: 3px;">loop</i>Confirm</a> <a class=" btn right" -->
+        <!-- 					(click)="SkipId();" -->
+        <!-- 					style="margin-right: 12%; font-size: 10px; border-radius: 15px; color: black; background-color: transparent;" -->
+        <!-- 					translate><i class="small material-icons left" -->
+        <!-- 					style="margin-right: 6px;">loop</i>Skip</a> -->
+      </div>
+
+    </div>
+  </div>
+
+
+  <div id="viewGlobalIdModal" class="modal">
+    <div>
+      <div class="row">
+        <i class="small material-icons col s4">announcement</i> <span class="col s8 centre"
+          style="font-size: 21px; color: black;" translate>Unique Id Generated</span>
+      </div>
+
+      <div style="margin-left: 15%; margin-right: 15%; margin-top: 2%; background-color: #c4e2f9;">
+
+        <div style="text-align: center;">
+          <span style="font-size: 32px; color: black;" translate>Unique
+            Id</span>
+
+        </div>
+        <div style="text-align: center;">
+          <span style="font-size: 32px; color: black;">{{employeeDTO.employeeGlobalId}}</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 4%; margin-bottom: 15%;">
+        <a class=" btn right" (click)="cancleGlobalIdModal();"
+          style="margin-right: 4%; font-size: 10px; border-radius: 15px; color: black; background-color: transparent;"
+          translate><i class="small material-icons left" style="margin-right: 3px;">loop</i>OK</a>
+        <!-- 					<a class="  btn left" -->
+        <!-- 					(click)="saveEmployeeProfileByApproval();" -->
+        <!-- 					style="margin-left: 4%; font-size: 10px; border-radius: 15px; color: black; background-color: transparent;" -->
+        <!-- 					translate><i class="small material-icons left" -->
+        <!-- 					style="margin-right: 3px;">loop</i>Confirm</a> -->
+      </div>
+
+    </div>
+  </div>
+
+  <div id="draftModal" class="modal" [ngClass]="{'draftModal2': widgetWidth <= 7 }">
+    <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+      <i id="closeModalIcon" class="col s2 material-icons left" (click)=" closeSaveForLaterModal()">close</i>
+      <p id="modalname" class="col s8 center" translate>Enter Draft
+        Name</p>
+      <i id="saveModalIcon" class="col s2 material-icons right" (click)="saveDraft();">done</i>
+    </div>
+
+    <div class="modal-content">
+
+      <div class="row">
+        <div class="input-field col s12" style="margin-left: -8px; height: 0% !important">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="draftName"
+            style="border-bottom: 1px solid black !important" [(ngModel)]="draftName" type="text"> <label
+            for="draftName" class="truncate" translate>Draft Name
+            (Enter Unique Draft Name)</label>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div id="draftViewModal" class="modal">
+    <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+      <i id="closeModalIcon" class="col s2 material-icons left" (click)=" closeDraftViewModal()">close</i>
+      <p id="modalname" class="col s8 center" translate>Select From
+        Drafts</p>
+      <!-- 			<i id="saveModalIcon" class="col s2 material-icons right" -->
+      <!-- 				(click)="openConfigurableFieldModal(this.selectedEvent)">done</i> -->
+    </div>
+
+    <div class="modal-content">
+      <div class="row">
+        <a class="btn right" (click)="openDeleteDraftModal();"
+          style="margin-left: 4%; font-size: 10px; border-radius: 15px; color: black; background-color: transparent;"
+          translate><i class="small material-icons left" style="margin-right: 3px;">loop</i><span style="color: black;"
+            translate>Delete Drafts</span></a>
+      </div>
+      <div class="row">
+        <div class="input-field col s12"
+          style="margin-left: -8px; margin-top: 0px !important; margin-bottom: 2px !important">
+          <i id="formIcon" class="material-icons prefix">description</i>
+          <ng-select [searchable]="true" [virtualScroll]="true" placeholder="{{'Select Draft' | translate}}"
+            [(ngModel)]="currentDraft">
+            <ng-option data-*ngFor="let draft of draftsList" [value]="draft">{{draft.draftName|
+              translate}}</ng-option>
+          </ng-select>
+
+        </div>
+        <a class="  btn center" (click)="openConfigurableFieldModal(this.selectedEvent);"
+          style="margin-left: 10%; font-size: 10px; border-radius: 15px; color: black; background-color: transparent; margin-top: 6%"
+          translate><i class="small material-icons left" style="margin-right: 3px;">loop</i><span style="color: black;"
+            translate>Create new</span></a> <a class="  btn center" (click)="openFromDrafts();"
+          style="margin-left: 4%; font-size: 10px; border-radius: 15px; color: black; background-color: transparent; margin-top: 6%"
+          translate><i class="small material-icons left" style="margin-right: 3px;">loop</i><span style="color: black;"
+            translate>Open From Draft</span></a>
+        <!-- 						<a class="btn right" (click)="openDeleteDraftModal();" -->
+        <!-- 					style="margin-left: 4%; font-size: 10px; border-radius: 15px; color: black; background-color: transparent;" -->
+        <!-- 					translate><i class="small material-icons left" -->
+        <!-- 					style="margin-right: 3px;">loop</i><span>Delete Drafts</span></a> -->
+
+      </div>
+    </div>
+  </div>
+
+
+  <div id="deleteDraftModal" class="modal">
+    <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+      <i id="closeModalIcon" class="col s2 material-icons left" (click)="backToDraftViewModal()">close</i>
+      <p id="modalname" class="col s8 center" translate>Delete Drafts</p>
+      <i id="saveModalIcon" class="col s2 material-icons right" (click)="deleteDrafts();">done</i>
+    </div>
+
+    <div class="modal-content">
+      <div class="row">
+        <div class="input-field col s12"
+          style="margin-left: -8px; margin-top: 0px !important; margin-bottom: 2px !important">
+          <i id="formIcon" class="material-icons prefix">description</i>
+          <!-- 					 <select -->
+          <!-- 						[(ngModel)]="currentDraft"> -->
+          <!-- 						<option value="" disabled selected>Select Draft</option> -->
+          <!-- 						<option class="col s12" *ngFor="let draft of draftsList" -->
+          <!-- 							[ngValue]="draft" translate><div class="col s10">{{draft.draftName}}</div> -->
+          <!-- 						</option> -->
+          <!-- 					</select> <label style="margin-top: 2%;" translate>Select Draft</label> -->
+          <ng-select [searchable]="true" [virtualScroll]="true" [multiple]="true"
+            placeholder="{{'Select Drafts' | translate}}" [(ngModel)]="deleteDraftsList">
+            <ng-option data-*ngFor="let draft of draftsList" [value]="draft">{{draft.draftName|
+              translate}}</ng-option>
+          </ng-select>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div id="configurableFieldsModal" class="modal">
+		<div class="row card"
+			style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+			<div class="col s12">
+				<div class="col s1 left" style="margin-left: -40px;">
+					<i id="closeModalIcon" class="col s2 material-icons"
+						(click)=" closeConfigurableFieldsModal()">close</i>
+				</div>
+				<div class="col s10 center">
+					<p style="width: 120%;" id="modalname" class="col s8 " translate>Select
+        Configurable Fields</p>
+    </div>
+				<div class="col s1 right" *ngIf="showRight">
+					<i id="saveModalIcon" class="col s2 material-icons "
+						(click)="fetchEventForm()">done</i>
+				</div>
+			</div>
+		</div>
+
+    <div class="modal-content">
+			<div class="row" *ngIf="showOptions">
+				<div class="col s12 toggle" *ngIf="!showLoadCandidate">
+					<div class="col s4"
+						style="margin-left: 230px; margin-right: -190px;">
+						<p style="margin-top: 0px;">Create Employee</p>
+					</div>
+					<div class="col s4">
+						<input type="checkbox" id="switch" (change)="onClick()" /><label
+							for="switch" style="margin-left: 30px;">Toggle</label>
+					</div>
+					<div class="col s4" style="margin-left: -176px;">
+						<p style="margin-top: 0px;">Load Candidate</p>
+					</div>
+
+
+
+				</div>
+				<div class="col s12 toggle" *ngIf="showLoadCandidate">
+					<div class="col s12 center">
+						<p style="margin-top: 0px;">Create Employee</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="row" *ngIf="cEmployee">
+
+				<div class="input-field col s12"
+					*ngFor="let singleConfigurableField of createConfigurableFields;let m = index"
+          style="margin-left: -8px;">
+					<label style="margin-top: -4%;"
+						*ngIf="singleConfigurableField.fieldTitle;else displayTitleBlock"><span
+              style="color: black;" translate>{{singleConfigurableField.fieldTitle}}</span><span
+						*ngIf="singleConfigurableField.isMandatoryField"
+						style="color: red;">*</span></label>
+					<ng-template #displayTitleBlock> <span
+						style="color: black;" translate>{{singleConfigurableField.displayValue}}</span>
+					<span *ngIf="singleConfigurableField.isMandatoryField"
+						style="color: red;">*</span></ng-template>
+					<ng-select [searchable]="true" [virtualScroll]="true"
+						[(ngModel)]="singleConfigurableField.fieldValue"
+						(ngModelChange)="changeEvent(singleConfigurableField,m);"
+						[loading]="mdmautoloading"
+            [items]="selectMDMData[singleConfigurableField.sourceApi]"
+						[bindLabel]="singleConfigurableField.displayValue"
+						[bindValue]="singleConfigurableField.fieldName"> </ng-select>
+				</div>
+			</div>
+
+			<div class="row" *ngIf="candidate">
+
+				<div class="col s12" style="margin-top: 4px;">
+					<div class="col s6" style="margin-top: 3px;">
+						<ng-select [items]="candidateOption" [clearable]="false"
+							[searchable]="false" placeholder="Select options"
+							[(ngModel)]="candidateValue" (change)="selectValue($event)"></ng-select>
+					</div>
+					<div class="col s4" id="forInput" style="margin-top: -18px;">
+						<label>Enter value<span style="color: red;">*</span></label> <input
+							style="width: 100%; height: 32px; margin: 0 auto; border: none; color: black; border: solid 1px #ccc; border-radius: 0px;"
+							type="text" id="name" name="name" [(ngModel)]="enteredValue">
+
+        </div>
+					<div class="col s2" style="margin-top: 2px;">
+						<a class="btn" (click)="getAutoCompleteResult(enteredValue)">Search</a>
+
+      </div>
+    </div>
+  </div>
+
+			<div *ngIf="dataPresent && candidate" style="margin-top: 10px;">
+				<div *ngIf="!loader1">
+					<table class="highlight responsive-table">
+						<thead>
+							<tr>
+								<th>Candidate ID</th>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Preferred Name</th>
+								<th>Phone Number</th>
+								<th>Country</th>
+								<th>BU</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td>{{employeeData.employeeGlobalId}}</td>
+								<td>{{employeeData.firstName}}</td>
+								<td>{{employeeData.lastName}}</td>
+								<td>{{employeeData.preferredName}}</td>
+								<td>{{employeeData.phoneNumberOfficial}}</td>
+								<td>{{employeeData.countryCode}}</td>
+								<td>{{employeeData.businessunitCode}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div  *ngIf="loader1">
+					<span class="preloader-background">
+						<div class="medium center active">
+							<img style = "margin-top: 180px;" src="{{cdnUrl}}/Hub/loader50.gif">
+						</div>
+					</span>
+				</div>
+			</div>
+			<div *ngIf="dataPresent && candidate" class="col s12" style="margin-top: 10px;">
+				<a class="btn right small"
+					style="margin-right: -1px; margin-bottom: 20px;"
+					(click)="getApiDetails()">Continue</a>
+			</div>
+		</div>
+	</div>
+
+
+  <div *ngIf="!showEvent">
+
+		<i *ngIf="showBackButton" class="material-icons"
+			style="cursor: pointer; margin: 20px; margin-left: 0px"
+			(click)="back()">reply</i>
+
+
+    <div class="row center" *ngIf="!showEvent && eventList"
+      style="position: relative; width: 100%; overflow: hidden; transform: translateX(0px)">
+      <div class="left">
+        <b translate>Events : </b>
+      </div>
+      <div class="col 12"
+        style="display: flex; flex-wrap: wrap; margin: 20px; margin-top: 0px; justify-content: center; width: 95%;">
+        <div class="col" *ngFor="let event of eventList"
+          style="padding: 5px 10px; margin: 10px; display: inline-block; margin-left: 20px;">
+          <div style="display: table-caption;">
+            <div (click)="fetchDrafts(event)" class="card center pointer"
+              style="cursor: pointer; height: 140px; width: 140px; border-radius: 50%;">
+							<i *ngIf="event.eventIcons;else othericon"
+								class="material-icons large" style="margin: 25px;">{{event.eventIcons}}</i>
+							<ng-template #othericon> <i
+								class="material-icons large" style="margin: 25px;">account_circle</i>
+              </ng-template>
+            </div>
+            <div>
+              <p class="center" style="margin: 0px;" translate>{{event.eventName}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row center" *ngIf="!showEvent && actionList"
+      style="position: relative; width: 100%; overflow: hidden; transform: translateX(0px); margin-top: 45px">
+      <div class="left">
+        <b translate>Actions : </b>
+      </div>
+      <div class="col 12"
+        style="display: flex; flex-wrap: wrap; margin: 20px; margin-top: 0px; justify-content: center; width: 95%;">
+        <div class="col" *ngFor="let action of actionList"
+          style="padding: 5px 10px; margin: 10px; display: inline-block; margin-left: 20px;">
+          <div style="display: table-caption;">
+            <div (click)="fetchDrafts(action)" class="card center pointer"
+              style="cursor: pointer; height: 140px; width: 140px; border-radius: 50%;">
+							<i *ngIf="action.actionIcons;else othericon"
+								class="material-icons large" style="margin: 25px;">{{action.actionIcons}}</i>
+							<ng-template #othericon> <i
+								class="material-icons large" style="margin: 25px;">account_circle</i>
+              </ng-template>
+            </div>
+            <div>
+              <p class="center" style="margin: 0px;" translate>{{action.actionName}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+
+
+  <!-- Modal Trigger -->
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal bottom-sheet">
+
+    <div class="card-panel" style="border-radius: 5px;">
+      <div class="card-body">
+        <div class="col 12 center">
+          <h3>Duplicate Records</h3>
+        </div>
+        <hr>
+        <!-- <div class="row">
+          <div class="col" *ngFor="let field of fieldArray;let i=index">
+            <label style="font-size: 15px; color: black; padding-left: 15px; color: darkorange;">
+              <div style="margin-left: 35px;">
+              <b>{{fieldArray[i]["fieldLabel"]}}</b>
+              </div>
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div *ngFor="let info of duplicateInfo;let j=index">            
+            <div  class="col" *ngFor="let field of fieldArray;let i=index">
+              <label style="font-size: 15px; color: black; padding-left: 15px">               
+                <div style="margin-left: 50px;"> {{info[fieldArray[i]["fieldName"]]}} </div>        
+                <div style="margin-left: 80px;" *ngIf="info[fieldArray[i]['fieldName']] ===null"> -- </div>        
+						</label>
+             
+        </div>
+            <div style="margin-left: 70px;"></div>
+           <hr>
+           <div class="row"></div>
+
+            </div>
+					</div> -->
+
+
+        <table class="responsive-table">
+          <thead>
+            <tr>
+              <th style="font-size: 15px;color: darkorange;" *ngFor="let field of fieldArray;let i=index">
+                <b>{{fieldArray[i]["fieldLabel"]}}</b>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let info of duplicateInfo;let j=index">
+              <td *ngFor="let field of fieldArray;let i=index">
+                <div> {{info[fieldArray[i]["fieldName"]]}} </div>
+                <div class="centered" *ngIf="info[fieldArray[i]['fieldName']] ===null"> -- </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <a [ngClass]="{'disabled': nationalIdValidation}" class="modal-close  waves-green btn-flat"
+        (click)="saveForm()">Proceed</a>
+      <a class="modal-close waves-green  btn-flat">Discard</a>
+    </div>
+  </div>
+
+  <div *ngIf="showEvent">
+
+
+    <app-form-template style="height:100%; " [appCode]="appCode" [formCode]="formCode"
+      [additionalValue]="additionalValue" [validationMsg]="validationMsg" [data]="employeeData"
+      [preferredLang]="preferredLang" [countryCode]="dynamicInputVariable['countryCode']"
+      [keyRestrictions]="keyRestrictions" [legalEntityCode]="dynamicInputVariable['legalEntityCode']"
+      [businessunitCode]="dynamicInputVariable['businessunitCode']" [convoAI] = "convoAI"
+      (outPutToParentComponent)="outputFromFormView($event)"></app-form-template>
+  </div>
+  <div>
+    <app-loader *ngIf="loader" class="loading"></app-loader>
+  </div>
+</div>

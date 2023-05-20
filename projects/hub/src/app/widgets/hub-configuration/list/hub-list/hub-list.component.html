@@ -1,0 +1,119 @@
+<div id="configListView" *ngIf="!configListMapping" style="height: 100%;">
+  <universal-list-view *ngIf="!viewNeoConfig" [(listViewFromSource)]="listNameConfiguration" totalCount="{{count}}"
+    itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="PexList" rowBasedCheckBoxEvent="true"
+    (outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+
+
+
+  <div id="configList" class="modal auditModal">
+    <div class="row modal-header">
+      <div class="left">
+        <span>List Configuration</span>
+      </div>
+      <div class="right" style="margin-right: 10px;">
+        <img class="modal-close" src="{{cdnUrl}}/Hub/close.svg" data-(click)="closeModal()" title="close">
+      </div>
+    </div>
+    <div class="modal-content" style="padding-top: 0px">
+      <div class="row">
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="configure_name"
+            [(ngModel)]="listConfigurationsCopy.listConfigName" type="text" class="validate"> <label
+            for="configure_name">Configure
+            Name</label>
+        </div>
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <span style="color: gray;">Fetch Api</span>
+          <ng2-completer [(ngModel)]=listConfigurationsCopy.api.apiName [datasource]="dataService" [minSearchLength]="0"
+            (selected)="selectApi($event)" placeholder="Fetch Api" id="pexAuto"></ng2-completer>
+
+        </div>
+        <div class="input-field col s12">
+          <div class="col s6">
+            <label> <input type="checkbox" [(ngModel)]="listConfigurationsCopy.pickListVal" /> <span>Picklist
+                Value</span>
+            </label>
+          </div>
+          <div class="col right" *ngIf="listConfigurationsCopy.pickListVal">
+            <i class="material-icons Medium" (click)="addPicklist()">add_circle_outline</i>
+          </div>
+        </div>
+
+        <div class="col s12" *ngIf="listConfigurationsCopy.pickListVal">
+
+          <ul class="collapsible" style="overflow: auto">
+            <li *ngFor="let pick of picklistList;let i=index" style="overflow: auto;">
+              <div class="collapsible-header">Picklist Field {{i+1}}
+                <span style="margin-left: 80%"><i class="material-icons"
+                    (click)="removePicklist(i)">delete_forever</i></span>
+              </div>
+              <div class="collapsible-body">
+                <div class="row">
+                  <div class="input-field col s12" style="margin-left: -8px;">
+                    <i id="formIcon" class="material-icons prefix">description</i>
+                    <input id="configure_fieldName" [(ngModel)]="pick.fieldName" type="text" class="validate"> <label
+                      for="configure_name">Field Name<span style="color: red">*</span></label>
+                  </div>
+                  <div class="input-field col s12" style="margin-left: -8px;">
+                    <i id="formIcon" class="material-icons prefix">description</i>
+                    <input id="configure_fieldPicklistCode" [(ngModel)]="pick.picklistCode" type="text"
+                      class="validate"> <label for="configure_name">PicklistCode<span
+                        style="color: red">*</span></label>
+                  </div>
+                  <div class="input-field col s12" style="margin-left: -8px;">
+                    <i id="formIcon" class="material-icons prefix">description</i>
+                    <input id="configure_Titlename" [(ngModel)]="pick.fieldTitle" type="text" class="validate"> <label
+                      for="configure_name">Field Title<span style="color: red">*</span></label>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+    <div class="row modal-footer" style="padding-top: 25px;">
+      <div id="saveConfiguration" class="col s2 configBtn right" title="Save Configuration"
+        data-(click)="saveConfigurationList()" style="margin-left: 20px;">Save Configuration</div>
+    </div>
+  </div>
+</div>
+
+
+<div id="listModal" class="modal">
+  <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+    <i id="closeModalIcon" class="col s2 modal-close material-icons left">close</i>
+    <p id="modalname" class="col s8 center">Upload Events</p>
+
+  </div>
+
+  <div class="modal-content">
+
+    <form action="#" style="width: 70%;margin-left: 10%;">
+      <div class="file-field input-field">
+        <div class="btn">
+          <span>Export File</span>
+          <input type="file" (change)="uploadFileDocument1($event)">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text" placeholder="Upload file" id="configFile">
+        </div>
+      </div>
+    </form>
+
+
+  </div>
+
+</div>
+
+
+<!-- Open Modal For neoConfig -->
+<!-- ***********************************check Neoconfig Version Starts ********************************** -->
+<div>
+	<app-neo-config-view *ngIf="viewNeoConfig" (versionEvent)="triggered($event)"
+	[configCode]='configCode'>
+    </app-neo-config-view>
+</div>
+
+<!-- ************************************ check Neoconfig Version Ends ****************************************** -->

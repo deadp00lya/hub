@@ -1,0 +1,79 @@
+<div id="actionView">
+  <universal-list-view *ngIf="!viewNeoConfig" [(listViewFromSource)]="actionList" totalCount="{{count}}"
+    itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="hubActionLog"
+    (outPutToParentComponent)="outputFromListView($event)" rowBasedCheckBoxEvent="true">
+  </universal-list-view>
+
+  <div id="actionModal" class="modal">
+    <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+      <i id="closeModalIcon" class="col s2 material-icons left" (click)=" closeModal()"
+        style="cursor: pointer; margin: 10px" title="Close Modal">close</i>
+      <p id="modalname" class="col s8 center">Create Actions</p>
+      <i id="saveModalIcon" class="col material-icons right" (click)="saveAction();"
+        style="cursor: pointer; margin: 10px" title="Save Action">done</i>
+    </div>
+
+    <div class="modal-content">
+      <div class="row">
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="actionName"
+            [(ngModel)]="actionLog.actionName" type="text" class="validate"> <label for="actionName">ActionName</label>
+        </div>
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input [disabled]="actionLog.id"
+            id="actionCode" [(ngModel)]="actionLog.actionCode" type="text" class="validate">
+          <label for="actionCode">ActionCode</label>
+        </div>
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="dataInjection"
+            [(ngModel)]="actionLog.dataInjection" type="text" class="validate"> <label for="dataInjection">Static
+            Data Input</label>
+        </div>
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="icons" [(ngModel)]="actionLog.icons"
+            type="text" class="validate"> <label for="icons">Icon
+            Name</label>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Open Modal For Upload Button-->
+<div id="uploadModal" class="modal">
+  <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+    <i id="closeModalIcon" class="col s2 material-icons left" (click)="closeUploadModal()"
+      style="cursor: pointer; margin: 20px" title="Close Modal">close</i>
+    <p style="	font-size: 22px !important; margin-bottom: 0px; margin-top: 19px;" class="col s8 center">Upload Actions
+    </p>
+    <i id="saveModalIcon" class="col material-icons right" style="cursor: pointer; margin: 20px" title="Save Action"
+      (click)="onUpload()">done</i>
+  </div>
+
+  <div class="modal-content">
+    <div class="row">
+      <div class="file-field input-field">
+        <div class="btn">
+          <span>Export</span>
+          <input type="file" (change)="fileChanged($event)" class="file-upload">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate file-upload" type="text">
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Open Modal For neoConfig -->
+<!-- ***********************************check Neoconfig Version Starts ********************************** -->
+<div>
+	<app-neo-config-view *ngIf="viewNeoConfig" (versionEvent)="triggered($event)"
+	[configCode]='configCode'>
+    </app-neo-config-view>
+</div>
+
+<!-- ************************************ check Neoconfig Version Ends ****************************************** -->

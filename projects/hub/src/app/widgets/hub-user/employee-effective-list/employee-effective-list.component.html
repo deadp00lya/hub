@@ -1,0 +1,47 @@
+<div class="row">
+  <div class=" col s3">
+    <label><span class="red-text">*</span>select Component</label>
+    <ng-select name="component" [items]="componentApiList" bindLabel="componentName" data-[(ngModel)]="component"
+      placeholder="Select Update Api" notFoundText="Component Not Found"></ng-select>
+  </div>
+</div>
+
+
+<div>
+  <universal-list-view [(listViewFromSource)]="employeeEffectiveList" totalCount="{{totalCount}}"
+    itemsPerPageToDisplay="{{itemsPerPageToDisplay}}" listViewUniqueCode="{{listViewCode}}"
+    (outPutToParentComponent)="outPutFromOrgConfig($event)"></universal-list-view>
+</div>
+<div class="loader" *ngIf="loader">
+  <img src="{{cdnUrl}}/Hub/loader50.gif" alt="Loading">
+</div>
+<!-- ************************************* start - employeeDetailModal ************************************* -->
+<div class="modal neomodal" #employeeDetailModal>
+  <div class="neomodal-header ">
+    <Span>Detail View</Span> <img class="pointer" data-(click)="closeeEployeeDetailModal()" style="" height="18px"
+      width="18px" class="right" src="{{cdnUrl}}/Hub/close.svg" alt="close">
+  </div>
+  <div class="neomodal-body row" style="margin: 0px; height: 450px">
+    <textarea disabled name="" id="myTextarea" cols="30" rows="50" style="height: 400px"></textarea>
+  </div>
+</div>
+<!-- ************************************* employeeDetailModal - end ************************************* -->
+
+<div id="actionModal" class="modal" #activeDeactiveModal>
+
+  <div class="modal-content">
+    <div>
+      <h1 style="font-size: 20px">Confirm Action</h1>
+    </div>
+    <p>Are you sure! you want to {{actionName}} record for Employee
+      ID: {{employee?.employeeGlobalId}}?</p>
+    <p *ngIf="employee?.effectiveStartDate">Effective Start Date: {{employee?.effectiveStartDate |
+			date:'dd-MMM-yyyy hh:mm:ss a' }}</p>
+    <p *ngIf="employee?.effectiveEndDate">Effective End
+      Date:{{employee?.effectiveEndDate | date:'dd-MMM-yyyy hh:mm:ss a' }}</p>
+  </div>
+  <div class="modal-footer">
+    <a class=" neo_flatbtn" (click)="yesNo(true)" style="border-radius: 30px">yes</a>&nbsp; <a class="    neo_flatbtn"
+      (click)="yesNo(false)">No</a>
+  </div>
+</div>

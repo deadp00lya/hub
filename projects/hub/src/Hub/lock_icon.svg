@@ -1,0 +1,14 @@
+<svg id="Component_133_1" data-name="Component 133 – 1" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+  <g id="Component_132_1" data-name="Component 132 – 1">
+    <g id="Ellipse_855" data-name="Ellipse 855" fill="#007ee5" stroke="#007ee5" stroke-linecap="round" stroke-width="1">
+      <circle cx="14" cy="14" r="14" stroke="none"/>
+      <circle cx="14" cy="14" r="13.5" fill="none"/>
+    </g>
+  </g>
+  <g id="Neosuite_mobile" data-name="Neosuite mobile" transform="translate(5 6)">
+    <path id="Path_9565" data-name="Path 9565" d="M13.491,18.991H4.5a1.5,1.5,0,0,1-1.5-1.5V10.5A1.5,1.5,0,0,1,4.5,9h8.992a1.5,1.5,0,0,1,1.5,1.5v6.994A1.5,1.5,0,0,1,13.491,18.991ZM4.5,10a.5.5,0,0,0-.5.5v6.994a.5.5,0,0,0,.5.5h8.992a.5.5,0,0,0,.5-.5V10.5a.5.5,0,0,0-.5-.5Z" transform="translate(0 -3.005)" fill="#fff"/>
+    <path id="Path_9566" data-name="Path 9566" d="M13.493,6.994a.5.5,0,0,1-.5-.5V4A3,3,0,1,0,7,4v2.5a.5.5,0,1,1-1,0V4a4,4,0,1,1,7.993,0v2.5A.5.5,0,0,1,13.493,6.994Z" transform="translate(-1.002)" fill="#fff"/>
+    <path id="Path_9567" data-name="Path 9567" d="M11.332,15.664a1.332,1.332,0,1,1,1.332-1.332A1.333,1.333,0,0,1,11.332,15.664Zm0-1.665a.333.333,0,1,0,.333.333A.334.334,0,0,0,11.332,14Z" transform="translate(-2.337 -4.341)" fill="#fff"/>
+    <path id="Path_9568" data-name="Path 9568" d="M11.75,18.581a.5.5,0,0,1-.5-.5V16.25a.5.5,0,0,1,1,0v1.832A.5.5,0,0,1,11.75,18.581Z" transform="translate(-2.755 -5.259)" fill="#fff"/>
+  </g>
+</svg>

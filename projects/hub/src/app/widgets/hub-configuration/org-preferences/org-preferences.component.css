@@ -1,0 +1,22 @@
+.orgPointer {
+	cursor: pointer;
+}
+
+.orgsidenav {
+	position: absolute !important;
+	z-index: 999 !important;
+}
+
+.fullHeight {
+	height: 100% !important;
+}
+
+.orgAbsolute {
+	position: absolute !important;
+	z-index: 555;
+}
+
+.orgLeft {
+	padding-left: 40px !important;
+}
+

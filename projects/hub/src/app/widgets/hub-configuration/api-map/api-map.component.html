@@ -1,0 +1,54 @@
+<div>
+  <universal-list-view [(listViewFromSource)]="apiMappingList" totalCount="{{totalCount}}"
+    itemsPerPageToDisplay="{{itemsPerPageToDisplay}}" listViewUniqueCode="ComponentApiMaplistView"
+    (outPutToParentComponent)="outPutFromOrgConfig($event)"></universal-list-view>
+</div>
+<!-- ************************************* start - add Component Api Mapping Start ************************************* -->
+<div class="modal neomodal" #addApiMapModal>
+  <div class="neomodal-header ">
+    <Span>Map Component API</Span> <img class="pointer" data-(click)="closeApiMapModal()" style="" height="18px"
+      width="18px" class="right" src="{{cdnUrl}}/Hub/close.svg" alt="close">
+  </div>
+  <div class="neomodal-body row" style="margin: 0px">
+    <div class="input-field col s12" style="margin-left: -8px;">
+      <input id="com_Name" type="text" [(ngModel)]="componentApiDTO.componentName"> <label for="com_Name"
+        [class.active]="componentApiDTO.componentName"><span class="red-text">*</span> Component Name</label>
+    </div>
+    <div class=" col s12" style="margin-left: -8px;">
+      <label for="fetchApi"><span class="red-text">*</span>Fetch Api</label>
+      <ng-select name="fetchApi" [items]="apiList" bindLabel="apiName" data-[(ngModel)]="fetchApi"
+        placeholder="Choose Api " notFoundText="API Not Found" data-(change)="setApi('fetchApi');"
+        (clear)="resetFetchApi();"></ng-select>
+    </div>
+    <div class="col s12" style="margin-left: -8px;">
+      <label><span class="red-text">*</span>Update Api</label>
+      <ng-select name="updateApi" [items]="apiList" bindLabel="apiName" data-[(ngModel)]="updateApi"
+        placeholder="Choose Api" notFoundText="API Not Found" data-(change)="setApi('updateApi');"
+        (clear)="resetUpdateApi();"></ng-select>
+    </div>
+    <div class=" col s12" style="margin-left: -8px;">
+      <label><span class="red-text">*</span>Fetch Detail Api</label>
+      <ng-select name="detailApi" [items]="apiList" bindLabel="apiName" data-[(ngModel)]="detailApi"
+        placeholder="Choose Api" notFoundText="API Not Found" data-(change)="setApi('detailApi');"
+        (clear)="resetDetailApi();"></ng-select>
+
+    </div>
+    <div class="col s12 input-field">
+      <div class="center">
+        <a class="neo_flatbtn " data-(click)="saveApiMapping();">{{buttonTitle}}</a>
+        &nbsp; <a class="neo_flatbtn  " data-(click)="resetApiModal();">Reset</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- ************************************* Add Component Api Mapping - end ************************************* -->
+<!-- Open Modal For neoConfig -->
+<!-- ***********************************check Neoconfig Version Starts ********************************** -->
+<div>
+	<app-neo-config-view *ngIf="viewNeoConfig" (versionEvent)="triggered($event)"
+	[configCode]='configCode'>
+    </app-neo-config-view>
+</div>
+
+<!-- ************************************ check Neoconfig Version Ends ****************************************** -->

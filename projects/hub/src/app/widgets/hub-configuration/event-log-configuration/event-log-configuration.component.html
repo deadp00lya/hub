@@ -1,0 +1,139 @@
+<div id="hub_event_field">
+
+  <div class="row" style="margin: 0;">
+    <div class="col s12 chip chip-label center" style="background: #007ee5; height: 40px; border-radius: 5px;">
+      <div style="padding: 4px;">
+        <label class="label-font center" style="color: white; font-size: 15px;"><b>JSON
+            CONFIGURATION</b></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="margin: 15px 0 10px 0;"
+    *ngIf="(!createEventJsonPage && fieldType == 'Event') || (!createActionJsonPage && fieldType == 'Action')">
+    <div class="col s3" style="width: 20%; padding-left: 0;">
+      <ul id="tabs" class="tabs left" style="cursor: pointer;">
+        <li id="deactive" class="tab col s6" title="Event"><a [ngClass]="{'active': fieldType == 'Event'}"
+            (click)="fetchRecordFilter('Event');">{{ 'Event' | translate }}</a></li>
+        <li id="active" class="tab col s6 " title="Action"><a [ngClass]="{'active': fieldType == 'Action'}"
+            (click)="fetchRecordFilter('Action');">{{ 'Action' | translate
+						}}</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-------------------------- Start : Event Page  ------------------------------>
+
+  <div *ngIf="eventPage" style="margin: 2px;">
+
+    <!-------------------------- Start : Select Event FieldSet  ------------------------------>
+
+    <div *ngIf="createEventJsonPage" style="margin: 2px;">
+      <div class="row">
+        <a class="btn-floating" style="background: #007ee5;" (click)="backButton()"><i class="material-icons prefix"
+            title="back">reply</i></a>
+      </div>
+      <fieldset style="border: 1px solid #007ee5; border-radius: 10px; padding-bottom: 0;">
+        <div class="row" style="margin-bottom: 0">
+          <div class="col s3">
+            <label class="labels" for="event">{{ 'Event'}}</label>
+            <ng-select [items]="eventList" placeholder="{{ 'Select Event' }}" bindLabel="eventName"
+              bindValue="eventType" (open)="selectRefresh()" notFoundText="{{ 'Event Not Found' }}"
+              [(ngModel)]="eventLogDto.eventType" [disabled]="updateFlag"></ng-select>
+          </div>
+          <div class="inputBox col s9">
+            <label class="labels" for="toDate">{{ 'Json Field' }}</label>
+            <textarea id="fieldJson" type="text" name="fieldJson" class="materialize-textarea"
+              [(ngModel)]="eventLogDto.fieldJson" title="{{ 'Json Field' }}"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="center">
+            <button style="cursor: pointer;" data-(click)="saveJsonData();">Save</button>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+
+    <!-------------------------- End : Select Event FieldSet  ------------------------------>
+
+    <!-------------------------- Start : Event Json List ----------------------------------->
+
+
+    <div class="row" *ngIf="eventJsonListPage" style="margin: 1px;">
+      <div class="row" style="padding-top: 1%; padding-left: 10px; padding-right: 10px;">
+        <universal-list-view [(listViewFromSource)]="eventJsonList" totalCount="{{count}}"
+          itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="EventJsonFieldList"
+          (outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+      </div>
+    </div>
+
+    <!-------------------------- End : Json Event List ------------------------------------->
+  </div>
+
+  <!-------------------------- End : Event Page  ------------------------------>
+
+
+  <!-------------------------- Start : Action Page  ------------------------------>
+
+  <div *ngIf="actionPage" style="margin: 2px;">
+
+    <!-------------------------- Start : Select Action FieldSet  ------------------------------>
+
+    <div *ngIf="createActionJsonPage" style="margin: 2px;">
+      <div class="row">
+        <a class="btn-floating" style="background: #007ee5;" (click)="backButton()"><i class="material-icons prefix"
+            title="back">reply</i></a>
+      </div>
+      <fieldset style="border: 1px solid #007ee5; border-radius: 10px; padding-bottom: 0;">
+        <div class="row" style="margin-bottom: 0">
+          <div class="col s3">
+            <label class="labels" for="event">{{ 'Action'}}</label>
+            <ng-select [items]="actionList" placeholder="{{ 'Select Action' }}" bindLabel="actionName"
+              bindValue="actionType" (open)="selectRefresh()" notFoundText="{{ 'Action Not Found' }}"
+              [(ngModel)]="actionLogDto.actionType" [disabled]="updateFlag"></ng-select>
+          </div>
+          <div class="inputBox col s9">
+            <label class="labels" for="toDate">{{ 'Json Field' }}</label>
+            <textarea id="fieldJson" type="text" name="fieldJson" class="materialize-textarea"
+              [(ngModel)]="actionLogDto.fieldJson" title="{{ 'Json Field' }}"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="center">
+            <button style="cursor: pointer;" data-(click)="saveJsonData();">Save</button>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+
+    <!-------------------------- End : Select Event FieldSet  ------------------------------>
+
+    <!-------------------------- Start : Action Json List ----------------------------------->
+
+    <div class="row" *ngIf="actionJsonListPage" style="margin: 1px;">
+      <div class="row" style="padding-top: 1%; padding-left: 10px; padding-right: 10px;">
+        <universal-list-view [(listViewFromSource)]="actionJsonList" totalCount="{{count}}"
+          itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="ActionJsonFieldList"
+          (outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+      </div>
+    </div>
+
+    <!-------------------------- End : Action Json List ------------------------------------->
+  </div>
+
+  <!-------------------------- Start : Action Page  ------------------------------>
+
+
+</div>
+<!-- Open Modal For neoConfig -->
+<!-- ***********************************check Neoconfig Version Starts ********************************** -->
+<div>
+	<app-neo-config-view *ngIf="viewNeoConfig" (versionEvent)="triggered($event)"
+	[configCode]='configCode'>
+    </app-neo-config-view>
+</div>
+
+<!-- ************************************ check Neoconfig Version Ends ****************************************** -->

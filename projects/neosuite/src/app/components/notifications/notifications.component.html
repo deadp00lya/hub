@@ -1,0 +1,294 @@
+<div class="container-fluid" >
+	<!-- 	<div class="row "></div> -->
+	<!-- Apps row -->
+	<div class="row notify_appNameWrap">
+		<ul class="notify_appNameDisplay">
+			<li class="chip notification_tab"
+				(click)="currentAppNotification('allnotifications')"
+				[ngClass]="{'secondary-class secondary-border active_notification_tab': selectedApplication=='allnotifications' ,'secondary-border secondary-text': selectedApplication!='allnotifications'}">
+				<span translate class="notification__text">All Notifications</span>
+				<span class="notification__badge"
+				[ngClass]="notificationcount<99?'notification__badge1':'notification__badge2'"
+				*ngIf="notificationcount !=0" title={{notificationcount}}>{{notificationcount}}</span>
+			</li>
+			<li class="chip notification_tab"
+				(click)="currentAppNotification(app.appCode)"
+				[ngClass]="{'secondary-class secondary-border active_notification_tab': selectedApplication==app.appCode ,'secondary-border secondary-text': selectedApplication!=app.appCode}"
+				*ngFor="let app of applications;let i=index"><span
+				(click)="customdate=false;todayDate=false;yesterdayDate=false;lastweek=false"
+				class="notification__text"  translate>{{app.appName}} </span> <span
+				class="notification__badge"
+				[ngClass]="app.notificationCount<99?'notification__badge1':'notification__badge2'"
+				*ngIf="app.notificationCount != 0 " title={{app.notificationCount}}>{{app.notificationCount}}</span></li>
+		</ul>
+	</div>
+	<!-- Apps row -->
+
+
+	<!-- Card for Notifications -->
+	<div class="row card " style="margin: 5px;">
+		<div class="col s12">
+			<h5 style="margin:0;">
+				<label translate>Notifications</label>
+			</h5>
+			<div class="col s12 secondary-border notification_container">
+
+				<!-- 	filter div -->
+				<div class="col s12 input-field zeroPadding" style="margin-bottom:10px;">
+					<div class="col s12"></div>
+
+
+					<div class="col s6 m4 l3 secondary-border neo_notify-tab"
+						id="neo_notify-tab" style="padding: 0;">
+						<div class="col s3"
+							(click)="componentName='Unread';getNotificationsForUser()"
+							[ngClass]="{'unread_archive_tab secondary-class' :componentName=='Unread'}"
+							style="width: 50%">
+							<div>
+								<span translate>Unread</span>
+							</div>
+						</div>
+						<div class="col s3"
+							(click)="componentName='Archived';getArchivedNotifications();resetFilter()"
+							[ngClass]="{'unread_archive_tab secondary-class':componentName=='Archived'}"
+							style="width: 50%">
+							<div>
+								<span translate>Archived</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="col s5 m3 l2 neo_notify-tab truncate readAll hide-on-med-and-up" style="padding-right:0;">
+
+					<div class="col s12 m12 l12 neo_notify-tab" 
+					style="border: 1px solid #f44336 !important; overflow: hidden;white-space: nowrap;text-overflow: ellipsis;background-color: white;" *ngIf="componentName=='Unread'">
+						<a href="javascript:void(0)"  (click)="clearAllNotifications()"
+							class="red-text" translate>Mark All As Read</a>
+
+						</div>
+					</div>
+					<div class="col s5 m3 l2 neo_notify-tab truncate readAll hide-on-small-only right" style="height: auto;">
+
+					<div class="col s12 m12 l12 neo_notify-tab" 
+					style="border: 1px solid #f44336 !important; overflow: hidden;white-space: nowrap;text-overflow: ellipsis;background-color: white;" *ngIf="componentName=='Unread'">
+						<a href="javascript:void(0)"  (click)="clearAllNotifications()"
+							class="red-text" translate>Mark All As Read</a>
+
+						</div>
+					</div>
+					<div class="col s4 m1 l1  filter-tab truncate right">
+
+						<a href="javascript:void(0)" class="dropdown-trigger"
+							id="filterDateDropdown" data-target='filterDropDown'
+							title="{{'Filters' | translate}}" translate> 
+							<img src="assets/WidgetIcon/filter.svg" style="width: 13px;vertical-align: middle;"
+							class="  filterFlatIcon material-icons"
+							onerror="this.src='assets/WidgetIcon/defaulticon.jpg';"
+							(click)="openFilterDropdown()">
+						</a>
+					</div>
+					<div class="col s8 m3 l3 right zeroPadding" style="height:40px;">
+
+						<input placeholder="{{'Search Employee Name' | translate}}"
+							id="notification_search" type="text"
+							class="validate notification_search secondary-border"
+							[(ngModel)]="searchKey"> <i
+							class="material-icons right secondary-class notification_search_icon">search</i>
+
+					</div>
+
+				</div>
+				<div class="languageNote col s12 m12 1l2">Note: The Notifications are available only in English Language</div>
+
+				<div *ngIf="isEmptyObject( currentApp ) && componentName=='Unread'"
+					class="col s12 notification_listView zeroPadding" style="margin-top: -25px;">
+					<div class="col s12 zeroPadding"
+						*ngFor="let app of currentApp | filterByEmployee:searchKey| keyvalue;let i=index">
+
+						<div class="col s5 m3 l2 zeroPadding">
+							<div class="col s4 m3 l3">
+								<img
+									*ngIf="app.value[0].appIcon != null && app.value[0].appIcon  != undefined"
+									_ngcontent-c8="" class="notification_app_icon"
+									onerror="this.src='assets/WidgetIcon/defaulticon.jpg';"
+									[src]="app.value[0].appIcon"> <img
+									*ngIf="app.value[0].appIcon == null || app.value[0].appIcon  == undefined"
+									_ngcontent-c8="" class="notification_app_icon"
+									src="assets/WidgetIcon/defaulticon.jpg">
+							</div>
+							<div class="col s7 m9 l8 truncate"  translate>{{app.value[0].appName}}</div>
+
+						</div>
+						<div class="col s7 m9 l10 secondary-light-border-bottom"
+							style="position: relative; top: 10px;"></div>
+
+						<div class="col s12  notification_card secondary-light-border"
+							*ngFor="let notes of  app.value  ;let j=index">
+
+							<div class="col s4 m3 l3">
+								<label translate>Name</label>
+							</div>
+							<div class="col s7 m7 l7">
+								<label translate>Description</label>
+							</div>
+							<div title="{{'Mark as read' | translate}}"
+								class="col s1 m1 l1 secondary-border neo_notify_actions right truncate hide-on-small-only"
+								style="margin-top: 5px;"
+								(click)=" notes.markRead = true; markedNotificationRead(j , notes.id ,app.key);">
+								<i *ngIf="notes.markRead"
+									class="fa fa-spinner fa-spin fa-fw red-text"></i> <a
+									*ngIf="!notes.markRead" href="javascript:void(0)" class=""
+									translate>Mark as read</a>
+							</div>
+
+
+							<div class="col s4 m3 l3 secondary-text truncate">
+								<b>{{notes.empName==null?notes.fromUser: notes.fromUser ===
+									loginUser ? notes.fromUser+" - "+notes.empName+" (You)" :
+									notes.fromUser+" - "+notes.empName }}</b>
+
+							</div>
+							<div class="col s7 m7 l7" (click)="notifToWidgetLoader(notes.routeUrl)">{{notes.description }}</div>
+							<div class="col s12 m1 l1 right zeroPadding">
+							<div title="{{'Mark as read' | translate}}"
+								class="col s3 m1 l1 secondary-border neo_notify_actions right truncate center hide-on-med-and-up"
+								style="margin: 5px 0px;"
+								(click)=" notes.markRead = true; markedNotificationRead(j , notes.id ,app.key);">
+								<i *ngIf="notes.markRead"
+									class="fa fa-spinner fa-spin fa-fw red-text"></i> <a
+									*ngIf="!notes.markRead" href="javascript:void(0)" class=""
+									translate>Mark as read</a>
+							</div>
+							</div>
+							<div class="col s2 truncate hide-on-small-only" style="text-align: right;">
+								<label>{{notes.createdOn |timeAgo}}</label>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div
+					*ngIf="isEmptyObject( archivedNotifications ) && componentName=='Archived'"
+					class="col s12 notification_listView zeroPadding" style="margin-top: -25px;">
+					<div class="col s12 zeroPadding"
+						*ngFor="let app of archivedNotifications | filterByEmployee:searchKey| keyvalue ;let i=index">
+
+						<div class="col s5 m3 l2 zeroPadding">
+							<div class="col s4 m3 l3">
+								<img *ngIf="app.value[0].appIcon != null" _ngcontent-c8=""
+									class="notification_app_icon"
+									onerror="this.src='assets/WidgetIcon/defaulticon.jpg';"
+									[src]="app.value[0].appIcon"> <img
+									*ngIf="app.value[0].appIcon == null" _ngcontent-c8=""
+									class="notification_app_icon"
+									src="assets/WidgetIcon/defaulticon.jpg">
+							</div>
+							<div class="col s7 m9 l8 truncate" translate>{{app.value[0].appName}}</div>
+
+						</div>
+						<div class="col s7 m9 l10 secondary-light-border-bottom"
+							style="position: relative; top: 10px;"></div>
+
+						<div class="col s12  notification_card secondary-light-border"
+							*ngFor="let notes of  app.value  ;let j=index">
+
+							<div class="col s4 m3 l3">
+								<label translate>Name</label>
+							</div>
+							<div class="col s7 m7 l7">
+								<label translate>Description</label>
+							</div>
+							<div class="col s1 secondary-border neo_notify_actions right truncate hide-on-small-only"
+								style="margin-top: 5px;">
+								<label translate>Received on</label>
+							</div>
+
+							<div class="col s4 m3 l3 secondary-text truncate">
+								<b>{{notes.empName==null?notes.fromUser:notes.fromUser ===
+									loginUser ? notes.fromUser+" - "+notes.empName+" (You)" :
+									notes.fromUser+" - "+notes.empName }}</b>
+							</div>
+							<div class="col s7 m7 l7" (click)="notifToWidgetLoader(notes.routeUrl)">{{notes.description }}</div>
+							<div class="col s2 truncate hide-on-small-only" style="text-align: right;">
+								<label>{{notes.createdOn | date}}</label>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="col s12 no-notifications-img"
+					*ngIf="((!isEmptyObject( currentApp ) && componentName=='Unread' ) || (!isEmptyObject( archivedNotifications ) && componentName=='Archived'))">
+					<img src="../assets/WidgetIcon/no_notifications.svg"
+						class="responsive-img" />
+					<div style="height: 125px;" translate>Hurray! No
+						notifications to display</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Card for Notifications -->
+
+
+</div>
+
+<!-- filter div -->
+
+<ul id='filterDropDown' class='dropdown-content dropdownFilter'>
+
+	<li class="divider" tabindex="-1"></li>
+	<li><a class="filterHeading " translate>Sort By <a
+			class=" right" (click)="closeFilterDropdown()">
+			<img src="./assets/images/close_button.svg" style="width:20px;"></a>
+	</a></li>
+	<li class="divider lineSeparator" tabindex="-1"></li>
+	<li  class="row" style="padding-top: 16px; margin-bottom: unset;"><label id="labelcolor" class="col s5 truncate"> <input
+			class="with-gap" (change)="SortByOldestAndNewst('newest')"
+			name="sorting" type="radio" value="newest" [(ngModel)]="newestOldest"
+			checked /> <span style="font-size: 13px" title="{{'Newest first' | translate}}" translate>Newest
+				first</span>
+	</label> <label class="col s5 truncate" id="labelcolor"> <input class="with-gap"
+			(change)="SortByOldestAndNewst('oldest')" [(ngModel)]="newestOldest"
+			name="sorting" type="radio" value="oldest" /> <span translate
+			style="font-size: 13px" title="{{'Oldest first' | translate}}">Oldest first</span>
+	</label></li>
+	<li><a class="filterHeading" translate> Date </a></li>
+	<li class="divider lineSeparator" tabindex="-1"></li>
+	<li class="row" style="margin-left: 8px; margin-bottom: 0px"><a
+		translate class=" col s3 secondary-border" id="textColor"
+		[ngClass]="todayDate?'secondary-class white-text':'white'"
+		(click)="sortByDate('today')"  title="{{'Today' | translate}}">Today</a> <a translate
+		class=" col s3 secondary-border" id="textColor"
+		[ngClass]="yesterdayDate?'secondary-class white-text':'white'"
+		(click)="sortByDate('yesterday')" title="{{'Yesterday' | translate}}">Yesterday</a> <a translate
+		class="  col s3 secondary-border" id="textColor"
+		[ngClass]="lastweek?'secondary-class white-text':'white'"
+		(click)="sortByDate('lastWeek')"  title="{{'Last Week' | translate}}">Last Week</a> <a translate
+		class="  col s3 secondary-border truncate" id="textColor"
+		[ngClass]="customdate?'secondary-class white-text':'white'"
+		(click)="customdate=!customdate;lastweek=yesterdayDate=todayDate=false"  title="{{'Custom' | translate}}">Custom</a>
+	<li *ngIf="customdate"><a class="dateAlign">
+			<div class="row">
+				<div class="col s6 " style="padding-top: 14px;">
+					<i class="material-icons grey-text right dateIcon">event_note</i> <input
+						class="datepickerBox secondary-border" placeholder="{{'Start' | translate}}"
+						[(ngModel)]="startDate" [owlDateTimeTrigger]="startDatePicker"
+						[owlDateTime]="startDatePicker">
+					<owl-date-time [pickerType]="'calendar'" #startDatePicker></owl-date-time>
+				</div>
+				<div class="col s6" style="padding-top: 14px;">
+					<i class="material-icons grey-text right dateIcon">event_note</i> <input
+						placeholder="{{'End' | translate}}" class="datepickerBox secondary-border"
+						[(ngModel)]="endDate" [owlDateTimeTrigger]="endDatePicker"
+						[owlDateTime]="endDatePicker">
+					<owl-date-time [pickerType]="'calendar'" #endDatePicker></owl-date-time>
+				</div>
+			</div>
+	</a></li>
+
+	<li><a class="center">
+			<button translate class="btn filterBtn" (click)="resetDate()">Reset</button>
+			<button *ngIf="customdate" translate class=" btn filterBtn"
+				(click)="sortByDate('dateRange')">Apply</button>
+	</a></li>
+
+</ul>

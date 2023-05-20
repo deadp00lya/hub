@@ -1,0 +1,27 @@
+<div style="height: 100%; background-color: white;overflow: auto;">
+  <div class="container" *ngIf="announcementList.length>0">
+    <span> Announcements</span>
+    <div class="card" *ngFor="let announcement of announcementList">
+      <div class="card-content">
+        <div class="card-title">
+          <i class="material-icons inline-icon"  [ngClass]="getClass(announcement.announcementTypeDTO.type)">{{
+            getIcon(announcement.announcementTypeDTO.type)
+          }}</i
+          ><span>{{ announcement.subject }}</span>
+        </div>
+        <p  [innerHTML]="announcement.description"></p>
+      </div>
+      <div class="card-action">
+        <span *ngFor="let service of announcement.affectedServices">
+          <span class="chip white-text"  [ngClass]="getClass(announcement.announcementTypeDTO.type)">{{service}}</span>
+        </span>
+        <span class="right">Expiry: {{ announcement.endDate | date:"MMM
+          d, y h:mm:ss a"}}</span>
+      
+      </div>
+    </div>
+  </div>
+  <div class="container" *ngIf="announcementList.length==0">
+      No announcements
+  </div>
+</div>

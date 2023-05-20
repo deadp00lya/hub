@@ -1,0 +1,129 @@
+<div id="hub_routine" style="overflow: auto; height: 100%;">
+
+  <!-------------------------- Start : Create Routine  --------------------------------->
+
+  <div *ngIf="createRoutinePage">
+    <div class="row" style="margin: 0;">
+      <div class="col s12 chip chip-label center" style="background: #007ee5; height: 40px; border-radius: 5px;">
+        <div style="padding: 4px;">
+          <label class="label-font center" style="color: white; font-size: 15px;"><b>HUB ROUTINE</b></label>
+        </div>
+      </div>
+    </div>
+    <fieldset style="border: 1px solid #007ee5; border-radius: 5px; padding-bottom: 0;">
+      <div class="row" style="margin-bottom: 0">
+        <div class="inputBox col s5">
+          <label class="labels" for="routineName">{{ 'Routine Name'
+						}}</label><input id="routineName" class="input" type="text" name="routineName"
+            [(ngModel)]="routineDto.routineName" title="{{ 'Routine Name' }}">
+        </div>
+        <div class="inputBox col s5">
+          <label class="labels" for="routineCode">{{ 'Routine Code'
+						}}</label><input id="routineCode" type="text" name="routineCode" [(ngModel)]="routineDto.routineCode"
+            title="{{ 'Routine Code' }}" [disabled]="updateRoutineFlag" disabled>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom: 5px;">
+        <div class="right" style="padding-left: 35px;">
+          <button style="cursor: pointer;" data-(click)="resetRoutineData();">Reset</button>
+        </div>
+        <div class="right">
+          <button style="cursor: pointer;" data-(click)="saveRoutineData();">Save</button>
+        </div>
+      </div>
+    </fieldset>
+
+    <div *ngIf="routineList.length > 0" class="row" style="padding-top: 2%; margin-left: auto;">
+      <universal-list-view [(listViewFromSource)]="routineList" totalCount="{{countRoutine}}"
+        itemsPerPageToDisplay={{itemsPerPageToDisplayRoutine}} listViewUniqueCode="HubRoutineList"
+        (outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+    </div>
+
+    <div class="row" *ngIf="routineList.length == 0">
+      <i class="large material-icons" style="padding-left: 49%; padding-top: 10%;">assignment</i>
+      <div style="padding-left: 47%; font-weight: 600; font-size: 20px;">
+        <span>No Routine Found</span>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-------------------------- End : Create Routine -------------------------------------->
+
+  <!-------------------------- Start : Create Routine Field ------------------------------>
+
+  <div class="row" *ngIf="createRoutineFieldPage" style="margin: 1px;">
+    <div class="row" style="margin: 0;">
+      <div class="col s12 chip chip-label center" style="background: #007ee5; height: 40px; border-radius: 5px;">
+        <div>
+          <i id="back" class="material-icons left" style="cursor: pointer; color: white; padding-top: 8px;"
+            (click)="backButton()" title="Back">arrow_back</i>
+        </div>
+        <div style="padding: 4px;">
+          <label class="label-font" style="color: white; font-size: 15px;"><b>HUB
+              ROUTINE FIELDS</b></label>
+        </div>
+      </div>
+    </div>
+    <fieldset style="border: 1px solid #007ee5; border-radius: 5px; padding-bottom: 0;">
+      <div class="row" style="margin-bottom: 0">
+        <div class="inputBox col s5">
+          <label class="labels" for="routineName">{{ 'Routine Name'
+						}}</label><input id="routineName" type="text" name="routineName" [(ngModel)]="routineDto.routineName"
+            title="{{ 'Routine Name' }}" disabled>
+        </div>
+        <div class="inputBox col s5">
+          <label class="labels" for="routineCode">{{ 'Routine Code'
+						}}</label><input id="routineCode" type="text" name="routineCode" [(ngModel)]="routineDto.routineCode"
+            title="{{ 'Routine Code' }}" disabled>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom: 0">
+        <div class="inputBox col s5">
+          <label class="labels" for="iD">{{ 'Field Id' }}</label><input id="iD" type="text" name="iD"
+            [(ngModel)]="routineDto.fieldDto.iD" title="{{ 'field Id' }}" [disabled]="updateRoutineFieldFlag">
+        </div>
+        <div class="inputBox col s5">
+          <label class="labels" for="name">{{ 'Field Name' }}</label><input id="name" type="text" name="name"
+            [(ngModel)]="routineDto.fieldDto.name" title="{{ 'Field Name' }}">
+        </div>
+      </div>
+      <div class="row" style="margin-bottom: 5px;">
+        <div class="right" style="padding-left: 35px;">
+          <button style="cursor: pointer;" data-(click)="resetRoutineFieldData();">Reset</button>
+        </div>
+        <div class="right">
+          <button style="cursor: pointer;" data-(click)="saveRoutineFieldData();">Save</button>
+        </div>
+      </div>
+    </fieldset>
+
+    <div *ngIf="routineFieldList.length > 0" class="row" style="padding-top: 2%; margin-left: auto;">
+      <universal-list-view [(listViewFromSource)]="routineFieldList" totalCount="{{countField}}"
+        itemsPerPageToDisplay={{itemsPerPageToDisplayField}} listViewUniqueCode="HubRoutineFieldList"
+        (outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+    </div>
+
+    <div class="row" *ngIf="routineFieldList.length == 0">
+      <i class="large material-icons" style="padding-left: 48%; padding-top: 10%;">assignment</i>
+      <div style="padding-left: 47%; font-weight: 600; font-size: 20px;">
+        <span>No Field Found</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-------------------------- END : Create Routine Field ------------------------------>
+
+</div>
+
+<!-- Open Modal For neoConfig -->
+<!-- ***********************************check Neoconfig Version Starts ********************************** -->
+<div>
+	<app-neo-config-view *ngIf="viewNeoConfig" (versionEvent)="triggered($event)"
+	[configCode]='configCode'>
+    </app-neo-config-view>
+</div>
+
+<!-- ************************************ check Neoconfig Version Ends ****************************************** -->

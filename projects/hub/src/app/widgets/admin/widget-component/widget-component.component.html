@@ -1,0 +1,149 @@
+<div id="pexWidgetComponent">
+  <div>
+    <a (click)="openSideNav()" class="pexPointer"><i class="material-icons">menu</i></a>
+    <ul id="pexWidgetSlideOut" class="sidenav pexsidenav  no-padding">
+      <li><a class="" (click)="setConfigPage(0)">Widget
+          Component</a></li>
+      <li>
+        <div class="divider"></div>
+      </li>
+      <li><a class="" (click)="setConfigPage(1)">WidgetComponentMapping</a></li>
+    </ul>
+
+  </div>
+
+  <div *ngIf="widgetComponentView">
+    <universal-list-view *ngIf="!viewNeoConfig" [(listViewFromSource)]="widgetComponentList" totalCount="{{count}}"
+      itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="PexWidgetComponentList"
+      (outPutToParentComponent)="outputFromListView($event)" rowBasedCheckBoxEvent="true"></universal-list-view>
+  </div>
+  <div *ngIf="widgetComponentMappingView">
+    <universal-list-view *ngIf="!viewNeoConfig" [(listViewFromSource)]="widgetMappingComponentList" totalCount="{{widgetMappingcount}}"
+      itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="PexWidgetComponentMapping"
+      (outPutToParentComponent)="outputFromListView($event)" rowBasedCheckBoxEvent="true"></universal-list-view>
+  </div>
+
+  <div id="widgetComponent" class="modal">
+    <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+      <i id="closeModalIcon" class="col s2 material-icons left" (click)="closeModalWidgetComponentView()">close</i>
+      <p id="modalname" class="col s8 center">Add Widget Component</p>
+      <i id="saveModalIcon" class="col s2 material-icons right" (click)="saveWidgetComponent()">done</i>
+    </div>
+
+    <div class="modal-content">
+      <div class="row">
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="componentCode" type="text"
+            [disabled]="this.editWidgetCompoent" [(ngModel)]="widgetComponentValues.widgetComponentCode"> <label
+            for="componentCode">Enter WidgetComponent Code</label>
+        </div>
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="componentName" type="text"
+            [(ngModel)]="widgetComponentValues.widgetComponentName"> <label for="componentName">Enter WidgetComponent
+            Name</label>
+        </div>
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <label> <input type="checkbox" class="filled-in" [(ngModel)]="widgetComponentValues.listView"
+              checked="checked" />
+            <span>ListView</span>
+          </label>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div id="widgetMappingComponent" class="modal">
+    <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+      <i id="closeModalIcon" class="col s2 material-icons left"
+        (click)="closeModalWidgetMappingComponentView()">close</i>
+      <p id="modalname" class="col s8 center">Widget Component Mapping</p>
+      <i id="saveModalIcon" class="col s2 material-icons right" (click)="saveWidgetComponentMapping()">done</i>
+    </div>
+
+    <div class="modal-content">
+      <div class="row">
+
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="value" type="text"
+            [(ngModel)]="widgetComponentMappingDTO.widgetCode"> <label for="form_code">Enter Widget Code</label>
+        </div>
+
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <select
+            [(ngModel)]="widgetComponentMappingDTO.componentType">
+            <option value="" disabled selected>Select Field</option>
+            <option *ngFor="let componentType of componentTypeList" [ngValue]="componentType">{{componentType}}</option>
+          </select> <label>Component Type</label>
+        </div>
+
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <select
+            [(ngModel)]="widgetComponentMappingDTO.widgetComponent">
+            <option value="" disabled selected>Select Field</option>
+            <option *ngFor="let widgetComponent of widgetComponentActiveList"
+              [ngValue]="widgetComponent.widgetComponentCode">{{widgetComponent.widgetComponentName}}</option>
+          </select> <label>Widget Componet</label>
+        </div>
+
+
+        <div *ngIf="widgetComponentMappingDTO.componentType=='list'" class="input-field col s12"
+          style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="listView" type="text"
+            [(ngModel)]="widgetComponentMappingDTO.listViewComponent">
+          <label for="listView">Enter List View</label>
+        </div>
+
+        <div *ngIf="widgetComponentMappingDTO.componentType=='list'" class="input-field col s12"
+          style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="keyCodes" type="text"
+            [(ngModel)]="widgetComponentMappingDTO.keyCodes"> <label for="keyCodes">Enter Key Code</label>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <app-loader *ngIf="loader" class="loading"></app-loader>
+</div>
+
+
+<!-- Open Modal For Upload Button-->
+<div id="uploadModal" class="modal">
+  <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+    <i id="closeModalIconUpload" class="col s2 material-icons left" (click)="closeUploadModal()"
+      style="cursor: pointer; margin: 20px" title="Close Modal">close</i>
+    <p style="	font-size: 22px !important; margin-bottom: 0px; margin-top: 19px;" class="col s8 center">{{ value }}
+    </p>
+    <i id="saveModalIconUpload" class="col material-icons right" style="cursor: pointer; margin: 20px" title="Save Action"
+      (click)="onUpload()">done</i>
+  </div>
+
+  <div class="modal-content">
+    <div class="row">
+      <div class="file-field input-field">
+        <div class="btn">
+          <span>Export</span>
+          <input type="file" (change)="fileChanged($event)" class="file-upload">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate file-upload" type="text">
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Open Modal For neoConfig -->
+<!-- ***********************************check Neoconfig Version Starts ********************************** -->
+<div>
+	<app-neo-config-view *ngIf="viewNeoConfig" (versionEvent)="triggered($event)"
+	[configCode]='configCode'>
+    </app-neo-config-view>
+</div>
+
+<!-- ************************************ check Neoconfig Version Ends ****************************************** -->

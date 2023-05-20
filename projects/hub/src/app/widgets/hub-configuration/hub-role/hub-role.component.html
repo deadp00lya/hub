@@ -1,0 +1,805 @@
+<div id="hub_role_configuration" class="hub_role_configuration"
+  style="overflow-y: scroll; overflow-x: hidden !important;">
+
+  <!-------------------------------- Start : Role Configuration Modal --------------------------------------->
+
+  <div id="hub_role" class="modal roleConfigurationModal" style="overflow-y: scroll; overflow-x: hidden !important;">
+    <div class="row modal-header">
+      <div class="left">
+        <span>Role Configuration</span>
+      </div>
+      <div class="right">
+        <img class="modal-close" src="{{cdnUrl}}/Hub/close.svg" data-(click)="closeModal();" title="close">
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-content">
+        <div id="roleView">
+          <div class="row" style="margin: 0px;">
+            <div class="col s3" style="padding-top: 10px;">
+              <label class="labels" for="app">Application<span class="red-text">*</span></label>
+              <ng-select [items]="listOfApplications" placeholder="Select Application" bindLabel="appName"
+                bindValue="appCode" (open)="selectRefresh()" notFoundText="Application Not Found"
+                [(ngModel)]="applicationDTO.appCode" [disabled]="edited"
+                (change)="fetchRolesByApplicationFromNeosuite();"></ng-select>
+            </div>
+            <div class="col s3" style="padding-top: 10px;">
+              <label class="labels" for="roles">Roles<span class="red-text">*</span></label>
+              <ng-select [multiple]="true" [items]="listOfRolesByApplication" placeholder="Select Roles"
+                bindLabel="roleName" bindValue="roleCode" (open)="selectRefresh()" notFoundText="Roles Not Found"
+                [(ngModel)]="roleMappingDTO.roleArray" [disabled]="edited"></ng-select>
+            </div>
+            <div class="col s3" style="padding-top: 10px;">
+              <label class="labels" for="country">Country</label>
+              <ng-select [items]="countryList" placeholder="Select Country" bindLabel="countryName"
+                bindValue="countryCode" (open)="selectRefresh()" notFoundText="Country Not Found"
+                [(ngModel)]="roleMappingDTO.countryCode" [disabled]="edited"
+                (change)="onCountrySelect(roleMappingDTO.countryCode);"></ng-select>
+            </div>
+            <div class="col s3" style="padding-top: 10px;">
+              <label class="labels" for="businessUnit">BusinessUnit</label>
+              <ng-select [items]="countryBusinessUnitList" placeholder="Select BusinessUnit"
+                bindLabel="businessunitName" bindValue="businessunitCode" (open)="selectRefresh()"
+                notFoundText="BusinessUnit Not Found" [(ngModel)]="roleMappingDTO.businessUnitCode" [disabled]="edited">
+              </ng-select>
+            </div>
+            <div class="col s3" style="padding-top: 10px;">
+              <label class="labels" for="employee">Employee</label>
+              <ng-select id="empId" [searchable]="true" [virtualScroll]="true" [searchFn]="customSearchFn"
+                (search)="getAutoComplete($event)" [disabled]="edited" (ngModelChange)="onItemSelect($event)"
+                [items]="suggestions" notFoundText="{{ 'Employee not found' }}" placeholder="Select Employee"
+                bindValue="employeeGlobalId" [(ngModel)]="roleMappingDTO.employeeGlobalId">
+                <ng-template ng-label-tmp let-item="item">
+                  {{resolvePattern(item)}} </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+                  {{resolvePattern(item)}} </ng-template>
+              </ng-select>
+            </div>
+            <div class="col s3" style="padding-top: 10px;">
+              <label class="labels" for="widgetComponent">Widget
+                Component<span class="red-text">*</span>
+              </label>
+              <ng-select [items]="widgetComponents" placeholder="Select Widget Component"
+                bindLabel="widgetComponentName" bindValue="widgetComponentCode" (open)="selectRefresh()"
+                notFoundText="Widget Component Not Found" [(ngModel)]="currentWidgetComponent.widgetComponentCode"
+                [disabled]="edited" (change)="setWidgetComponent();"></ng-select>
+            </div>
+            <div class="col s3" style="padding-top: 10px;" *ngIf="currentWidgetComponent?.listView">
+              <label class="labels" for="widgetComponent">List
+                Configuration<span class="red-text">*</span>
+              </label>
+              <ng-select [items]="listConfig" placeholder="Select List Configuration" bindLabel="listConfigName"
+                bindValue="listConfigName" (open)="selectRefresh()" (change)="onListSelect($event)"
+                notFoundText="List Configuration Not Found" [(ngModel)]="roleMappingDTO.configList.listConfigName"
+                [compareWith]="configurationName"></ng-select>
+            </div>
+
+             
+              <!-- <div class="col s3" style="padding-top: 10px;" *ngIf="currentWidgetComponent?.listView && futureDated">
+                <label class="labels" for="widgetComponent">Future Dated
+                  List<span class="red-text">*</span>
+                </label>
+                <ng-select [items]="listConfig" placeholder="Select futureDated Api" bindLabel="listConfigName"
+                  bindValue="listConfigName" (open)="selectRefresh()" (change)="onListSelect($event)"
+                  notFoundText="List Configuration Not Found" [(ngModel)]="roleMappingDTO.configList.listConfigName"
+                  [compareWith]="configurationName"></ng-select>
+              </div> -->
+               <!-- Future dated Employee -->
+               <div class="inputBox col s2 center" style="padding-top: 10px;"
+               *ngIf="currentWidgetComponent && currentWidgetComponent?.listView">
+               <p style="margin: 30px 0px 0px 10px;">
+                 <label> <input type="checkbox" (click)="onFutureDatedChanges();"
+                     [(ngModel)]="roleMappingDTO.futureDated" title="Future Dated"> <span>futureDated</span>
+                 </label>
+               </p>
+               </div>
+
+            <div class="col s3" style="padding-top: 10px;"
+              *ngIf="currentWidgetComponent&&!currentWidgetComponent?.listView && !edited">
+              <label class="labels" for="actionEvent">Event/Actions </label>
+              <ng-select [items]="eventActionList" placeholder="Select Event" bindLabel="name" bindValue="value"
+                (open)="selectRefresh()" notFoundText="List Not Found" [(ngModel)]="actionEvent"
+                (change)="onChangeEvent(actionEvent)"></ng-select>
+            </div>
+            <div class="col s3" style="padding-top: 10px;"
+              *ngIf="currentWidgetComponent&&!currentWidgetComponent?.listView && eventFlag">
+              <label class="labels" for="event">Event<span class="red-text">*</span></label>
+              <ng-select [items]="events" placeholder="Select Event" bindLabel="eventName" bindValue="eventCode"
+                (open)="selectRefresh()" notFoundText="Event Not Found" [(ngModel)]="roleMappingDTO.eventCode"
+                [disabled]="edited"></ng-select>
+            </div>
+            <div class="col s3" style="padding-top: 10px;"
+              *ngIf="(currentWidgetComponent&&!currentWidgetComponent?.listView) && actionFlag">
+              <label class="labels" for="action">Action<span class="red-text">*</span></label>
+              <ng-select [items]="actionList" placeholder="Select Action" bindLabel="actionName" bindValue="actionCode"
+                (open)="selectRefresh()" notFoundText="Action Not Found" [(ngModel)]="roleMappingDTO.actionCode"
+                [disabled]="edited"></ng-select>
+            </div>
+            <div class="inputBox col s3" style="padding-top: 10px;"
+              *ngIf="currentWidgetComponent&&!currentWidgetComponent?.listView">
+              <label class="labels" for="formCode">Form Code<span class="red-text">*</span></label><input id="formCode"
+                type="text" name="formCode" [(ngModel)]="roleMappingDTO.formCode" title="Form Code" [disabled]="edited">
+            </div>
+            <div class="col s3" style="padding-top: 10px;" *ngIf="createForm">
+              <label class="labels" for="idAutoGenerate">Employee ID
+                Generator Types<span class="red-text">*</span>
+              </label>
+              <ng-select [items]="idGeneratorList" placeholder="Select IDGeneratorType" bindLabel="idType"
+                bindValue="idType" (open)="selectRefresh()" notFoundText="IDGeneratorType Not Found"
+                [(ngModel)]="roleMappingDTO.idAutoGenerate" [compareWith]="configurationName"></ng-select>
+            </div>
+            <div class="col s3" style="padding-top: 10px;" *ngIf="createForm">
+              <label class="labels" for="globalIdAutoGenerate">Global
+                ID Generator Types<span class="red-text">*</span>
+              </label>
+              <ng-select [items]="idGeneratorList" placeholder="Select IDGeneratorType" bindLabel="idType"
+                bindValue="idType" (open)="selectRefresh()" notFoundText="IDGeneratorType Not Found"
+                [(ngModel)]="roleMappingDTO.globalIdAutoGenerate" [compareWith]="configurationName"></ng-select>
+            </div>
+            <div class="inputBox col s3" style="padding-top: 10px;"
+              *ngIf="currentWidgetComponent&&!currentWidgetComponent?.listView">
+              <label class="labels" for="sequencing">Sequence<span class="red-text">*</span></label><input
+                id="sequencing" type="text" name="sequencing" [(ngModel)]="roleMappingDTO.sequence" title="Sequence">
+            </div>
+          </div>
+          <div class="row" style="margin: 0px;">
+            <div class="inputBox col s2 center" style="padding-top: 10px;"
+              *ngIf="currentWidgetComponent&&!currentWidgetComponent?.listView">
+              <p style="margin: 30px 0px 0px 10px;">
+                <label> <input type="checkbox" [checked]="roleMappingDTO.effectiveDateView"
+                    (change)="changeEffectiveDateView()" /> <span>EfectiveDateView</span>
+                </label>
+              </p>
+            </div>
+            <div class="inputBox col s3 center" style="padding-top: 10px;"
+              *ngIf="currentWidgetComponent&&!currentWidgetComponent?.listView">
+              <p style="margin: 30px 0px 0px 10px;">
+                <label> <input type="checkbox" [checked]="roleMappingDTO.updatedDataView"
+                    (change)="changeMultipleUpdateView()" /> <span>Multiple
+                    Update View</span>
+                </label>
+              </p>
+            </div>
+            <div class="inputBox col s2 center" style="padding-top: 10px;"
+              *ngIf="currentWidgetComponent&&!currentWidgetComponent?.listView">
+              <p style="margin: 30px 0px 0px 10px;">
+                <label> <input type="checkbox" [checked]="roleMappingDTO.oneTimeUpdate"
+                    (change)="changeOneTimeUpdate()" /> <span>One Time
+                    Update</span>
+                </label>
+              </p>
+            </div>
+            <div class="inputBox col s2 center" style="padding-top: 10px;"
+              *ngIf="currentWidgetComponent&&!currentWidgetComponent?.listView">
+              <p style="margin: 30px 0px 0px 10px;">
+                <label> <input type="checkbox" [(ngModel)]="roleMappingDTO.validationMsg" /> <span>Validation
+                    Toaster</span>
+                </label>
+              </p>
+            </div>
+            <div class="inputBox col s2 center" style="padding-top: 10px;"
+              *ngIf="currentWidgetComponent&&!currentWidgetComponent?.listView">
+              <p style="margin: 30px 0px 0px 10px;">
+                <label> <input type="checkbox" [(ngModel)]="roleMappingDTO.oldApprovalFlowFlag"
+                    (click)="onOldApprovalChanges();" /> <span>Old Approval
+                    Flow</span>
+                </label>
+              </p>
+            </div>
+          </div>
+          <div class="row" style="margin: 0px; padding-top: 20px;">
+            <div class="inputBox col s2 center" style="padding-top: 10px;"
+              *ngIf="currentWidgetComponent&&!currentWidgetComponent?.listView">
+              <p style="margin: 30px 0px 0px 10px;">
+                <label> <input type="checkbox" [(ngModel)]="roleMappingDTO.deltaApi"
+                    (click)="onOldApprovalChanges();" /> <span> Delta Api </span>
+                </label>
+              </p>
+            </div>
+            <div class="inputBox col s2 center" style="padding-top: 10px;"
+              *ngIf="currentWidgetComponent && !currentWidgetComponent?.listView && !roleMappingDTO.oldApprovalFlowFlag">
+              <p style="margin: 30px 0px 0px 10px;">
+                <label> <input type="checkbox" (click)="onCustomApprovalChanges();"
+                    [(ngModel)]="roleMappingDTO.customDataFlow" title="Custom Approval"> <span>Custom Approval</span>
+                </label>
+              </p>
+            </div>
+            
+            <div class="inputBox col s3" style="padding-top: 10px;"
+              *ngIf="currentWidgetComponent && !currentWidgetComponent?.listView && roleMappingDTO.customDataFlow && !roleMappingDTO.oldApprovalFlowFlag">
+              <label class="labels" for="routineId">DiEngine RoutineId<span class="red-text">*</span></label><input
+                id="routineId" type="text" name="routineId" [(ngModel)]="roleMappingDTO.routineId" title="Routine Id">
+            </div>
+            <div class="inputBox col s3" style="padding-top: 10px;"
+              *ngIf="currentWidgetComponent && !currentWidgetComponent?.listView && !roleMappingDTO.customDataFlow && !roleMappingDTO.oldApprovalFlowFlag">
+              <label class="labels" for="flowCode">Flow Code</label><input id="flowCode" type="text" name="flowCode"
+                [(ngModel)]="roleMappingDTO.flowCode" title="Flow Code">
+            </div>
+            <!-- Candidate Merge starts -->
+            <div class="inputBox col s2 center" style="padding-top: 10px;"
+            *ngIf="!currentWidgetComponent?.listView">
+            <p style="margin: 30px 0px 0px 10px;">
+              <label> <input type="checkbox" 
+                  title="Custom Approval" (click)="candidateLoad()" [checked]="roleMappingDTO.candidateMerge"> <span>Load Candidate</span>
+              </label>
+            </p>
+          </div>
+          <div class="inputBox col s2 center" style="padding-top: 10px;"
+            *ngIf="!currentWidgetComponent?.listView">
+            <p style="margin: 30px 0px 0px 10px;">
+              <label> <input type="checkbox"  id="convoAI"
+                  title="Convo AI" (click)="convoAI()" [checked]="roleMappingDTO.convoAI"> <span>Convo AI</span>
+              </label>
+            </p>
+          </div>
+          <div class="col s3" style="padding-top: 10px;" *ngIf="roleMappingDTO.candidateMerge">
+            <label class="labels" for="widgetComponent">API
+            </label>
+            <ng-select [items]="apiList" placeholder="Select API"
+              bindLabel="apiName" bindValue="apiCode"
+              [(ngModel)]="roleMappingDTO.candidateAPI"></ng-select>
+          </div>
+          <!-- Candidate Merge ends -->
+          </div>
+           <!-- Future Dated Api Selection -->             
+          <!-- <div *ngIf="futureDated" class="row col s3" style="padding-top: 10px;">
+            <label class="labels" for="api">Future Dated List  </label>
+            <ng-select [items]="apiList" placeholder="Select Api" bindLabel="apiName" bindValue="id"
+            (open)="selectRefresh()" notFoundText="Api Not Found" [(ngModel)]="roleMappingDTO.futureDatedApi"
+            (click)="selectApi(configurableField.sourceApi,i)"></ng-select>
+           </div> -->
+
+           <div class="col s3" style="padding-top: 10px;" *ngIf="futureDated">
+            <label class="labels" for="futureDated">Future Dated
+              List<span class="red-text">*</span>
+            </label>
+            <ng-select [items]="listConfig" placeholder="Select listview from Pex list" bindLabel="listConfigName"
+              bindValue="listConfigName" (open)="selectRefresh()" (change)="onFutureDatedSelected($event)"
+              notFoundText="List Configuration Not Found" [(ngModel)]="roleMappingDTO.futureDatedApi.listConfigName"
+              [compareWith]="configurationName"></ng-select>
+          </div>
+           <!--  -->
+           
+          <div class="row" *ngFor="let configurableField of createConfigurableFields;let i=index">
+            <fieldset>
+              <div class="row" style="margin: 0px;">
+                <div class="col s12" style="text-align: right; padding: 0px;">
+                  <img src="{{cdnUrl}}/Hub/close.svg" style="height: 15px; width: 15px; cursor: pointer;"
+                    data-(click)="removeConfigurableField(i);" title="close">
+                </div>
+              </div>
+              <div class="row">
+                <div class="inputBox col s3" style="padding-top: 10px;">
+                  <label class="labels" for="configurableFields">Field
+                    Name</label> <input id="configurableFields" placeholder="Enter Field Name"
+                    [(ngModel)]="configurableField.fieldName" type="text" class="validate">
+                </div>
+                <div class="col s3" style="padding-top: 10px;">
+                  <label class="labels" for="api">Api </label>
+                  <ng-select [items]="apiList" placeholder="Select Api" bindLabel="apiName" bindValue="id"
+                    (open)="selectRefresh()" notFoundText="Api Not Found" [(ngModel)]="configurableField.sourceApi"
+                    (click)="selectApi(configurableField.sourceApi,i)"></ng-select>
+                </div>
+                <div class="inputBox col s3" style="padding-top: 10px;">
+                  <label class="labels" for="displayConfigurableFields">Display
+                    Value</label> <input id="displayConfigurableFields" placeholder="Enter Display Value"
+                    [(ngModel)]="configurableField.displayValue" type="text" class="validate">
+                </div>
+                <div class="inputBox col s3" style="padding-top: 10px;">
+                  <label class="labels" for="displayConfigurableFields">Field
+                    Title</label> <input id="displayConfigurableFields" placeholder="Enter Field Title"
+                    [(ngModel)]="configurableField.fieldTitle" type="text" class="validate">
+                </div>
+                <div class="inputBox col s3" style="padding-top: 10px;">
+                  <label class="labels" for="dependentConfigurableFields">Dependent
+                    Field</label> <input id="dependentConfigurableFields" placeholder="Enter Field Title"
+                    [(ngModel)]="configurableField.dependentField" type="text" class="validate">
+                </div>
+                <div class="inputBox col s3 left" style="padding-top: 10px;">
+                  <p style="margin: 30px 0px 0px 10px;">
+                    <label> <input type="checkbox" [checked]="configurableField.isMandatoryField"
+                        (change)="changeCreateConfigurableMandatoryFields(i)" /> <span>Mandatory</span>
+                    </label>
+                  </p>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="row" style="margin: 0px; padding-right: 30px; padding-top: 30px;">
+          <div id="saveConfiguration" class="col s2 configBtn right" title="Save Configuration"
+            data-(click)="saveConfiguration();" style="margin-left: 20px">Save Configuration</div>
+          <div id="neosuiteNotification" class="col s2 configBtn right" title="Add Neosuite Notifications"
+            data-(click)="openNeosuiteNotificationModal(this.roleMappingDTO);" style="margin-left: 20px;">Add Neosuite
+            Notifications</div>
+          <div id="emailNotification" class="col s2 configBtn right" data-(click)="openEmailModal(this.roleMappingDTO);"
+            style="margin-left: 20px;" title="Add Email Notification">Add
+            Email Notification</div>
+          <div id="customFieldConfiguration" class="col s2 configBtn right" data-(click)="openCustomFieldModal();"
+            style="margin-left: 20px;" title="Add Email Notification">Custom Field Configuration</div>
+          <div id="configurableField" class="col s2 configBtn right" *ngIf="createForm" title="Configurable Fields"
+            data-(click)="addConfigurableFields();">Configurable Fields</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-------------------------------- End : Role Configuration Modal ----------------------------------------->
+
+  <!-------------------------------- Start : Custom Field Configuration Modal ------------------------------->
+
+  <div id="customFieldModal" class="modal customFieldModal">
+    <div class="row modal-header">
+      <div class="left">
+        <span>Custom Field Configuration</span>
+      </div>
+      <div class="right">
+        <img class="modal-close" src="{{cdnUrl}}/Hub/close.svg" data-(click)="closeCustomFieldModal();" title="close">
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-content">
+        <div class="row" style="margin-bottom: 10px;">
+          <b style="padding-left: 13px;">Field Configuration : </b>
+        </div>
+        <div class="row">
+          <div *ngFor="let field of customFieldsConfiguration;let i=index">
+            <div class="row" style="margin: 0px;">
+              <div class="col s5">
+                <label class="labels" for="customFieldType">Custom Field
+                  Type</label>
+                <ng-select [items]="customFieldTypeList" placeholder="Select Field Type" bindLabel="name"
+                  bindValue="value" (open)="selectRefresh()" notFoundText="Field Not Found"
+                  [(ngModel)]="field.customFieldType" title="{{ 'Custom Field Type' }}"
+                  (change)="onCustomFieldTypeSelect(field.customFieldType, i);"></ng-select>
+              </div>
+              <div class="inputBox col s5">
+                <label class="labels" for="fieldName">Field Name</label><input id="fieldName" type="text"
+                  name="fieldName" [(ngModel)]="field.fieldName" title="{{ 'Field Name' }}"
+                  [disabled]="field.customFieldType == null">
+              </div>
+              <div class="col s1 right" *ngIf="!updateCustomFieldFlag" style="cursor: pointer; padding-top: 30px;">
+                <i class="material-icons" (click)="removeCustomField(i);">delete</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row right" *ngIf="customFieldsConfiguration.length <= 3"
+          style="padding: 0px 27px 0px 0px; cursor: pointer;">
+          <i class="material-icons" (click)="addCustomFields();">add</i>
+        </div>
+      </div>
+      <div class="row">
+        <div class="row" style="margin: 0px;" *ngIf="customFieldsConfiguration.length <= 3">
+          <div id="saveEmailNotification" class="col s1 configBtn right" title="Save EmailNotification Configuration"
+            data-(click)="saveCustomFieldConfiguration();" style="margin: 40px 0px 0px 0px;">Save</div>
+        </div>
+        <div class="row" style="margin: 0px;" *ngIf="customFieldsConfiguration.length == 4">
+          <div id="saveEmailNotification" class="col s1 configBtn right" title="Save EmailNotification Configuration"
+            data-(click)="saveCustomFieldConfiguration();" style="margin: 0px 27px 0px 0px;">Save</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-------------------------------- End : Custom Field Configuration Modal --------------------------------->
+
+
+  <!-------------------------------- Start : Email Notification --------------------------------------------->
+
+  <!-------------------------------- Start : Without Approval Email Notification ---------------------------->
+
+  <div *ngIf="emailNotificationModal" id="emailNotificationModal" class="modal emailNotificationModal"
+    style="opacity: 0;">
+    <div class="row modal-header">
+      <div class="left">
+        <span>Email Notification</span>
+      </div>
+      <div class="right">
+        <img class="modal-close" src="{{cdnUrl}}/Hub/close.svg" data-(click)="closeEmailModal();" title="close">
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="row" style="margin: 10px;">
+        <div class="switch">
+          <label class="labels" style="font-size: 14px; color: black;">
+            Without Approval <input type="checkbox" (click)="selectEmailNotificationType()"
+              [(ngModel)]="emailNotificationType"> <span class="lever"></span>
+            With Approval
+          </label>
+        </div>
+      </div>
+      <div class="modal-content">
+        <div class=" col s12" *ngFor="let mail of notification.mails;let idx=index">
+          <div class="row" style="margin: 0px;">
+            <label class="labels">Notification {{idx+1}}</label> <i class="material-icons right pointer"
+              style="cursor: pointer;" title="Remove mail" (click)="removeMail(singleRole.roleIdentifier,idx)">close</i>
+            <i *ngIf="idx==(notification.mails.length-1)" class="material-icons right pointer" style="cursor: pointer;"
+              title="Add mail" (click)="addMail(null,idx)">add</i>
+          </div>
+          <fieldset style="margin: 0px 0px 10px 0px !important;">
+            <div class="row">
+              <div class="col s4" style="padding-top: 10px;">
+                <label class="labels" for="to">TO</label>
+                <ng-select [items]="mailerList" placeholder="Select TO" bindLabel="name" bindValue="value"
+                  (open)="selectRefresh()" notFoundText="Mailer Not Found" [(ngModel)]="notification.mails[idx]['to']"
+                  multiple="true"></ng-select>
+              </div>
+              <div class="col s4" style="padding-top: 10px;">
+                <label class="labels" for="cc">CC</label>
+                <ng-select [items]="mailerList" placeholder="Select CC" bindLabel="name" bindValue="value"
+                  (open)="selectRefresh()" notFoundText="Mailer Not Found" [(ngModel)]="notification.mails[idx]['cc']"
+                  multiple="true"></ng-select>
+              </div>
+              <div class="inputBox col s4" style="padding-top: 10px;">
+                <label class="labels" for="tCode">Template Code</label><input id="tCode" type="text" name="tCode"
+                  [(ngModel)]="notification.mails[idx].templateCode" title="Template Code">
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <i *ngIf="addButtonFlag" class="material-icons right pointer" style="cursor: pointer;" title="Add mail"
+          (click)="addMail(singleRole.roleIdentifier,idx)">add</i>
+      </div>
+      <div class="row">
+        <div class="row" style="margin: 0px;">
+          <div id="saveEmailNotification" class="col s1 configBtn right" title="Save EmailNotification Configuration"
+            data-(click)="saveEmailConfiguration();" style="margin: 20px 20px 0px 0px;">Save</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-------------------------------- End : Without Approval Email Notification ------------------------------>
+
+
+  <!-------------------------------- Start : Approval Email Notification ------------------------------------>
+
+  <div *ngIf="approvalEmailNotificationModal" id="approvalEmailNotificationModal"
+    class="modal approvalEmailNotificationModal" style="opacity: 0;">
+    <div class="row modal-header">
+      <div class="left">
+        <span>Approval Email Notification</span>
+      </div>
+      <div class="right">
+        <img class="modal-close" src="{{cdnUrl}}/Hub/close.svg" data-(click)="closeEmailModal();" title="close">
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="row" style="margin: 10px;">
+        <div class="col s4 switch">
+          <label class="labels" style="font-size: 14px; color: black;">
+            Without Approval <input type="checkbox" (click)="selectEmailNotificationType()"
+              [(ngModel)]="emailNotificationType"> <span class="lever"></span>
+            With Approval
+          </label>
+        </div>
+
+        <div class="col s8">
+          <ng-container *ngFor="let roles of allActionRoles;let i=index">
+            <div id="filterCol_{{roles.roleIdentifier}}"
+              class="col s2  filterCol filterCol_{{roles.roleIdentifier}} buzzerPointer truncate"
+              (click)="selectMailType(roles.roleIdentifier);" [ngClass]="{'textBold':flag[roles.roleIdentifier]}"
+              title="{{roles.roleName}}">{{roles.roleName}}</div>
+          </ng-container>
+        </div>
+      </div>
+      <div *ngIf="singleRole != null" class="modal-content">
+        <div class=" col s12" *ngFor="let mail of approvalNotification[singleRole.roleIdentifier].mails;let idx=index">
+          <div class="row" style="margin: 0px;">
+            <label class="labels" *ngIf="singleRole.roleIdentifier == 'escalation' && idx == 0">Level
+              {{idx+1}}</label> <label class="labels"
+              *ngIf="singleRole.roleIdentifier == 'escalation' && idx != 0">Level
+              {{idx}}'s Manager</label> <label class="labels"
+              *ngIf="singleRole.roleIdentifier != 'escalation'">Notification
+              {{idx+1}}</label><i class="material-icons right pointer" style="cursor: pointer;" title="Remove mail"
+              (click)="removeMail(singleRole.roleIdentifier,idx)">close</i> <i
+              *ngIf="idx==(approvalNotification[singleRole.roleIdentifier].mails.length-1)"
+              class="material-icons right pointer" style="cursor: pointer;" title="Add mail"
+              (click)="addMail(singleRole.roleIdentifier,idx)">add</i>
+          </div>
+          <fieldset style="margin: 0px 0px 10px 0px !important;">
+            <div class="row">
+              <div class="col s4" style="padding-top: 10px;">
+                <label class="labels" for="to">TO</label>
+                <ng-select [items]="mailerList" placeholder="Select TO" bindLabel="name" bindValue="value"
+                  (open)="selectRefresh()" notFoundText="Mailer Not Found" [(ngModel)]="mail['to']" multiple="true">
+                </ng-select>
+              </div>
+              <div class="col s4" style="padding-top: 10px;">
+                <label class="labels" for="cc">CC</label>
+                <ng-select [items]="mailerList" placeholder="Select CC" bindLabel="name" bindValue="value"
+                  (open)="selectRefresh()" notFoundText="Mailer Not Found" [(ngModel)]="mail['cc']" multiple="true">
+                </ng-select>
+              </div>
+              <div class="inputBox col s4" style="padding-top: 10px;">
+                <label class="labels" for="tCode">Template Code</label><input id="tCode" type="text" name="tCode"
+                  [(ngModel)]="mail.templateCode" title="Template Code">
+              </div>
+              <div *ngIf="singleRole.roleIdentifier == 'escalation'" class="col s4" style="padding-top: 10px;">
+                <label class="labels" for="noOfDays">No of Days</label>
+                <ng-select id="noOfDays{{idx}}" [items]="numberList" placeholder="Select Days" bindLabel="number"
+                  bindValue="number" (open)="selectRefresh()" notFoundText="Not Found" [(ngModel)]="mail.noOfDays"
+                  (change)="onDaysSelection(mail.noOfDays, idx,singleRole.roleIdentifier, $event);"></ng-select>
+              </div>
+              <div *ngIf="singleRole.roleIdentifier == 'reminder'" class="col s4" style="padding-top: 10px;">
+                <label class="labels" for="noOfDays">No of Days</label>
+                <ng-select [items]="numberList" placeholder="Select Days" bindLabel="number" bindValue="number"
+                  (open)="selectRefresh()" notFoundText="Not Found" [(ngModel)]="mail.noOfDays" multiple="true">
+                </ng-select>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <i *ngIf="addButtonFlag" class="material-icons right pointer" style="cursor: pointer;" title="Add mail"
+          (click)="addMail(singleRole.roleIdentifier,idx)">add</i>
+      </div>
+      <div class="row">
+        <div class="row" style="margin: 0px;">
+          <div id="saveEmailNotification" class="col s1 configBtn right" title="Save EmailNotification Configuration"
+            data-(click)="saveEmailConfiguration();" style="margin: 20px 20px 0px 0px;">Save</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-------------------------------- End : Approval Email Notification -------------------------------------->
+
+  <!-------------------------------- End : Email Notification ----------------------------------------------->
+
+
+
+  <!-------------------------------- Start : Neosuite Notification ------------------------------------------>
+
+  <!-------------------------------- Start : Without Approval Neosuite Notification ------------------------->
+
+  <div *ngIf="neosuiteNotificationModal" id="neosuiteNotificationModal" class="modal neosuiteNotificationModal">
+    <div class="row modal-header">
+      <div class="left">
+        <span>Neosuite Notification</span>
+      </div>
+      <div class="right">
+        <img class="modal-close" src="{{cdnUrl}}/Hub/close.svg" data-(click)="closeNeosuiteNotificationModal();"
+          title="close">
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="row" style="margin: 10px;">
+        <div class="switch">
+          <label class="labels" style="font-size: 14px; color: black;">
+            Without Approval <input type="checkbox" (click)="selectNeosuitNotificationType();"
+              [(ngModel)]="neosuitNotificationType"> <span class="lever"></span>
+            With Approval
+          </label>
+        </div>
+      </div>
+      <div class="modal-content">
+        <div class=" col s12" *ngFor="let notification of neosuiteNotifications.notifications;let idx=index">
+          <div class="row" style="margin: 0px;">
+            <label class="labels">Notification {{idx+1}}</label><i class="material-icons right pointer"
+              style="cursor: pointer;" title="Remove notification" (click)="removeNeosuiteNotification(idx)">close</i>
+            <i *ngIf="idx==(neosuiteNotifications.notifications.length-1)" class="material-icons right pointer"
+              style="cursor: pointer;" title="Add notification" (click)="addNeosuiteNotification('null',idx)">add</i>
+          </div>
+          <fieldset style="margin: 0px 0px 10px 0px !important;">
+            <div class="row">
+              <div class="col s4" style="padding-top: 10px;">
+                <label class="labels" for="to">TO</label>
+                <ng-select [items]="mailerList" placeholder="Select TO" bindLabel="name" bindValue="value"
+                  (open)="selectRefresh()" notFoundText="Mailer Not Found"
+                  [(ngModel)]="neosuiteNotifications.notifications[idx]['to']" multiple="true"></ng-select>
+              </div>
+              <div class="inputBox col s4" style="padding-top: 10px;">
+                <label class="labels" for="notifyValue">Notify Value</label><input id="notifyValue" type="text"
+                  name="notifyValue" [(ngModel)]="neosuiteNotifications.notifications[idx].notifyValue"
+                  title="Notify Value">
+              </div>
+              <div class="inputBox col s4" style="padding-top: 10px;">
+                <label class="labels" for="proxyNotifyValue">Proxy
+                  Notify Value</label><input id="proxyNotifyValue" type="text" name="proxyNotifyValue"
+                  [(ngModel)]="neosuiteNotifications.notifications[idx].proxyNotifyValue" title="Proxy Notify Value">
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="row">
+        <div class="row" style="margin: 0px;">
+          <div id="saveNeosuiteNotification" class="col s1 configBtn right"
+            title="Save Neosuite Notification Configuration" data-(click)="saveNeosuiteNotificationConfiguration();"
+            style="margin: 20px 20px 0px 0px;">Save</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-------------------------------- End : Without Approval Neosuite Notification --------------------------->
+
+
+  <!-------------------------------- Start : Approval Neosuite Notification --------------------------------->
+
+  <div *ngIf="approvalNeosuiteNotificationModal" id="approvalNeosuiteNotificationModal"
+    class="modal approvalNeosuiteNotificationModal">
+    <div class="row modal-header">
+      <div class="left">
+        <span>Approval Neosuite Notification</span>
+      </div>
+      <div class="right">
+        <img class="modal-close" src="{{cdnUrl}}/Hub/close.svg" data-(click)="closeNeosuiteNotificationModal();"
+          title="close">
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="row" style="margin: 10px;">
+        <div class="col s4 switch">
+          <label class="labels" style="font-size: 14px; color: black;">
+            Without Approval <input type="checkbox" (click)="selectNeosuitNotificationType();"
+              [(ngModel)]="neosuitNotificationType"> <span class="lever"></span>
+            With Approval
+          </label>
+        </div>
+        <div class="col s8">
+          <ng-container *ngFor="let roles of allActionRolesNotification;let i=index">
+            <div id="filterCol_{{roles.roleIdentifier}}"
+              class="col s2  filterCol filterCol_{{roles.roleIdentifier}} buzzerPointer truncate right"
+              (click)="selectNotificationType(roles.roleIdentifier);"
+              [ngClass]="{'textBold':flag[roles.roleIdentifier]}" title="{{roles.roleName}}">{{roles.roleName}}</div>
+          </ng-container>
+        </div>
+      </div>
+      <div *ngIf="singleRole != null" class="modal-content">
+        <div class=" col s12"
+          *ngFor="let notification of approvalNeosuiteNotifications[singleRole.roleIdentifier].notifications;let idx=index">
+          <div class="row" style="margin: 0px;">
+            <label class="labels">Notification {{idx+1}}</label><i class="material-icons right pointer"
+              style="cursor: pointer;" title="Remove notification"
+              (click)="removeNeosuiteNotification(singleRole.roleIdentifier,idx)">close</i>
+            <i *ngIf="idx==(approvalNeosuiteNotifications[singleRole.roleIdentifier].notifications.length-1)"
+              class="material-icons right pointer" style="cursor: pointer;" title="Add Notification"
+              (click)="addNeosuiteNotification(singleRole.roleIdentifier,idx)">add</i>
+          </div>
+          <fieldset style="margin: 0px 0px 10px 0px !important;">
+            <div class="row">
+              <div class="col s4" style="padding-top: 10px;">
+                <label class="labels" for="to">TO</label>
+                <ng-select [items]="mailerList" placeholder="Select TO" bindLabel="name" bindValue="value"
+                  (open)="selectRefresh()" notFoundText="Mailer Not Found"
+                  [(ngModel)]="approvalNeosuiteNotifications[singleRole.roleIdentifier].notifications[idx]['to']"
+                  multiple="true"></ng-select>
+              </div>
+              <div class="inputBox col s4" style="padding-top: 10px;">
+                <label class="labels" for="notifyValue">Notify Value</label><input id="notifyValue" type="text"
+                  name="notifyValue"
+                  [(ngModel)]="approvalNeosuiteNotifications[singleRole.roleIdentifier].notifications[idx].notifyValue"
+                  title="Notify Value">
+              </div>
+              <div class="inputBox col s4" style="padding-top: 10px;">
+                <label class="labels" for="proxyNotifyValue">Proxy
+                  Notify Value</label><input id="proxyNotifyValue" type="text" name="proxyNotifyValue"
+                  [(ngModel)]="approvalNeosuiteNotifications[singleRole.roleIdentifier].notifications[idx].proxyNotifyValue"
+                  title="Proxy Notify Value">
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="row">
+        <div class="row" style="margin: 0px;">
+          <div id="saveNeosuiteNotification" class="col s1 configBtn right"
+            title="Save Neosuite Notification Configuration" data-(click)="saveNeosuiteNotificationConfiguration();"
+            style="margin: 20px 20px 0px 0px;">Save</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-------------------------------- End : Approval Neosuite Notification ----------------------------------->
+
+  <!-------------------------------- End : Neosuite Notification -------------------------------------------->
+
+</div>
+
+
+<!-------------------------------- Start : Role Configuration ListView ---------------------------------------->
+
+<div>
+  <universal-list-view [(listViewFromSource)]="roleConfig" *ngIf="!approvalSpocConfiguration" totalCount="{{count}}"
+    itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="RoleConfiguration"
+    (outPutToParentComponent)="outputFromListView($event)" rowBasedCheckBoxEvent="true">
+  </universal-list-view>
+</div>
+
+<!-------------------------------- End : Role Configuration ListView ------------------------------------------>
+
+
+
+<!-------------------------------- Start : Spoc Configuration ------------------------------------------------->
+
+<div>
+  <hub-approval-spoc-config *ngIf="approvalSpocConfiguration" (approvalEvent)="approvalEventHandler($event)"
+    [roleId]='roleId'>
+  </hub-approval-spoc-config>
+</div>
+
+<!-------------------------------- End : Spoc Configuration --------------------------------------------------->
+
+
+<!---------------------------------- Start of Open NeoConfig Modal ------------------>
+
+<!-- Open Modal For Upload Button-->
+<!-- <div id="uploadModal" class="modal">
+  <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+    <i id="closeModalIcon" class="col s2 material-icons left" (click)="closeUploadModal()"
+      style="cursor: pointer; margin: 20px" title="Close Modal">close</i>
+    <p style="	font-size: 22px !important; margin-bottom: 0px; margin-top: 19px;" class="col s8 center">Upload Actions
+    </p>
+    <i id="saveModalIcon" class="col material-icons right" style="cursor: pointer; margin: 20px" title="Save Action"
+      (click)="onUpload()">done</i>
+  </div>
+
+  <div class="modal-content">
+    <div class="row">
+      <div class="file-field input-field">
+        <div class="btn">
+          <span>Export</span>
+          <input type="file" (change)="fileChanged($event)" class="file-upload">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate file-upload" type="text">
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div> -->
+
+<div id="uploadModal" class="modal customFieldModal">
+  <div class="row modal-header">
+    <div class="left" style="margin-left: 250px;">
+      <span>Import Role Configuration</span>
+    </div>
+    <div class="right">
+      <img class="modal-close" src="{{cdnUrl}}/Hub/close.svg" data-(click)="closeUploadModal();" title="close">
+    </div>
+  </div>
+  <div class="modal-body">
+
+    <div class="row">
+      <div class="modal-content">
+
+        <div class="file-field input-field">
+          <div class="btn">
+            <span>Import</span>
+            <input type="file" (change)="fileChanged($event)" class="file-upload">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate file-upload" type="text">
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="row" style="margin: 0px;">
+        <div id="saveEmailNotification" class="col s1 configBtn right" title="Save" data-(click)="onUpload()"
+          style="margin: 0px 27px 0px 0px;">Save</div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Open Modal For neoConfig -->
+<!-- ***********************************check Neoconfig Version Starts ********************************** -->
+<div>
+	<app-neo-config-view *ngIf="viewNeoConfig" (versionEvent)="triggered($event)"
+	[configCode]='configCode'>
+    </app-neo-config-view>
+</div>
+
+<!-- ************************************ check Neoconfig Version Ends ****************************************** -->

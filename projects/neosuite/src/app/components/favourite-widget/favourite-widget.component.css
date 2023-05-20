@@ -1,0 +1,152 @@
+:host {
+	height: 100%;
+	width: 100%;
+	
+}
+
+.content-area {
+  padding-left: 65px;
+  height: 100%;
+}
+
+@media only screen and (max-width : 992px) {
+  .content-area{
+    padding-left: 0;
+  }
+}
+.app-sidenav{
+  top:58px;
+  width: 65px;
+  padding: 0px !important;
+  box-shadow: none;
+  border-right: 1.5px solid #d3d3d3;
+}
+.parent {
+  height: 100%;
+  background-color: white;
+} 
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+
+
+/*  height for widgets right side icons */
+.widget-icons {
+  height: 15px !important;
+  /* vertical-align: middle; */
+}
+
+.widget-icons:hover {
+  transform: scale(1.2);
+}
+
+.float-wrapper {
+  margin-right: 7px;
+  width: 100%;
+  font-size: 12px;
+  color: #212121;
+  background: #e5f2fd;
+
+}
+
+.float-wrapper:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.float-wrapper span {
+  margin-left: 2px;
+  margin-right: 2px;
+  vertical-align: middle;
+}
+
+.float-wrapper img {
+  height: 15px;
+  vertical-align: text-bottom;
+}
+
+.float-wrapper img:hover {
+  transform: scale(1.2);
+}
+
+
+
+.ns-tile-icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+
+.advancedUI_appIcon_container {
+  cursor: pointer;
+  color: #202020 !important;
+  font-size: 10px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.advancedUI_appIcon_container:hover {
+  cursor: pointer;
+  background: #e5f2fd;
+  color: #202020 !important;
+}
+
+.advancedUI_widget_selected_mob {
+  background: #e5f2fd;
+  color: #202020 !important;
+}
+.advancedUI_appIcon {
+  /* background-color: #605a7b; */
+  height: 30px;
+  width: 30px;
+  margin: 3px auto;
+  color: #202020 !important;
+}
+
+.advancedUI_widget_selected {
+  background: rgba(255, 255, 255, 0.5);
+  color: #202020 !important;
+}
+
+.logoName {
+  font-size: 10px;
+  color: #202020 !important;
+  margin: 3px 1px;
+}
+.adv_appPortion {
+  height: 95%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 10px;
+}
+.container ::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+  border-radius: 10px;
+}
+.container ::-webkit-scrollbar-thumb {
+  min-height: 4px;
+}
+.container ::-webkit-scrollbar-track-piece {
+  background-color: transparent !important;
+}
+
+/* Knowledge base */
+#helpModel {
+  width: 70% !important;
+  height: 507px;
+  overflow: hidden;
+}
+
+#kbRow {
+  height: 8px;
+}
+.appDisplayCard {
+  height: 100%;
+  padding: 0;
+  border-radius: 10px;
+}

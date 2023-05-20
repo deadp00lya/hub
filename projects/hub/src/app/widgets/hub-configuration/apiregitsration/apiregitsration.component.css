@@ -1,0 +1,35 @@
+#formIcon {
+	font-size: 27px !important;
+	color: #7a8086;
+}
+#closeModalIcon {
+	font-size: 34px !important;
+	margin-left: -3% !important;
+	cursor: pointer;
+	color: #95a1ab;
+	display: inline-flex;
+}
+#saveModalIcon {
+	font-size: 34px !important;
+	margin-right: -5% !important;
+	cursor: pointer;
+	color: #55b2f9;
+	display: inline-flex;
+}
+#modalname {
+	font-size: 22px !important;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+#myTextarea{
+	width: 100%;
+    background-color: transparent;
+    height: 300px;
+}
+#saveModalIconUpload {
+	font-size: 34px !important;
+	margin-right: -1% !important;
+	cursor: pointer;
+	color: #55b2f9;
+	display: inline-flex;
+}

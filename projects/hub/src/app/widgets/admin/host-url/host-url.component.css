@@ -1,0 +1,35 @@
+#closeModalIcon {
+	font-size: 34px !important;
+	cursor: pointer;
+	color: #95a1ab;
+	display: inline-flex;
+}
+
+#saveModalIcon {
+	font-size: 34px !important;
+	margin-right: -5% !important;
+	cursor: pointer;
+	color: #55b2f9;
+	display: inline-flex;
+}
+
+#modalname {
+	font-size: 22px !important;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+textarea {
+	width: 100%;
+	min-height: 15rem;
+	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 0.8rem;
+	line-height: 1.2;
+}
+#saveModalIconUpload {
+	font-size: 34px !important;
+	margin-right: -1% !important;
+	cursor: pointer;
+	color: #55b2f9;
+	display: inline-flex;
+}

@@ -1,0 +1,679 @@
+
+.delegate-old{
+	margin-top: 20px !important;
+}
+.delegateDrawer {
+	margin: 0;
+	width: 100%;
+	height: auto;
+    max-height: 446px;
+	/* min-height: calc(100% - 100px); */
+}
+/* .closeBtn{
+	 cursor: pointer;
+	 margin-top: 8px;
+} */
+.employeeFields{
+    font-size: 16px;
+    color: #808080d6 !important;
+    margin-left: 9px;
+    }
+#delegated_to ::ng-deep .completer-input{
+    margin-left:9px;
+    width:93%;
+    }
+.selectDate{
+font-size: 13px;
+    margin-top: 22px;
+    text-align: left;
+    padding-left: 55px;
+    margin-bottom: 0;
+    }
+    
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+    background-color: white;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 3;
+    /* bottom: 95%; */
+    left: 90%;
+    border: 1px solid red;
+   padding: 0px !important;
+    min-height: 28px;
+    min-width: 170px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+ content: "";
+    position: absolute;
+    top: 25%;
+    left: -6%;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent white transparent transparent;
+}
+
+.proxy-icon {
+	vertical-align: sub;
+	width: 20px !important;
+	transform: scaleX(-1);
+	height: 22px !important;
+	border-radius: 50%;
+	font-size: 22px;
+}
+
+.popup .popuptext::before {
+ content: "";
+    position: absolute;
+    top: 22%;
+    left:-7%;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent red transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;} 
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+
+.rightArrow {
+  -webkit-transform: rotate(-45deg);
+    border: solid #44f191;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 6px;
+    margin-left: 129px;
+}
+.appName{
+	margin-top: 2px;
+    font-size: 12px;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+/* 	margin-left: 150px !important; */
+}
+
+.input-align{
+	margin-top:37px;
+	margin-bottom: -23px;
+}
+
+.delegate-input {
+	padding: 0px !important;
+	border-style: outset !important;
+	height: 2.5rem !important;
+	border-bottom: 3px solid #0000003b !important;
+	border-top: 1px solid #0000000f !important;
+	border-left: 2px solid #0000000d !important;
+	border-right: 2px solid #00000021 !important;
+	border-style: outset !important;
+}
+.cardHeading{
+	font-size: 12px;
+    font-weight: 400;
+    color: #5f9ea0c7;
+}
+.userImage{
+	width: 62%;
+    border-radius: 67%;
+    height: 88%;
+}
+.proxyUser{
+	width: 62%;
+    float: right;
+    border-radius: 67%;
+    height: 88%;
+}
+
+.searchIcon {
+	position: absolute;
+	right: 8px;
+	top: 14px;
+}
+
+.pulse {
+	/*  margin:100px;
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #cca92c;
+  cursor: pointer;
+  position:relative;
+  border: 4px solid #cca92c; */
+	
+}
+
+.pulse:after {
+	content: "";
+    width: 40px;
+    height: 40px;
+    border-radius: 82%;
+    border: 1px solid #ef2010;
+    position: absolute;
+    top: 12px;
+    left: 26px;
+	/*-webkit-animation: pulse 2s ease 0s infinite; */ 
+    animation: pulse 1.5s ease 1s infinite;
+}
+
+@keyframes pulse { 
+0% {
+	opacity: 0.0;
+	transform: scale(1.5);
+}
+
+90% {
+   opacity: 1;
+   transform: scale(2);
+}
+100%{
+   opacity: 0.0;
+   transform: scale(1);
+}
+}
+.selected-app{
+ margin:0px !important;
+}
+.btn-float {
+	text-align: -webkit-center;
+	width: 25px !important;
+	height: 25px !important;
+	position: absolute !important;
+	line-height: 26px !important;
+	left: 78px !important;
+}
+
+.close-align {
+	cursor: pointer;
+	line-height: 18px!important;
+	/* border-radius: 100%; */
+	float: none;
+	padding-left: 0px;
+	/* margin-top: 6px; */
+	/*   height: 18px; */
+	margin-right: -8px;
+	/* width: 18px; */
+	vertical-align: sub;
+}
+.selected-appIcon:focus{
+	outline: none;
+}
+.selected-appIcon{
+	border-radius: 50%;
+	height: 60%  !important;
+	/* width: 60% !important; */
+	/* margin-left: auto;
+	margin-right: auto; */
+	cursor: pointer;
+	/* margin-right: 25px !important; */
+  /*   margin-bottom: 8% !important;*/ 
+}
+.delegate-img {
+	width: 91%;
+    height: 78%;
+	border-radius: 50%;
+}
+/* .resetsaveBtn{
+	height: 30px !important;
+    line-height: 28px !important;
+	border-radius: 24px !important;
+	text-transform: capitalize !important;
+} */
+
+.date_field{
+/* 	margin-top: 6px;
+    margin-left: -25px !important; */
+}
+.calender_Icon{
+	/* margin-left: 14px !important; */
+    padding-top: 9px !important;
+}
+
+
+.delegate-btn {
+	 border-radius: 25px !important;
+	 text-transform: capitalize !important;
+	 height: 30px;
+     line-height: 28px;
+   
+}
+.saveddelegate-btn {
+	 border-radius: 19px;
+	 text-transform: capitalize !important;
+     height: 26px;
+     width: 20%;
+     line-height: 25px;
+     left: 42%;
+     margin-bottom: 10px;
+   
+}
+
+.delegate-container {
+	height: 100%;
+}
+
+.widgetwrapper {
+	margin: 0 auto;
+	display: -webkit-flex; /* Safari */
+	display: flex;
+}
+.bottomWidgetLine{
+	margin-bottom: 0; 
+	border-bottom: 1px solid #007ee514;
+	width:105%;
+}
+#widgetmenugrid {
+	width: 100%;
+	height: 100%;
+	overflow: scroll;
+	float: right;
+}
+
+#appgrid, #widgetgrid {
+	width: 100%;
+	-webkit-flex: 1; /* Safari */
+	-ms-flex: 1; /* IE 10 */
+	flex: 1;
+}
+
+.delegateBtn {
+	margin-left: 70px !important;
+	margin-top: 85px;
+	/* background-color: #2691ff; */
+}
+
+#delegateTabs {
+	font-size: 11px !important;
+	/* color: #007EE5 !important; */
+	display: inline-block;
+	padding: 0;
+	/* margin-left: 80px !important; */
+	margin-top: 20px !important;
+	width: auto;
+	/* border: 1px solid; */
+	border-radius: 25px;
+	cursor: pointer;
+}
+
+#delegateTabs div.active {
+	/* border: 1px solid #007EE5; */
+	
+	border-radius: 25px;
+	/* background-color: #007EE5; */
+	
+}
+
+.delegateTabSpan {
+	font-size: 11px !important;
+	/* color: #007EE5 !important; */
+	display: inline-block;
+	padding: 7px;
+}
+
+#delegateTabs div.active span{
+	color: #ffffff!important;
+
+}
+
+.widgetline {
+	/* margin-left: 82px !important; */
+	font-weight: 500;
+	color: #007EE5;
+	font-size: 14px;
+}
+
+/* .delegatewidget{
+	margin: 0 auto;
+	display: -webkit-flex; Safari
+	display: flex;
+	width: 100%;
+} */
+#appgrid, #widgetgrid {
+	width: 100%;
+	-webkit-flex: 1; /* Safari */
+	-ms-flex: 1; /* IE 10 */
+	flex: 1;
+}
+
+.delegate-container {
+	display: inline-block;
+	padding: 5px;
+	/* padding-left: 10px;
+	padding-right: 10px; */
+	margin: 10px 0px !important;
+}
+
+.delegate-icon {
+	width: 60%;
+	height: 60%;
+	border-radius: 50%;
+	/* background: white; */
+	margin-top:20%;
+}
+
+.delegate-inner-appIcon {
+	/* background-color: #605a7b; */
+	border-radius: 50%;
+	height: 120px;
+	width: 120px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.app-name{
+	margin-left: -5px;
+    margin-top: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.delegate-tile {
+	margin-top: 5px !important;
+	font-size: medium !important;
+	word-break: break-word !important;
+	word-wrap: break-word !important;
+	/* color: rgba(33, 32, 36, 0.86) !important; */
+	font-weight: 600 !important;
+	color:#575757;
+	/* width: 85px !important; */
+	text-align: center;
+	/* truncate  */
+	white-space: nowrap !important;
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+}
+
+ .delegateImageContent{
+	border-right: 1px solid;
+	border-color: #9ac12f;
+} 
+#delegate-vline {
+	border-right: 1px solid #9ac12f;
+	height: 135px;
+	margin-top: 10px;
+	float: left
+}
+
+.widgetBox{
+    padding-right: 0!important;
+overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 140px;
+    min-height: 140px;
+    }
+
+.line.arrow-right:after {
+      position: relative;
+    content: '';
+    /* right: -90px; */
+    left: 97%;
+    top: -10px;
+    width: 0;
+    height: 0;
+    border: solid #44f191;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 5px;
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.line {
+  flex-grow: 1;
+    height: 2px;
+    position: relative;
+    background: #44f191;
+}
+.savedWidgets{
+	width:490px;
+	display: inline-flex; 
+	overflow-x: auto;
+	
+}
+
+.line-container {
+  display: flex;
+  width: 100%;
+  margin: 9px auto;
+  align-items: center;
+  
+}
+.appImg{
+	width:40px;
+	height:40px;
+	border-radius: 50%;
+    /* margin-top: -36px; */
+}
+.widget{
+	font-size: smaller;
+    color: #9e9e9e;
+    font-weight: 500;
+}
+.UserImages{
+    border: 2px solid #cac3c3;
+    border-radius: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75px;
+    height: 75px;
+}
+.historyHeader{
+font-size: 13px;
+    padding: 24px 0px;
+    background: #ebf6fd;
+}
+
+.historyHeaderItems{
+   height: 40px;
+}
+
+.widgetChip{
+	height: 20px;
+    font-size: 12px;
+    font-weight: 400;
+    color: white !important;
+    line-height: 20px;
+    /* width: 100px; */
+}
+.DelegatedHeading{
+	font-size: smaller; 
+	color: #03A9F4; 
+	font-weight: 600;
+}
+
+.listpanel{
+	height: auto;
+	display:inline-block;
+	margin-bottom:0px;
+    border-radius: 5px;
+    padding: 10px 0px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 2px -2px rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    border: 1px solid #ccc;
+}
+.saveCardPanel{
+	margin: 2.5rem 0 1rem 0; 
+	height: 78% !important; 
+	padding-left: 40px !important;
+	padding-right: 10px !important;
+}
+.alignlist{
+	margin-top: -15px;
+}
+
+.panelItems{
+	font-size: small;
+    /* font-weight: 500; */
+}
+
+.delegatehistory-icon{
+width: 70%;
+    border-radius: 50%;
+    margin-top: -5px;
+	
+}
+.history-icon{
+width: 90%;
+    border-radius: 50%;
+    top: -5px;
+    position: relative;
+}
+
+.widgetchip{
+	display: inline-block;
+    height: 20px;
+    font-size: 11px;
+    font-weight: 400;
+    color: white !important;
+    line-height: 20px;
+    padding: 0 12px;
+    border-radius: 16px;
+   /*  background-color: #007EE5; */
+    margin-bottom: 5px;
+    width: 88px !important;
+   
+}
+
+.edithistory{
+	color: #575757;
+	cursor: pointer !important ;
+}
+.removehistory{
+	color: #CB2F0A;
+	cursor: pointer !important;
+}
+
+#deleteDelegateModal{
+	
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    background-color: #fafafa;
+    padding: 0;
+    max-height: 70%;
+    /* width: 520px; */
+    width: 400px;
+    margin: auto;
+    overflow-y: visible;
+    border-radius: 5px;
+    will-change: top, opacity;
+    margin-top: 15%;
+    /* height: 250px; */
+    height: 200px;
+}
+
+.deletehistoryContent{
+	/* height: 145px; */
+    /* border: 1px solid #007EE5; */
+     height: 94px;
+    
+}
+
+#historyContent-vline {
+	border-right: 1px solid #007EE5;
+	/* height: 135px; */
+	margin-top: 10px;
+	float: left
+}
+
+.deletehistorybtn{
+	/* background-color: #ffffff; */
+    /* border: 1px solid #007EE5; */
+    color: white !important;
+    font-size: 13px;
+    cursor: pointer !important;
+}
+
+/* #historygrid{
+	padding-left: 80px;
+} */
+
+/* *********************
+*  Media query for Tab
+* **********************/
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px)  {
+
+	#historygrid{
+	
+    	padding-left: 0;
+	}
+	
+	.historyHeader{
+	
+		height: 70px;
+	}
+	
+	.delegate-inner-appIcon {
+    
+    	height: fit-content;
+    	width: fit-content;
+	}
+}
+.zeroPadding{
+	padding:0 !important;
+}
+.delegateSideSpace{
+	padding:0% 3%;
+}
+.headerAlign{
+	margin-top: -10px;
+}
+.text_wrap{
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.delegationWidgetName{
+	width: auto !important; 
+	cursor: pointer; 
+	margin:3px;
+	line-height: 17px; 
+	padding-left: 0; 
+	font-size: 14px;
+	 padding: 5px 12px; 
+	 height: 27px;
+}
+.searchDelegate::ng-deep.ng-select .ng-select-container{
+	border: transparent !important;
+    border-bottom: 1px solid #9e9e9e !important;
+    height: 47px !important;
+    line-height: 34px !important;
+    box-shadow: none !important;
+    padding-top: 10px;
+    background: transparent !important;
+}
+

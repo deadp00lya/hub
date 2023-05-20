@@ -1,0 +1,51 @@
+.accessdenied {
+height:100%;	
+  padding: 0;
+  margin: 0;
+  background: repeating-linear-gradient(45deg, darkred, darkred 2px, #330000 3px, #330000 8px);
+  -webkit-user-select: none;         
+  -moz-user-select: none; 
+  -ms-user-select: none; 
+}
+.accessdenied #spam {
+  background-color: lightgray;
+  border-radius: 5px;
+  margin: auto;
+  width: 85%;
+  cursor: not-allowed;
+}
+.accessdenied h1 {
+  padding-top: 30px;
+  font-size: 60px;
+  text-align: center;
+  border-bottom: 1px solid #333;
+  border-bottom-style: dashed;
+  padding-bottom: 20px;
+}
+.accessdenied spam {
+   color: red;
+   text-decoration: none;
+   cursor: not-allowed;
+}
+.accessdenied p {
+  text-align: center;
+  font-weight: bold;
+  padding-bottom: 3%;
+}
+.accessdenied small {
+  text-align: center;
+  word-spacing: -1px;
+  font-size: 10px;
+  font-weight: normal;
+  color: gray;
+}
+.accessdenied #gears {
+  text-align: center;
+  color: #333;
+  width: 200px;
+  margin: auto;
+  border-radius: 10px;
+  background-color: rgba(0,0,0,0.85);
+  /* opacity: 0.85; */
+  padding: 30px 0px;
+}

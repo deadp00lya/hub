@@ -1,0 +1,14 @@
+<svg id="Component_134_1" data-name="Component 134 – 1" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+  <g id="Component_132_1" data-name="Component 132 – 1">
+    <g id="Ellipse_855" data-name="Ellipse 855" fill="#0a7ee7" stroke="#007ee5" stroke-linecap="round" stroke-width="1">
+      <circle cx="14" cy="14" r="14" stroke="none"/>
+      <circle cx="14" cy="14" r="13.5" fill="none"/>
+    </g>
+  </g>
+  <g id="lock_open" data-name="lock open" transform="translate(8 8.25)">
+    <path id="Path_9572" data-name="Path 9572" d="M74.491,201.822H65.5a1.488,1.488,0,0,1-1.5-1.473v-6.875A1.488,1.488,0,0,1,65.5,192h8.993a1.488,1.488,0,0,1,1.5,1.473v6.875A1.488,1.488,0,0,1,74.491,201.822Zm-8.993-8.84a.5.5,0,0,0-.5.491v6.875a.5.5,0,0,0,.5.491h8.993a.5.5,0,0,0,.5-.491v-6.875a.5.5,0,0,0-.5-.491Z" transform="translate(-64 -188.016)" fill="#fff"/>
+    <path id="Path_9573" data-name="Path 9573" d="M135.029,1.592a3.026,3.026,0,0,0-6.042.156V4.2a.5.5,0,0,1-1.008,0V1.748a4.032,4.032,0,0,1,8.059-.138" transform="translate(-126.015 0)" fill="#fff"/>
+    <path id="Path_9574" data-name="Path 9574" d="M214.64,279.949a1.31,1.31,0,1,1,1.31-1.31A1.31,1.31,0,0,1,214.64,279.949Zm0-1.637a.327.327,0,1,0,.328.327A.327.327,0,0,0,214.64,278.312Z" transform="translate(-208.645 -270.821)" fill="#fff"/>
+    <path id="Path_9575" data-name="Path 9575" d="M240.491,338.783a.491.491,0,0,1-.491-.491v-1.8a.491.491,0,0,1,.982,0v1.8A.491.491,0,0,1,240.491,338.783Z" transform="translate(-234.496 -327.651)" fill="#fff"/>
+  </g>
+</svg>

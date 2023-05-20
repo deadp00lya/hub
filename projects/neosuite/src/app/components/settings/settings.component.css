@@ -1,0 +1,144 @@
+/* #settingsModal .settingcontent .heading {
+	font-size: 21px;
+	font-weight: 600;
+} */
+
+/* #generalContent li.active{
+	background-color:lightblue;
+}
+
+#proxyContent li.active{
+	background-color:lightblue;
+} */
+
+.settingcontent {
+	margin-top: 25px !important;
+    margin-bottom: 0px;
+}
+
+@media only screen and (min-width : 601px) {
+	#split-content {
+		border-right: 1px solid lightgrey;
+		height: 660px;
+		background-color: whitesmoke;
+		margin-top: 10px;
+		float: left
+	}
+}
+
+@media only screen and (max-width : 600px) {
+	#split-content {
+		border-right: 1px solid lightgrey;
+		height: 390px;
+		background-color: whitesmoke;
+		margin-top: 10px;
+		float: left
+	}
+}
+
+/*******************************************************************************************/
+
+
+#headingSpan{
+	color: #707070 !important;
+	font-size: 14px !important;
+	line-height: 30px !important;
+}
+.headingContent{
+	/* margin-left: 30px !important;
+	margin-top: 20px !important; */
+	height: 30px !important;
+	margin-bottom: 0px !important;
+	/* border: 1px solid #007EE5 !important; */
+    border-radius: 5px !important;
+    padding-left: 5px !important;
+}
+/* .lowerContent{
+	margin-left: 20px !important;
+} */
+.leftPanel{
+	margin-top: 7px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    height: 518px !important;
+    border-radius: 5px;
+    background-color: #fff;
+}
+.rightPanelContent{
+	/* border:1px solid #007EE5 !important; */
+	height: 518px !important;
+	overflow-y: auto;
+    overflow-x: hidden;
+	margin-top: 7px !important;
+	margin-bottom: 1%;
+	border-radius: 5px !important;
+	padding: 0px 0px 0px 20px;
+	background: #fafbfd;
+}
+.profileImage{
+	height: 35%;
+    border: 1px solid black;
+}
+.settingUl{
+	margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+ .settingUl  {
+	border-radius: 4px !important;
+	font-size: 14px !important;
+}
+
+.container  {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.container .row {
+  margin: 0 auto;
+}
+
+.mainCard{
+	padding-right: 0px !important;
+    padding-left: 0 !important;
+    left: 45px !important;
+    margin-bottom: 0px !important;
+    bottom: 16px !important;
+}
+#generalContent{
+	text-transform: capitalize !important;
+	width: 100%;
+	color : #ffffff;
+	border-radius:5px;
+	font-weight: 600;
+}
+
+/* *********************
+*  Media query for AdvancedUI Mobile View
+* **********************/
+@media only screen and (max-width : 600px) {
+	
+	.settingcontent {
+	margin-top: 25px !important;
+    margin-bottom: 0px;
+	}
+	.leftPanel{
+    	height: unset !important;
+	}	
+	.mainCard{
+	
+	    left: 15px !important;
+	    margin-bottom: 0px !important;
+	    bottom: 16px !important;
+	}
+	.rightPanelContent{
+	padding: 0px 0px 0px 4px !important;
+	border: transparent !important;
+	}
+	.lowerContent{
+	padding:0;
+	}
+}

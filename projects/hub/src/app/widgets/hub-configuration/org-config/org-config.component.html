@@ -1,0 +1,397 @@
+<div data-*ngIf="!showOrg">
+  <universal-list-view [(listViewFromSource)]="orgStructureList" totalCount="{{totalCount}}"
+    itemsPerPageToDisplay="{{itemsPerPageToDisplay}}" listViewUniqueCode="orgConfigListView"
+    (outPutToParentComponent)="outPutFromOrgConfig($event)"></universal-list-view>
+</div>
+
+<div data-*ngIf="showOrg">
+  <div class="row">
+    <div class="l12 ">
+      <a data-(click)="backTOListView()"> <i class="material-icons">reply</i></a>
+    </div>
+    <div classs="l12">
+      <ul class="collapsible">
+        <li>
+          <div class="collapsible-header">
+            <i class="material-icons">settings_applications</i>Org
+            configuration
+          </div>
+          <div class="collapsible-body " style="overflow: auto;">
+            <div class="row">
+              <div class="input-field col s4">
+                <input [(ngModel)]="orgConfig.titleKey" id="titleKey" type="text" class="validate"
+                  placeholder="key Name"> <label [class.active]="orgConfig.titleKey" for="titleKey"
+                  class="truncate">Title Key Name</label><span class="helper-text">For ex: employeeId(unique value of
+                  input Object)</span>
+              </div>
+              <div class="input-field col s4">
+                <input [(ngModel)]="orgConfig.startNode" id="startNode" type="text" class="validate"
+                  placeholder="Start Node Value">
+                <label [class.active]="orgConfig.startNode" for="startNode">Start
+                  node</label> <span class="helper-text">not mandatory( If start
+                  node is logged in User)</span>
+              </div>
+              <div class="input-field col s2">
+                <input [(ngModel)]="orgConfig.nodeLimit" id="nodeLimit" type="number" class="validate"> <label
+                  [class.active]="orgConfig.nodeLimit" for="nodeLimit">Child
+                  Node Limit</label>
+              </div>
+              <div class="input-field col s2">
+                <input data-[(ngModel)]="orgConfig.upperNodeLevel" id="upperNode" type="number" class="validate"> <label
+                  [class.active]="orgConfig.upperNodeLevel" for="upperNode" class="truncate">Parent Node Limit</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s3">
+                <input [(ngModel)]="orgConfig.upperNodeApi" id="upperNodeApi" type="text" class="validate"> <label
+                  [class.active]="orgConfig.upperNodeApi" for="upperNodeApi">Upper
+                  Node API</label>
+              </div>
+              <div class="input-field col s3">
+                <input [(ngModel)]="orgConfig.subordinateNodeApi" id="subordinateNode" type="text" class="validate">
+                <label [class.active]="orgConfig.subordinateNodeApi" for="subordinateNode" class="truncate">Subordinate
+                  Node
+                  API</label>
+              </div>
+
+
+              <div class="input-field col s3">
+                <input [(ngModel)]="orgConfig.startNodeApi" id="startNodeApi" type="text" class="validate"> <label
+                  [class.active]="orgConfig.startNodeApi" for="startNodeApi">Start
+                  Node Api</label>
+              </div>
+              <div class="col s3">
+                <p>
+                  <label for="colleague"> <input id="colleague" type="checkbox" class="filled-in"
+                      [(ngModel)]="orgConfig.showColleague" /> <span>Can
+                      view start node siblings</span>
+                  </label>
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <div class="center">
+                  <a class="btn-floating btn-small green lighten-1 " data-(click)="refreshFirstNode()"><i
+                      class="material-icons">refresh</i></a>&nbsp; <a class="btn-floating green btn-small lighten-1 "
+                    data-(click)="saveFirstNode();"><i class="material-icons">save</i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+    <div class="col l12" style="max-height: 220px; overflow: auto; padding: 20px">
+      <div style="margin: auto; padding: 2px;" class=" card" [style.width.px]="nodeStructure?.width">
+        <!---->
+        <div class="row " id="rowBody" *ngFor="let section of nodeStructure?.sections; let i = index"
+          style="min-height: 50px; height: auto; margin: 0px" [ngStyle]="section?.rowCss">
+          <!---->
+          <i style="top: 30px; float: left; font-size: inherit" class="material-icons" id="removeRow"
+            title="Row Configuration " data-(click)="openColumnConfigModal(i,j,k,section,'Row')">compare_arrows</i><i
+            style="float: right; font-size: inherit" class="material-icons" id="removeRow" title="Remove row"
+            data-(click)="removeRow( i )">cancel</i>
+          <!---->
+
+          <div class="col " id="columnsValue" [ngClass]="column?.width" style="height: auto"
+            [style.min-height.px]="nodeStructure?.height" *ngFor="let column of section?.columns;let j=index">
+
+            <!---->
+            <span style="position: absolute; display: grid; grid-gap: 1px; margin-left: -2%; cursor: pointer;">
+              <i data-(click)="removeColumn(i,j)" class="material-icons tiny"
+                title="Remove Column">remove_circle_outline</i>
+              <!----> <i data-(click)="openColumnConfigModal(i,j,k,column,'Column')" class="material-icons tiny"
+                title="Configure Column">compare_arrows</i>
+            </span>
+
+            <!---->
+            <div class="col s12 " id="fieldBox" data-*ngIf="column?.option == 'image'"
+              data-(click)="openColumnConfigModal(i,j,k,column,'Image')" [style.text-align]="column.align">
+              <a
+                [ngClass]="{'leftDiv': column?.align=='left','centerDiv': column?.align=='center','rightDiv': column?.align=='right'}">
+
+                <img height="50px" width="50px" [ngClass]="{'btn-floating': column?.imgCss?.a?.round}"
+                  [ngStyle]="{'width.px':column?.imgCss?.width, 'height.px': column?.imgCss?.height}"
+                  src="{{cdnUrl}}/Hub/images.png">
+              </a>
+            </div>
+
+            <div class="col s12 " id="fieldBox" data-*ngIf="column?.option =='icon'"
+              data-(click)="openColumnConfigModal(i,j,k,column,'Icon')">
+              <a style="box-shadow: none" class=""
+                [ngClass]="{'leftDiv': column?.align=='left','centerDiv': column?.align=='center','rightDiv': column?.align == 'right','btn-flat': !column?.iconCss?.a?.round && column?.iconCss?.a?.background,'btn-floating' :column?.iconCss?.a?.round && column?.iconCss?.a?.background }"
+                [style]="column?.iconCss?.a"><i class="material-icons"
+                  [style]="column?.iconCss">{{column?.keys[0]?.name}}</i></a>
+            </div>
+            <div style="overflow: hidden; display: contents" class="col s12 " id="field"
+              *ngIf="column?.option =='title'" [style.text-align]="column?.align">
+              <div style="margin-top: auto; margin-bottom: auto" data-*ngFor="let key of column?.keys; let k=index"
+                [style]="column?.keys[k]?.titleCss" data-(click)="openColumnConfigModal(i,j,k,column,'Title')">
+                {{key.name}}</div>
+
+            </div>
+            <div style="overflow: hidden; display: contents" class="col s12 " id="field"
+              *ngIf="column?.option =='label'" [style.text-align]="column?.align">
+              <div style="margin-top: auto; margin-bottom: auto" data-*ngFor="let label of column?.labels;let k = index"
+                [style]="column?.labels[k]?.labelCss" class="truncate"
+                data-(click)="openColumnConfigModal(i,j,k,column,'Label')">{{label.name}}</div>
+            </div>
+
+          </div>
+          <i style="top: 30px; float: right; font-size: inherit" class="material-icons" id="removeRow"
+            title="add column" data-(click)="addColumn( i )">post_add</i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="center column">
+      <div class="col l12" style="border-style: dotted;">
+        <div data-(click)="
+						addRow()" class="col l3">
+          <i title="add row" class="material-icons addicon small">post_add</i><label class="s12 row"
+            style="display: block; width: auto; margin: 0px;">Add
+            row</label>
+        </div>
+
+        <div class="col l3">
+          <label class="labelCss">Width</label>
+          <div>
+            <input data-[(ngModel)]="nodeStructure.width" type="number" class="ng-untouched ng-pristine ng-valid">
+          </div>
+        </div>
+        <div class="col l3">
+          <label class="labelCss">Height</label>
+          <div>
+            <input data-[(ngModel)]="nodeStructure.height" type="number" class="ng-untouched ng-pristine ng-valid">
+          </div>
+
+        </div>
+        <div class="input-field col s3">
+          <div class="center">
+            <a class="btn-floating green lighten-1 " data-(click)="refreshNodeStructure()"><i
+                class="material-icons">refresh</i></a>&nbsp; <a class="btn-floating green lighten-1 "
+              data-(click)="saveNodeStructure();"><i class="material-icons">save</i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ************************************* start - nodeStructure Modal  ************************************* -->
+<div class="modal neomodal bottom-sheet" #columnConfigModal
+  style="border-radius: 15px 15px 0px 0px !important; min-height: 300px; max-height: 500px">
+  <div class="neomodal-header ">
+    <span>{{showModal}} Configuration</span> <img class="pointer" data-(click)="closeColumnConfigModal()" style=""
+      height="18px" width="18px" class="right" src="{{cdnUrl}}/Hub/close.svg" alt="close">
+  </div>
+  <div class="modal-content">
+    <div data-*ngIf="showModal =='Image'">
+
+      <div class="col s3">
+        <label class="labelCss">image size</label>
+        <div>
+          <input placeholder="ex: 45" data-[(ngModel)]="css.height" type="number"
+            class="ng-untouched ng-pristine ng-valid">
+        </div>
+      </div>
+      <div class="col s3">
+        <label> <input data-[(ngModel)]="css.round" data-(change)="isRound($event)" type="checkbox" /> <span>Is
+            Round</span>
+        </label>
+      </div>
+    </div>
+    <div class="row" data-*ngIf="showModal =='Icon'">
+      <div class="col s3">
+        <label class="labelCss">Icon Color</label>
+        <div>
+          <input data-[(ngModel)]="css.color" type="text" class="ng-untouched ng-pristine ng-valid">
+        </div>
+      </div>
+      <div class="col s3">
+        <label class="labelCss">Icon Background</label>
+        <div>
+          <input data-[(ngModel)]="css.a.background" type="text" class="ng-untouched ng-pristine ng-valid">
+        </div>
+      </div>
+      <div class="col s3">
+        <label class="labelCss">Icon Size</label>
+        <div>
+          <input data-[(ngModel)]="css.fontSize" type="text" placeholder="ex: 20px"
+            class="ng-untouched ng-pristine ng-valid">
+        </div>
+      </div>
+      <div class="col s3">
+        <label> <input data-[(ngModel)]="css.a.round" data-(change)="isRound($event)" type="checkbox" /> <span>Is
+            Round</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="row" data-*ngIf="showModal =='Title' || showModal =='Label'">
+      <div class="col s3">
+        <label class="labelCss">font size</label>
+        <div>
+          <input data-[(ngModel)]="css.fontSize" type="text" placeholder="ex: 20px"
+            class="ng-untouched ng-pristine ng-valid">
+        </div>
+      </div>
+      <div class="col s3">
+        <label class="labelCss">font Color</label>
+        <div>
+          <input data-[(ngModel)]="css.color" type="text" class="ng-untouched ng-pristine ng-valid">
+        </div>
+      </div>
+      <div class="col s3">
+        <label class="labelCss">font weight</label>
+        <div>
+          <input data-[(ngModel)]="css.fontWeight" type="text" placeholder="ex: bold | 500"
+            class="ng-untouched ng-pristine ng-valid">
+        </div>
+      </div>
+    </div>
+    <div class="row" data-*ngIf="showModal =='Row'">
+
+      <div class="col s3">
+        <label> <input [(ngModel)]="css.Top" data-(change)="isBorder('Top',$event)" type="checkbox" /> <span>Top
+            Border</span>
+        </label> &nbsp; <label> <input [(ngModel)]="css.Right" data-(change)="isBorder('Right',$event)"
+            type="checkbox" /> <span>Right
+            Border</span>
+        </label>&nbsp; <label> <input [(ngModel)]="css.Left" data-(change)="isBorder('Left',$event)" type="checkbox" />
+          <span>Left
+            Border</span>
+        </label>&nbsp; <label> <input [(ngModel)]="css.Bottom" data-(change)="isBorder('Bottom',$event)"
+            type="checkbox" /> <span>Bottom
+            Border</span>
+        </label>
+      </div>
+      <div class="col s3">
+        <label class="labelCss">Border Color</label>
+        <div>
+          <input data-[(ngModel)]="css.borderColor" type="text" placeholder="ex: black | #000000 "
+            class="ng-untouched ng-pristine ng-valid">
+        </div>
+      </div>
+      <div class="col s3">
+        <label class="labelCss">Border Width</label>
+        <div>
+          <input data-[(ngModel)]="css.borderWidth" type="text" placeholder="ex: 1px | Thin | Thik"
+            class="ng-untouched ng-pristine ng-valid">
+        </div>
+      </div>
+      <div class="col s3">
+        <label class="labelCss">Row Background</label>
+        <div>
+          <input data-[(ngModel)]="css.background" type="text" placeholder="ex: blue | #304ffe"
+            class="ng-untouched ng-pristine ng-valid">
+        </div>
+      </div>
+    </div>
+    <div data-*ngIf="showModal =='Column'">
+      <div class="row">
+        <div class="col s3 ">
+          <label class="labelCss">Set Size </label>
+          <div>
+            <input placeholder="ex: l12" id="columnSize" class="ng-untouched ng-pristine ng-valid"
+              data-[(ngModel)]="column.width" type="text">
+          </div>
+        </div>
+
+        <div class="myNgSelect input-field col s3" id="myNgselect">
+
+          <ng-select [items]="align" class="mySelectCss" bindLabel="name" [dropdownPosition]="'bottom'" bindValue="name"
+            [(ngModel)]="column.align"> </ng-select>
+          <label class="myLabelCss" translate>Select alignment </label>
+
+        </div>
+        <div class="myNgSelect input-field col s3" id="myNgselect">
+
+          <ng-select [items]="options" class="mySelectCss" [dropdownPosition]="'bottom'" data-(change)="selectTag()"
+            bindLabel="name" bindValue="name" data-[(ngModel)]="column.option"> </ng-select>
+          <label class="myLabelCss" translate>Select alignment </label>
+
+        </div>
+
+      </div>
+      <div class=" row" data-*ngIf="!(column?.option =='label')">
+        <div data-*ngFor="let key of column?.keys;let i = index" class="col l3">
+          <div class="col l10 ">
+            <label class="labelCss">key Name</label>
+            <div>
+              <input class="ng-untouched ng-pristine ng-valid" data-[(ngModel)]="column.keys[i].name" type="text">
+            </div>
+          </div>
+          <div data-*ngIf="column?.option == 'title'">
+            <i data-*ngIf="column?.keys?.length == i+1" data-(click)="addKey(i)" style="margin-top: 25px;"
+              class="material-icons grey-text tiny">add_circle_outline</i> <i
+              data-*ngIf="i+1 == column?.keys?.length && i !=0" data-(click)="removeKey(i)"
+              class="material-icons grey-text tiny" style="margin-top: 25px;">remove_circle_outline</i>
+          </div>
+        </div>
+
+      </div>
+      <div class=" row" data-*ngIf="column?.option =='label'">
+        <div data-*ngFor="let label of column?.labels;let i = index" class="col l3">
+          <div class="col l10 ">
+            <label class="labelCss">Label</label>
+            <div>
+              <input class="ng-untouched ng-pristine ng-valid" data-[(ngModel)]="column.labels[i].name" type="text">
+            </div>
+          </div>
+
+          <div data-*ngIf="column?.option == 'label'">
+            <i data-*ngIf=" column?.labels?.length == i+1" data-(click)="addLabel(i)" style="margin-top: 25px;"
+              class="material-icons grey-text tiny">add_circle_outline</i> <i
+              data-*ngIf="i+1 == column?.labels?.length && i !=0" data-(click)="removeLabel(i)"
+              class="material-icons grey-text tiny" style="margin-top: 25px;">remove_circle_outline</i>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 0px">
+      <div class="input-field col s12">
+        <div class="center">
+          <a class="btn-floating btn-small green lighten-1 " data-(click)="refreshConfig()"><i
+              class="material-icons">refresh</i></a>&nbsp;
+          <a class="btn-floating green btn-small lighten-1 " data-(click)="saveColumn();"><i
+              class="material-icons">save</i></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- *************************************  nodeStructure Modal - end  ************************************* -->
+<!-- ************************************* start - add org modal ************************************* -->
+<div class="modal neomodal" #addOrgModal>
+  <div class="neomodal-header ">
+    <Span *ngIf="disabledBit">Add Org</Span>
+    <Span *ngIf="disabledBit">Update Org</Span> <img class="pointer" data-(click)="closeOrgModal()" style=""
+      height="18px" width="18px" class="right" src="{{cdnUrl}}/Hub/close.svg" alt="close">
+  </div>
+  <div class="neomodal-body row" style="margin: 0px">
+    <div class="input-field col s5">
+      <input [(ngModel)]="orgStructureDTO.orgStructureCode" [disabled]="disabledBit" id="orgStructureCode" type="text"
+        class="validate"> <label data-[class.active]="orgStructureDTO.orgStructureCode" for="orgStructureCode">ORG
+        Structure Code</label>
+    </div>
+    <div class="input-field col s5">
+      <input [(ngModel)]="orgStructureDTO.orgStructureName" id="orgStructureName" type="text" class="validate"> <label
+        data-[class.active]="orgStructureDTO.orgStructureName" for="orgStructureName" class="truncate">ORG Structure
+        Name</label>
+    </div>
+    <div class="input-field col s2">
+      <div class="center">
+        <a *ngIf="!disabledBit" class="btn-floating btn-small green lighten-1 " data-(click)="refreshOrg()"><i
+            class="material-icons">refresh</i></a>&nbsp;
+        <a class="btn-floating green btn-small lighten-1 " data-(click)="saveOrg();"><i
+            class="material-icons">save</i></a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ************************************* Add Org Modal - end ************************************* -->

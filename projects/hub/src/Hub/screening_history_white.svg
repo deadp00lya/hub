@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="448" height="384" viewBox="0 0 448 384">
+  <g id="history_icon" transform="translate(0 -32)">
+    <g id="Group_13157" data-name="Group 13157">
+      <g id="Group_13156" data-name="Group 13156">
+        <path id="Path_7348" data-name="Path 7348" d="M234.667,138.667V245.333l91.306,54.187,15.36-25.92-74.666-44.267V138.667Z" fill="#fff"/>
+        <path id="Path_7349" data-name="Path 7349" d="M255.893,32C149.76,32,64,117.973,64,224H0l83.093,83.093,1.493,3.093L170.667,224h-64a149.68,149.68,0,1,1,43.84,105.493L120.32,359.68A190.78,190.78,0,0,0,255.893,416C362.027,416,448,330.027,448,224S362.027,32,255.893,32Z" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

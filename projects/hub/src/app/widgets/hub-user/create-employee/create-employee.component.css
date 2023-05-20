@@ -1,0 +1,250 @@
+.pexActiveTab {
+	color: cornflowerblue !important;
+	font-weight: 900;
+}
+
+.pexTabItem {
+	display: inline-block;
+	text-align: center;
+	line-height: 48px;
+	height: 48px;
+	padding: 0;
+	margin: 0;
+	text-transform: uppercase;
+}
+
+.abc:hover {
+	opacity: 0.7;
+	box-shadow: 10px 0px 10px 0px;
+}
+
+#createMainDiv ::ng-deep .pexDateTime {
+	border-bottom: none !important;
+	color: #077dde !important;
+	margin-bottom: -6px !important;
+	margin-top: -6px !important;
+}
+
+.hideMe {
+	display: none !important;
+}
+
+.showMe {
+	display: block !important;
+}
+
+#createMainDiv {
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.myCard {
+	padding: 10px !important;
+}
+
+#createMainDiv ::ng-deep .img1 {
+	position: relative;
+	padding-top: 29px !important;
+	z-index: 0;
+}
+
+.colicon {
+	margin-left: -4vw;
+}
+
+h4 {
+	font-weight: bold;
+}
+
+.pexAutoHeight {
+	height: auto !important;
+}
+
+#pexTab ::ng-deep li .active {
+	font-weight: 800 !important;
+}
+
+#pexAuto ::ng-deep .completer-dropdown {
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.pexTab {
+	max-height: 48px !important;
+}
+
+span {
+	color: #007EE5;
+	font-family: sans-serif;
+}
+
+#scale-demo {
+	background-color: #FF6F79 !important;
+}
+
+.btn-floating i {
+	font-size: 1.5rem;
+}
+
+.tabs {
+	border-top: 1 solid #ECF5FC;
+	height: 14%;
+	border-radius: 0.5vw;
+	/* 	margin-bottom: 1%; */
+}
+
+#createMainDiv ::ng-deep .indicator {
+	background-color: #007EE5 !important;
+}
+
+.tabs .tab a {
+	color: #007EE5;
+	width: 100%;
+}
+
+legend {
+	color: #6B6B94;
+}
+
+fieldset {
+	border: 0;
+	border-radius: 5px;
+}
+
+#createMainDiv ::ng-deep input[type=text] {
+	border-bottom: none;
+	color: #007EE5;
+/* 	height: 100% !important; */
+}
+
+.editColor {
+	color: #007EE5;
+	font-weight: bold !important;
+}
+
+progress {
+	border: 0;
+	height: 36px;
+	width: 90%;
+	border-radius: 20px;
+}
+
+progress::-webkit-progress-bar {
+	border: 1px solid green;
+	height: 36px;
+	border-radius: 20px;
+	background: transparent !important;
+}
+
+progress::-webkit-progress-value {
+	border: 0;
+	height: 36;
+	border-radius: 20px;
+	background: #00C383 !important;
+}
+
+progress::-moz-progress-bar {
+	border: 0;
+	height: 36px;
+	border-radius: 20px;
+	background: transparent !important;
+}
+
+.row {
+	/* 	margin-bottom: 1px; */
+	
+}
+
+.marginsize {
+	margin-left: 21% !important;
+	color: white !important;
+}
+
+i.fa {
+	border-radius: 60px;
+	background: #FFDFE4;
+}
+
+fieldset ::ng-deep input[type=date] {
+	border-bottom: none;
+	height: 100% !important;
+}
+
+fieldset::ng-deep .select-wrapper input.select-dropdown {
+	height: 105% !important;
+}
+
+::ng-deep .dropdown-content {
+	max-height: 280px !important;
+	overflow-y: auto;
+}
+
+.loading {
+	top: 50%;
+	bottom: 50%;
+	position: absolute;
+	left: 50%;
+}
+
+#viewEmployeeIdModal {
+	/* 	width: 40% !important; */
+	width: 33% !important;
+}
+
+.pexBorderStyle {
+	color: black !important;
+	border-width: 1px;
+	border-style: solid;
+	min-height: 24px !important;
+}
+
+#viewGlobalIdModal {
+	/* 	width: 40% !important; */
+	width: 33% !important;
+}
+
+#changeColour {
+	color: red !important;
+}
+
+.coloumnwrap {
+	display: flex !important;
+	flex-wrap: wrap !important;;
+	margin: 0px !important
+}
+
+.parentDiv {
+	background: #1eace6;
+	height: 100%;
+	overflow: auto;
+}
+
+.iconDiv {
+	font-size: 190px;
+	color: white;
+	border: 15px solid;
+}
+
+.spanClass {
+	font-size: 20px;
+	color: white;
+}
+
+#middleLine {
+	border-left: 6px solid white;
+	height: 500px;
+	position: absolute;
+	left: 50%;
+	margin-top: 70px;
+	top: 0;
+}
+
+.changeSize {
+	margin-left: 100% !important;
+}
+
+.changePosition {
+	left: 100% !important;
+}

@@ -1,0 +1,13 @@
+
+#sessionExpireModal {
+  top:30% !important;
+  max-width: 500px;;
+}
+#sessionExpireModal .modal-content {
+  padding-right: 24px;
+  padding-left: 24px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  
+  
+}

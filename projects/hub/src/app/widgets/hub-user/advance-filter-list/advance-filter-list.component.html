@@ -1,0 +1,64 @@
+<div id="oed_advance_filter" class="row" style="margin-bottom: 0px">
+    <div class="col s12">
+        <div class="col s4" style="margin-top: 10px">
+            <label> Country</label>
+            <ng-select name="oed_countryName" [items]="countryList" bindLabel="countryName"
+                [(ngModel)]="advanceFilterDTO.countryCode" bindValue="countryCode"
+                (change)="onCountrySelect(advanceFilterDTO.countryCode)" style="margin-top:0px;text-align: center;"
+                placeholder="{{ 'Select Country' | translate}}" notFoundText="{{ 'Country Not Found' | translate}}"
+                (open)="selectRefresh()" (change)="onCountrySelect(advanceFilterDTO.countryCode)">
+            </ng-select>
+        </div>
+
+
+
+        <div class="col s4" style="margin-top: 10px">
+            <label> Business unit</label>
+            <ng-select name="oed_leName" [items]="countryBusinessUnitList" bindLabel="businessunitName"
+                [(ngModel)]="advanceFilterDTO.businessunitCode" bindValue="businessunitCode"
+                placeholder="{{ 'Select Businessunit Name' | translate}}" notFoundText="{{ 'Businessunit Not Found' | translate}}"
+                style="margin-top:0px;text-align: center;"
+                (change)="onLocationSelect(advanceFilterDTO.countryCode,advanceFilterDTO.businessunitCode);">
+            </ng-select>
+        </div>
+
+        <div class="col s4" style="margin-top: 10px">
+            <label>Date of joining</label>
+            <div id="dateofJouiningborder">
+                <input #dateTime="ngModel" style="margin-top: -7%;" class="col s11"
+                    [(ngModel)]="advanceFilterDTO.dateOfJoining" id="dateOfJoining" [owlDateTimeTrigger]="dateOfJoining"
+                    (ngModelChange)="dateConverter()" [owlDateTime]="dateOfJoining">
+                    <span style="font: size 15px;" *ngIf="advanceFilterDTO.dateOfJoining != null" style="margin-top: 5px;">
+                        <i class="material-icons" style="opacity: 0.35;" (click)="resetDate()" title="{{'Remove date'|translate}}">close</i>
+                    </span>
+                <span class="example-trigger right" [owlDateTimeTrigger]="dateOfJoining">
+                    <img src="{{inCdnPath}}/Hub/calendar.svg" style="height: 18px;margin-top: 9px;"></span>
+
+                <owl-date-time [pickerType]="'calendar'" #dateOfJoining></owl-date-time>
+            </div>
+        </div>
+    </div>
+
+    <div class="col s12">
+        <div class="col s6" style="margin-top: 10px">
+            <label> Employee Status</label>
+            <ng-select name="location_list" [items]="employeeStatusList" bindLabel="name"
+            placeholder="{{ 'Select Employee Status' | translate}}" notFoundText="{{ 'Employee Status Not Found' | translate}}"
+                [(ngModel)]="advanceFilterDTO.employeeStatus" bindValue="name">
+            </ng-select>
+        </div>
+
+        <div class="col s6" style="margin-top: 10px">
+            <label> Location</label>
+            <ng-select name="location_list" [items]="locationList" bindLabel="locationName"
+            placeholder="{{ 'Select Location Name' | translate}}" notFoundText="{{ 'Location Not Found' | translate}}"
+                [(ngModel)]="advanceFilterDTO.location" bindValue="locationCode">
+            </ng-select>
+        </div>
+
+    </div>
+    <div class="col s12 " style="margin-top: 20px">
+        <button class=" right oed_advance_filter_button" (click)="fetchAdvanceDetails();">Apply</button>
+        <button class=" right oed_advance_filter_button" (click)="reset()" style="margin-right: 10px">Reset</button>
+    </div>
+</div>

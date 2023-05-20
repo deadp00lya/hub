@@ -1,0 +1,1289 @@
+#search {
+	border-radius: 21px;
+	z-index: 1;
+	height: 40px !important;
+	position: relative !important;
+	border: solid 1px #e0e0e0;
+	text-align: center;
+}
+
+.filterCol_Open{
+	 border: 1px solid #F4D100;
+	 border-radius: 25px;
+	 color: #F4D100;
+	 
+}
+
+.filterCol_Accepted{
+	 border: 1px solid #FE9700;
+	 border-radius: 25px;
+	 color: #FE9700;
+}
+
+
+.filterCol_WIP{
+	 border: 1px solid #3468F6;
+	 border-radius: 25px;
+	 color: #3468F6;
+}
+
+
+.filterCol_Reopen{
+	 border: 1px solid #FFCA28;
+	 border-radius: 25px;
+	 color: #FFCA28;
+}
+.filterCol {
+     height: 40px !important;
+	 border-radius: 25px;
+	 text-align: center;
+	 margin-left: 10px !important;
+	 line-height: 35px;
+	 font-size: 14px;
+	 width: 22% !important;
+	 
+}
+
+.filterCol.active
+{
+	font-size: 16px;
+    font-weight: bold;
+	
+}
+
+.viewTicketTabDiv {
+	display: table;
+	height: 40px !important
+}
+
+.viewTicketTabInnerDiv {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.filterImg {
+	margin-left: 10px;
+	height: 40px;
+	width: 40px;
+}
+
+#viewTicketTabs {
+	border: 1px solid #007EE5;
+	border-radius: 25px;
+	height: 40px !important;
+	margin-left: 19px;
+	margin-top: 20px;
+}
+
+.viewTicketTabSpan {
+	font-size: 14px !important;
+	color: #007EE5 !important;
+	margin-left: 7px;
+	padding: 0;
+	font-family: Roboto Medium;
+}
+
+.img-valign {
+	vertical-align: middle;
+	margin-bottom: 0.75em;
+}
+
+#viewTicketTabs div.active {
+	border: 1px solid #007EE5;
+	height: 40px !important;
+	border-radius: 25px;
+	background-color: #007EE5;
+}
+
+#viewTicketTabs div.active span {
+	color: white !important;
+}
+
+.viewTicketNavBarImg {
+	height: 20px !important;
+}
+
+.groupTicketpageSizeDropdown {
+	display: inline-block;
+	color: #007EE5;
+	position: relative;
+	overflow: hidden;
+	width: 40px !important;
+	height: 40px !important;
+	border-radius: 50%;
+	transition: background-color .3s;
+	cursor: pointer;
+	vertical-align: middle;
+	border: 1px solid #007EE5;
+}
+
+.groupTicketConfigureColumnDropdown {
+	display: inline-block;
+	color: #007EE5;
+	position: relative;
+	overflow: hidden;
+	width: 40px !important;
+	height: 40px !important;
+	border-radius: 50%;
+	transition: background-color .3s;
+	cursor: pointer;
+	vertical-align: middle;
+	border: 1px solid #007EE5;
+}
+
+.statusBtn {
+	border-radius: 0 0 10px 10px !important;
+	margin-top: 0px;
+	text-transform: none;
+	font-size: 12px;
+	font-family: Roboto, Bold;
+	width: 50% !important;
+}
+
+
+.groupTicketListViewCardAction {
+	border: 1px solid #007EE5;
+	border-radius: 25px;
+	height: 40px !important;
+	display: table;
+	width: 100% !important;
+}
+
+.groupTicketListViewActionCols {
+	height: 35px !important;
+	padding-top: 3px !important;
+}
+
+/* .Open
+{
+	background: #FFED50;
+	opacity: 100%
+}
+
+.Accepted
+{
+	background: #FE9700;
+	opacity: 100%
+}
+
+
+.WIP
+{
+	background: #3468F6;
+	opacity: 100%
+}
+
+
+.Resolved
+{
+	background: #10DEBD;
+	opacity: 100%
+}
+
+
+.Closed
+{
+	background: #13A272;
+	opacity: 100%
+}
+
+
+.Reopened
+{
+	background: #FFCA28;
+	opacity: 100%
+}
+
+.Rejected
+{
+	background: #FA5E5B;
+	opacity: 100%
+}
+
+.Reassigned
+{
+	background: #10D1E9;
+	opacity: 100%
+}
+
+.Awaiting
+{
+	background: #2A96E9;
+	opacity: 100%
+} */
+#groupTicketListViewContent {
+	margin-top: -25px !important;
+}
+
+.queryIdFont {
+	font-size: 16px;
+	color: #575757;
+	font-family: Roboto Medium;
+}
+
+.queryNameFont {
+	font-size: 14px;
+	color: #60ADE8;
+	font-family: Roboto, Regular;
+}
+
+.headingFonts {
+	font-weight: bold;
+	font-family: Roboto Medium;
+	font-size: 18px;
+	color: #575757;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.listViewRowMargin {
+	/* 	margin-top: 15px !important; */
+	height: 40px;
+	border-right: 0.5px solid lightblue;
+	line-height: 40px !important;
+	font-size: 12px;
+}
+
+.listViewHeader {
+	border-radius: 10px;
+	margin: 5px;
+	border: 0.5px solid lightblue;
+}
+
+.listViewHeaderMargin {
+	border-right: 0.5px solid lightblue;
+	padding: 5px !important;
+}
+
+.listViewHeaderFont {
+	font-family: Roboto Medium;
+	font-size: 16px;
+	opacity: 50% !important;
+	color: #575757;
+}
+
+.listViewInnerDiv {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#groupTicketListViewContent .statusBtn_Open {
+	border-color: #FFED50 !important;
+	background-color: #F4D100;
+}
+
+#groupTicketListViewContent .statusBtn_Accepted {
+	border-color: #FE9700 !important;
+	background-color: #FE9700;
+}
+
+#groupTicketListViewContent .statusBtn_WIP {
+	border-color: #3468F6 !important;
+	background-color: #3468F6;
+}
+
+#groupTicketListViewContent .statusBtn_Resolved {
+	border-color: #10DEBD !important;
+	background-color: #10DEBD;
+}
+
+#groupTicketListViewContent .statusBtn_Closed {
+	border-color: #13A272 !important;
+	background-color: #13A272;
+}
+
+#groupTicketListViewContent .statusBtn_Rejected {
+	border-color: #FA5E5B !important;
+	background-color: #FA5E5B;
+}
+
+#groupTicketListViewContent .statusBtn_Reopened {
+	border-color: #FFCA28 !important;
+	background-color: #FFCA28;
+}
+
+#groupTicketListViewContent .statusBtn_Reassigned {
+	border-color: #10D1E9 !important;
+	background-color: #10D1E9;
+}
+
+#groupTicketListViewContent .statusBtn_Awaiting {
+	border-color: #2A96E9 !important;
+	background-color: #2A96E9;
+}
+
+.groupTicketListCard {
+	border-radius: 5px;
+	margin: 5px;
+	border: 0.5px solid lightblue;
+	height: 40px;
+}
+
+#buzzer_group_ConfigureColumn {
+	width: 170px !important;
+	border-radius: 10px
+}
+
+#buzzer_group_ConfigureColumn ::ng-deep [type="checkbox"].filled-in:not(:checked )+span:not(.lever ):after {
+	border: 1px solid #03A9F4 !important;
+	
+}
+
+#buzzer_group_ConfigureColumn ::ng-deep [type="checkbox"].filled-in:checked+span:not(.lever ):after {
+	border: 1px solid #007EE5 !important;
+	background-color: #007EE5 !important;
+}
+
+#buzzer_view_ConfigureColumn {
+	width: 170px !important;
+	border-radius: 10px
+}
+
+#buzzer_view_selectPageSize {
+	overflow: inherit !important;
+	border-radius: 10px;
+	max-height: unset !important;
+	min-width: 43px !important;
+	width: 10px !important;
+	height: auto !important;
+}
+
+#buzzer_view_selectPageSize:after {
+	content: "";
+	position: absolute !important;
+	width: 25px !important;
+	height: 25px;
+	background: #ffffff;
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+	top: 0 !important;
+	right: 10px !important;
+	z-index: -1;
+}
+
+.listViewActionDiv {
+	padding-right: 5px !important;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#groupListSelect ::ng-deep .select-wrapper input.select-dropdown {
+	background-color: white;
+	border: 1px solid #BCE0FD;
+	border-radius: 10px;
+	font-size: 14px !important;
+	height: 35px !important;
+	font-family: Roboto, Regular;
+	padding: 0px 9px;
+	color: #2699FB;
+}
+
+#groupListSelect ::ng-deep .select-wrapper input.select-dropdown {
+	/* 	/ background-color: white; / */
+	background-color: #F1F9FF;
+	overflow: scroll;
+	max-height: 400px;
+}
+
+.groupTicketListCard:hover .short-and-fixed {
+	display: inline-block;
+}
+
+#groupTicket_AllTickets_Collection_Div {
+	overflow: visible;
+	max-height: 450px !important;
+	overflow: auto !important;
+}
+
+#My_Tickets_Pin_Btn {
+	color: green !important;
+	font-size: 22px !important;
+}
+
+.updatePageChips {
+	border: 1px solid;
+	margin-top: -3px;
+	height: 30px;
+}
+
+.chipContent {
+	display: inline-flex;
+}
+
+#updatePageChipIcon {
+	padding-top: 5px ! important;
+}
+
+#My_Tickets_UnPin_Btn {
+	color: #0035ffc9 !important;
+	font-size: 22px !important;
+}
+
+.viewTicketsPin {
+	border-left: 7px solid #ff0000bf !important;
+}
+
+.viewTicketGreenBackground {
+	border-left: 6px solid #81c784;
+}
+
+.viewTicketpPinkBackground {
+	border-left: 6px solid #f48fb1;
+}
+
+#buzzer_selectPageSize {
+	overflow: inherit !important;
+	border-radius: 10px;
+	min-width: 43px !important;
+	width: 10px !important;
+	height: auto !important;
+}
+
+#buzzer_selectPageSize:after {
+	content: "";
+	position: absolute !important;
+	width: 25px !important;
+	height: 25px;
+	background: #ffffff;
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+	top: 0 !important;
+	right: 10px !important;
+	z-index: -1;
+}
+
+#My_Tickets_Pin_Btn {
+	color: #0035ffb0 !important;
+	font-size: 22px !important;
+	margin-top: 8px
+}
+
+#buzzer_selectPageSize>li {
+	text-align: center !important;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	line-height: 45px;
+}
+
+#buzzer_Group_Filter_dropdown-content {
+	margin: 8px 0px 0px 0px;
+}
+
+#Buzzer_GroupTickets_Subordinate_View_Btn {
+	background-color: #444;
+	text-transform: none;
+	border-radius: 24px;
+}
+
+#buzzer_modal_field_content {
+	height: 45px;
+	margin-top: -13px;
+}
+
+#buzzer_modal_content_margin {
+	margin-top: 20px;
+}
+
+#My_Tickets_Save_Btn {
+	background-color: #444;
+	text-transform: none;
+	border-radius: 24px;
+	cursor: pointer;
+}
+
+.buzzerPointer {
+	cursor: pointer !important;
+}
+
+#buzzergroupPagination ::ng-deep .ngx-pagination  .current {
+	padding: 0.1875rem 0.625rem;
+	background: #007EE5 !important;
+	cursor: default;
+}
+
+#My_Tickets_DeleteBtn {
+	background-color: #444;
+	text-transform: none;
+	border-radius: 24px;
+	cursor: pointer;
+}
+
+#My_Tickets_Apply_Btn {
+	margin-left: -5px;
+	background-color: #444;
+	text-transform: none;
+	border-radius: 24px;
+	cursor: pointer;
+}
+
+#My_Tickets_Clear_Btn {
+	background-color: #444;
+	text-transform: none;
+	border-radius: 24px;
+	cursor: pointer;
+}
+
+#buzzer_fieldsConfiguration_margin {
+	padding: 0px;
+}
+
+.flex-parent {
+	display: flex;
+}
+
+.long-and-truncated {
+	flex: 1;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#buzzer_Group_Icons {
+	font-size: 22px !important;
+	margin-top: 8px !important
+}
+
+.short-and-fixed {
+	display: none;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.cmModalMargin {
+	margin-top: -40px;
+}
+
+#cmModal {
+	background-color: #000c;
+	margin-bottom: 0px;
+}
+
+.collection-item:hover .short-and-fixed {
+	display: inline-block;
+}
+
+#Group_Main_Div {
+	height: 100%;
+}
+
+#ModalHeader {
+	height: 25px;
+	background-color: #000c;
+	margin-bottom: 0px;
+}
+
+#ModalDiv {
+	margin-top: 5px;
+}
+
+
+#My_Tickets_FirstHeader {
+	margin-top: 2px;
+}
+
+#buzzer_group_AssignBtn {
+	cursor: pointer;
+	margin-top: -14px;
+}
+
+/* .modal {
+	width: 40% !important;
+} */
+#buzzer_group_modal2 {
+	height: 28%;
+	width: 30%;
+	height: 28%;
+}
+
+.My_Tickets_Header:hover {
+	background-color: #f5f5f5;
+	color: #0377bd;
+	border-radius: 4px;
+}
+
+#My_Tickets_Pointer {
+	cursor: pointer;
+}
+
+#buzzer_group_My_SearchBoxDiv {
+	margin-top: 5px;
+}
+
+#buzzer_group_SearchIcon {
+	margin-top: 5px;
+	color: grey;
+}
+
+#My_Group_FilterDiv {
+	margin-top: -25px;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	height: auto;
+	margin-left: 12px;
+	margin-right: 12px;
+}
+
+#Buzzer_Update_Tickets_FilterDiv {
+	margin-top: -25px;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	height: auto;
+	margin-left: 12px;
+	margin-right: 12px;
+}
+
+#My_Tickets_Filter_Label_Div {
+	border-bottom: 1px solid lightgrey;
+	margin-top: -2px;
+}
+
+#My_Tickets_Filter_Label {
+	color: grey;
+	margin-top: 2px;
+}
+
+#My_Tickets_Filter_Close_Icon {
+	color: grey;
+	cursor: pointer;
+}
+
+#My_Tickets_Main_Filters {
+	margin-top: 5px;
+}
+
+#Buzzer_GroupTickets_Filter_Btn {
+	background-color: #444 !important;
+	text-transform: none !important;
+	border-radius: 24px !important;
+	margin: 0px 3px 0px 3px !important;
+}
+
+#buzzer_group_Pagination_Div {
+	margin-top: 5px;
+}
+
+#buzzer_group_replayBtn {
+	background-color: #444;
+}
+
+#My_Tickets_Filter_Btn {
+	background-color: #4A91D7;
+	text-transform: none;
+	border-radius: 24px;
+}
+
+#buzzer_group_Filter_Btn_Div {
+	margin-top: 20px;
+}
+
+#buzzer_group_Collection_Div {
+	border: none !important;
+	margin-top: -20px;
+}
+
+#buzzer_group_AllTickets_Div {
+	margin-top: -20px;
+}
+
+#My_Tickets_NoTicketsFound {
+	margin-left: 100px;
+}
+
+#buzzer_group__Pointer {
+	cursor: pointer !important;
+}
+
+.MyTickets_SortIcon {
+	transform: rotate(180deg);
+}
+
+.viewGroupTicketGreenBackground {
+	border-left: 6px solid #81c784;
+}
+
+.viewGroupTicketPinkBackground {
+	border-left: 6px solid #f48fb1;
+}
+
+#viewGroupNamesServiceDesk ::ng-deep .dropdown-content {
+	height: 175px;
+	overflow-y: auto;
+}
+
+#My_Group_Filter_dropdown-content ::ng-deep .dropdown-content {
+	max-height: 215px;
+}
+
+#myGroupLoader {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 999;
+}
+
+@keyframes ld-cycle {
+  0%, 50%, 100% {
+    animation-timing-function: cubic-bezier(0.5, 0.5, 0.5, 0.5);
+  }
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  50% {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes ld-cycle {
+  0%, 50%, 100% {
+    animation-timing-function: cubic-bezier(0.5, 0.5, 0.5, 0.5);
+  }
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  50% {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.rotating  {
+  -webkit-animation: ld-cycle 1s infinite linear;
+  animation: ld-cycle 1s infinite linear;
+}
+ 
+.modal-content {
+	padding: 15px;
+	font-size: 13px;
+}
+
+.divTableRow {
+	width: 100%;
+	margin: 0px;
+	border-bottom: 1px solid lightgrey;
+}
+
+.odd {
+	/* border-right: 1px solid lightgrey;	 */
+	font-weight: bold;
+	text-transform: none;
+	padding-top: 5px;
+	display: table-cell;
+}
+
+.even {
+	text-transform: none;
+	padding-top: 5px;
+	display: table-cell;	
+	min-height: 24px;
+    border-left: 1px solid lightgrey;
+    overflow-wrap: break-word;
+}
+
+#modal2 {
+	width: 51%;
+	z-index: 3 !important;
+}
+
+.noBottomMargin {
+	margin-bottom: 0px;
+}
+
+#Buzzer_ViewTickets_Fieldset {
+	border: 1px solid #c0c0c0 !important;
+	margin-top: 7px;
+	border-radius: 4px !important;
+	padding: 0.35em 0.625em 0.75em !important;
+	/* max-height: 50px; */
+}
+
+.search_div_tab {
+	margin-left: 4px;
+}
+
+.search_div_tab .btn {
+	height: 41px;
+	margin-bottom: 4px;
+	border-radius: 5px;
+	margin-top: 3px;
+	background-color: rgba(255, 255, 255, 1.2);
+	color: black;
+	border: 1px solid lightgrey;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px
+		rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+	text-transform: none;
+}
+
+.search_div_tab .btn:HOVER {
+	box-shadow: none;
+	border: 1px solid black;
+	text-transform: none;
+	color: black !important;
+}
+
+.search_div_tab_btn_active {
+	box-shadow: none !important;
+	border: 1px solid black !important;
+	text-transform: none;
+	color: black !important;
+}
+
+#search_div_select {
+	padding-right: 17px;
+	margin-left: 0px;
+	padding-left: 7px;
+}
+
+#search_div_select   ::ng-deep .select-wrapper input.select-dropdown {
+	height: 2.4rem !important;
+}
+
+.fa-spinner {
+	pointer-events: none;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.noClick {
+	pointer-events: none;
+}
+
+#resolveTicket_Modal {
+	width: 30% !important;
+	top: 25% !important;
+	border-radius: 15px;
+}
+#rejectModalgroup {
+	width: 30% !important;
+	top: 25% !important;
+	border-radius: 15px;
+}
+
+.cannedModalButtons {
+	cursor: pointer;
+	margin-left: 3px;
+	margin-right: 3px;
+}
+
+.cannedModalButtons i {
+	color: black;
+}
+
+.cannedResponseFieldset {
+	overflow-y: scroll;
+	height: 350px;
+}
+
+#searchIcon {
+	margin-left: 10px;
+	color: grey;
+}
+
+#searchText {
+	width: 100%;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+	background-color: white;
+	background-position: 10px 10px;
+	background-repeat: no-repeat;
+	padding: 12px 20px 12px 40px;
+	border-radius: 10px;
+	margin-left: 0px;
+}
+
+#noCannedResponseFound {
+	text-align: center;
+}
+
+.cannedResponse_Collection_Div {
+	margin-top: -15px;
+	height: 40px;
+	overflow: hidden !important;
+	text-overflow: ellipsis;
+	max-width: 338px;
+	cursor: pointer;
+}
+
+.filterCol .active {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+
+#groupTicket_moreDropdown {
+	width: 170px !important;
+	border-radius: 10px;
+	height: auto !important;
+}
+
+
+#Group_Main_Div ::ng-deep [type="checkbox"].filled-in:not(:checked )+span:not(.lever ):after {
+	border: 1px solid #03A9F4 !important;
+}
+
+#Group_Main_Div ::ng-deep [type="checkbox"].filled-in:checked+span:not(.lever 
+	):after {
+	border: 1px solid #007EE5 !important;
+	background-color: #007EE5 !important;
+}
+
+#Group_Main_Div .btn {
+	text-transform: none !important;
+}
+
+#groupTicket_filterDropdown {
+	width: 310px !important;
+	height: auto !important;
+	overflow: hidden !important;
+	max-height: unset !important;
+	z-index: 1000 !important;
+}
+
+#groupTicket_filterDropdown [type="radio"]:not(:checked) + span:before, [type="radio"]:not(:checked) + span:after {
+	border: 1px solid #007EE5 !important;
+}
+
+#groupTicket_filterDropdown [type="radio"].with-gap:checked+span:after {
+	background-color: #007EE5 !important;
+}
+
+
+#groupTicket_filterDropdown [type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:before, [type="radio"].with-gap:checked + span:after {
+	border: 1px solid #007EE5 !important;
+}
+
+.groupTicketFilterHeadDiv
+{
+	border-bottom: 0.5px solid #2699FB;
+	color: #007EE5;
+	font-size: 14px;
+}
+
+
+#group_ticket_Priority_filter .btn
+{
+	background-color: white;
+	color: #575757;
+	border: 0.5px solid #007EE5;
+	font-size: 14px;
+	font-family: Roboto, Medium;
+	font-weight: bold;
+}
+
+#group_ticket_Date_filter .btn
+{
+	background-color: white;
+	color: #575757;
+	border: 0.5px solid #007EE5;
+	font-size: 14px;
+	font-family: Roboto, Medium;
+	font-weight: bold;
+	padding: 0 4px 0 4px !important;
+	margin-right: 10px;
+}
+
+.groupTicketFilteLabels
+{
+	color: #575757;
+	font-size: 15px;
+}
+
+#startDateTime,#endDateTime
+{
+	border: 1px solid #BCE0FD;
+	height: 37px;
+	background-color: white;
+	font-size: 12px;
+	font-family: Roboto, Medium;
+	color: #575757;
+	font-weight: bold;
+}
+
+#group_ticket_Priority_filter .active, #group_ticket_Date_filter .active
+	{
+	background-color: #007EE5 !important;
+	color: #FFFFFF !important;
+}
+
+
+#groupTicket_moreDropdown ::ng-deep [type="checkbox"].filled-in:not(:checked )+span:not(.lever ):after {
+	border: 1px solid #03A9F4 !important;
+}
+
+#groupTicket_moreDropdown ::ng-deep [type="checkbox"].filled-in:checked+span:not(.lever ):after {
+	border: 1px solid #007EE5 !important;
+	background-color: #007EE5 !important;
+}
+
+ .groupLoader
+{
+	pointer-events: none;
+	padding: 0px;
+	width: 100%;
+	height: 100%;
+	cursor: wait;
+}
+
+
+.groupTicketInfoHeadDiv {
+	border-bottom: 0.5px solid #2699FB;
+	color: #007EE5;
+	font-size: 16px;
+	width: 100%;
+	text-align: center;
+	height: 31px;
+	line-height: 29px;
+	margin-bottom: 10px;
+}
+
+.viewTicketModalHeader
+{
+	padding: 5px;
+    font-size: 14px;
+    color: #007EE5!important;
+    border-bottom: 1px solid;
+    margin-left: 64px !important;
+	
+}
+
+.viewTicketClearIcon
+{
+	padding: 5px;
+}
+
+
+#comment_main_div {
+	height: 560px;
+	border: 1px solid lightblue;
+	border-radius: 5px;
+	padding: 20px
+	
+}
+
+.Buzzer_OnMe_messageBox {
+	margin-bottom: 0px !important;
+}
+
+#comment_input {
+	width: 397px;
+	display: inline;
+	height: 37px;
+	outline-style: none;
+	box-shadow: none;
+	border-color: transparent;
+}
+
+#sendCommentBtn {
+    line-height: 32px;
+    cursor: pointer;
+    border-radius: 20px;
+    color: white;
+    margin-top: 1px;
+    background-color: #007EE5;
+    height: 35px;
+    text-align: center;
+}
+
+#updateTicket_sendDropdown
+{
+	width: auto !important;
+	height: auto !important;
+	border-radius: 10px;
+}
+
+#cannedResponseModal {
+	margin-top: 70px;
+	min-height: 300px;
+	max-height: 400px;
+	overflow: hidden;
+}
+
+.updateTicketModalHeader {
+	padding: 7px;
+	font-size: 14px;
+	color: #007EE5 !important;
+	border-bottom: 1px solid;
+	margin-left: 64px !important;
+}
+
+.updateTicketClearIcon {
+	padding: 10px;
+}
+
+#cannedResponse_Input {
+	border: 0.5px solid #007EE5;
+	border-radius: 10px;
+	height: 48px;
+	padding-left: 1%;
+	background-color: white;
+}
+
+#cannedResponse_buttonRow {
+	margin-top: 0px;
+}
+
+#searchCannedResponseDiv {
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-top: 0px;
+	margin-bottom: 8px;
+}
+
+#search {
+	border-radius: 21px;
+	z-index: 1;
+	height: 40px !important;
+	position: relative !important;
+	border: solid 1px #e0e0e0;
+	text-align: center;
+}
+
+#cannedBodyHeader {
+	font-weight: bold;
+	text-align: center;
+	margin-top: 0px;
+}
+
+#cannedResponse_Collection_Div {
+	margin-top: -10px;
+	font-size: 12px;
+	max-height: 150px;
+	overflow-y: auto;
+
+}
+
+#noCannedResponseFound {
+	text-align: center;
+}
+
+#Group_Main_Div ::ng-deep .modal-overlay{
+	display: none !important;
+}
+
+.secondary-content ::ng-deep .fa-spinner{
+	font-size: 18px;
+    position: relative;
+    top: 10px;
+    pointer-events: none;
+}
+
+.disabledBtn{
+	background-color: rgba(0,0,0,0.2) !important;
+	pointer-events: none;
+}
+
+.no_Click{
+	pointer-events: none;
+}
+
+#closeModalIcon {
+	font-size: 34px !important;
+	margin-left: -2% !important;
+	cursor: pointer;
+	/* 	color: #F44336 !important; */
+	color: #95a1ab;
+	display: inline-flex;
+}
+
+#saveModalIcon {
+	font-size: 34px !important;
+	margin-right: -2% !important;
+	cursor: pointer;
+	/* 	color: #26a69a; */
+	color: #55b2f9;
+	display: inline-flex;
+}
+
+#modalname {
+	font-size: 22px !important;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+#formIcon {
+	font-size: 27px !important;
+	color: #7a8086;
+}
+
+#approvalListModal {
+	width: 31%;
+	overflow-y: unset !important;
+}
+
+.approvalListModal2 {
+	width: 90% !important;
+	overflow-y: unset !important;
+}
+
+.statusBtn_Open {
+	border-color: #FFED50 !important;
+	background-color: #F4D100;
+}
+
+.statusBtn_Rejected {
+	border-color: #FA5E5B !important;
+	background-color: #FA5E5B;
+}
+
+.statusBtn_Cancelled {
+	border-color: #10DEBD !important;
+	background-color: #10DEBD;
+}
+
+.statusBtn_Approved {
+	border-color: #42A5F5 !important;
+	background-color: #42A5F5;
+}
+
+.filterCol_Approved {
+	border: 1px solid #42A5F5;
+	border-radius: 25px;
+	color: #42A5F5;
+}
+
+.filterCol_Cancelled {
+	border: 1px solid #10DEBD;
+	border-radius: 25px;
+	color: #10DEBD;
+}
+
+.filterCol_Rejected {
+	border: 1px solid #FA5E5B;
+	border-radius: 25px;
+	color: #FA5E5B;
+}
+
+.textBold {
+	font-weight: 900 !important;
+	border: 2px solid !important;
+}
+
+.changeIconColour {
+	color: #42A5F5;
+}
+
+.preloader-background {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent;
+	position: relative;
+	z-index: 999;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0; 
+}

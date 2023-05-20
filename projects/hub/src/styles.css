@@ -1,0 +1,648 @@
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+html, body {
+	height: 100%;
+	width: 100%;
+	background: #e7ecef;
+	min-height: 100vh;
+	overflow: hidden;
+	font-family: Roboto, Medium !important;
+}
+
+body, html {
+	/* these are default, can be replaced by hex color values */
+	/*  scrollbar-base-color: #999; */
+	scrollbar-track-color: #e7ecef;
+	scrollbar-arrow-color: #e7ecef;
+}
+
+.fullheight {
+	height: 100%;
+}
+
+main {
+	height: 100%;
+	width: 100%;
+}
+
+#homeScroll {
+	padding-left: 40px;
+	width: 100%;
+	overflow: auto;
+	height: calc(100% - 64px);
+	width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+	#homeScroll {
+		padding-left: 0px;
+		height: calc(100% - 80px);
+	}
+	#adminHome {
+		width: 100%;
+		overflow: auto;
+		height: calc(100% - 56px);
+	}
+}
+
+@media only screen and (min-width: 601px) {
+	#adminHome {
+		width: 100%;
+		overflow: auto;
+		height: calc(100% - 64px);
+	}
+}
+
+.ps-content {
+	height: 100%;
+}
+
+.page-footer {
+	padding-top: 0px;
+	color: #fff;
+	background-color: #4A91D7;
+}
+
+::-webkit-scrollbar-track-piece {
+	background-color: #e7ecef;
+	-webkit-border-radius: 0;
+}
+
+::-webkit-scrollbar {
+	width: 5px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+	height: 50px;
+	background-color: #999;
+	-webkit-border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	height: 50px;
+	background-color: #9f9f9f;
+	-webkit-border-radius: 4px;
+}
+
+.page-footer .footer-copyright {
+	min-height: 0px;
+	padding: 0px;
+}
+
+.chide {
+	display: none !important
+}
+
+.cshow {
+	display: block !important
+}
+
+.neosuiteBtn {
+	padding-right: 1rem !important;
+	padding-left: 1rem !important;
+	line-height: 30px !important;
+	font-size: 12px !important;
+	text-decoration: none;
+	color: #fff;
+	text-align: center !important;
+	letter-spacing: .5px !important;
+	-webkit-transition: .2s ease-out !important;
+	transition: .2s ease-out !important;
+	cursor: pointer !important;
+	height: 30px !important;
+	border-radius: 30px !important;
+	display: inline-block;
+}
+
+.title {
+	font-family: 'Google Sans', arial, sans-serif;
+	font-size: 24px;
+	text-align: left;
+}
+
+ul.sidenav ul.collapsible-accordion .collapsible-body li a {
+	font-weight: 400;
+}
+
+.sidenav .collapsible-body li a, .sidenav.fixed .collapsible-body li a {
+	padding: 0 37.5px 0 45px;
+	padding-top: 0px;
+	padding-right: 37.5px;
+	padding-bottom: 0px;
+	padding-left: 45px;
+}
+
+.sidenav li>a {
+	padding: 0 16px !important;
+}
+
+.sidenav .collapsible-header, .sidenav.fixed .collapsible-header {
+	background-color: transparent;
+	border: none;
+	line-height: inherit;
+	height: inherit;
+	padding: 0 16px !important;
+}
+
+.sidenav {
+	margin-bottom: 0;
+	padding: 5px !important;
+}
+
+.noverlay {
+	padding-top: 250px;
+	width: 100%;
+	display: block;
+	height: 100%;
+	background: #e9e9e9;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	opacity: 1;
+	z-index: 10000;
+	overflow: hidden;
+}
+
+.buzzerPointer {
+	cursor: pointer !important;
+}
+
+@media only screen and (max-width: 600px) {
+	.customFooter {
+		text-align: center;
+	}
+}
+
+#neo_tagSearchList .completer-dropdown {
+	border: none;
+	width: 92% !important;
+	overflow-y: auto;
+	height: 300px !important;
+	font-size: 14px;
+	transform-origin: 0px 0px 0px;
+	opacity: 1;
+	padding: 0px !important;
+	transform: scaleX(1) scaleY(1);
+	box-shadow: 0 24px 38px 1px rgba(0, 0, 0, 0.14), 0 9px 46px 8px
+		rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
+	transform: scaleX(1) scaleY(1);
+	background-color: #ffffff !important;
+	transform-origin: 0px 0px 0px;
+}
+
+#neo_tagSearchList  .completer-row {
+	padding-left: 15px !important;
+	margin: 0px !important;
+	width: 100% !important;
+	line-height: 30px;
+}
+
+#neo_tagSearchList .completer-row-wrapper {
+	padding-left: 0px !important;
+	height: 30px;
+}
+
+#neo_tagSearchList .completer-selected-row {
+	background-color: lightgrey !important;
+	color: black;
+	line-height: 30px;
+}
+
+#neo_tagSearchGrid .completer-selected-row {
+	background-color: #e7ecef !important;
+	color: black;
+}
+
+#neo_tagSearchGrid .completer-dropdown, .completer-selected-row {
+	width: 100% !important;
+}
+
+.addBookmarkDiv .completer-holder  .completer-input {
+	background-color: #F1F3F4;
+	border: none;
+	border-radius: 15px !important;
+	outline: none;
+	height: 2.5rem !important;
+	box-shadow: none;
+	box-sizing: content-box;
+	transition: box-shadow .3s, border .3s;
+	width: 95%;
+	margin: 4px 0px 4px 2px !important;
+	padding: 0px 5px 0px 5px !important;
+	z-index: 999 !important;
+	border-bottom: 0px solid #ffffff !important;
+	box-shadow: 0px 0 0 #ffffff !important;
+}
+
+.addBookmarkDiv .completer-dropdown {
+	overflow-y: auto !important;
+	width: 92% !important;
+	max-height: 250px !important;
+	height: auto !important;
+}
+
+#userTimezone .completer-dropdown {
+	overflow-y: scroll !important;
+	overflow-x: hidden !important;
+	max-height: 250px !important;
+	width: 81% !important;
+}
+
+#userTimezone .completer-dropdown-holder {
+	width: 100% !important;
+}
+
+#spinner {
+	opacity: 0.9 !important;
+}
+
+.datepicker-controls .select-month input {
+	width: 90px !important;
+}
+
+/*************************** Common CSS For Service Desk ****************************/
+.serviceDeskModal .modal-header {
+	background-color: black;
+	height: 28px;
+}
+
+.serviceDeskModal_titleLabel {
+	font-size: 16px;
+	padding-top: 1px;
+	color: white;
+}
+
+.serviceDesk_modalCloseButton {
+	padding-top: 4px;
+	font-size: 20px;
+	cursor: pointer;
+	color: white;
+}
+
+.serviceDeskModal .modal-content {
+	padding: 20px;
+}
+
+.serviceDeskModal .modal-footer {
+	text-align: center !important;
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+
+.serviceDeskModal_modalFooter {
+	text-align: center;
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+
+.serviceDeskModal_btn {
+	cursor: pointer;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.serviceDeskModal_confirmDeleteBtn {
+	border-radius: 10px !important;
+	background-color: #37474f !important;
+}
+
+.serviceDeskModal_confirmDeleteHeader {
+	text-align: center;
+	font-size: 18px;
+	color: red;
+	font-family: sans-serif;
+}
+
+.serviceDeskModal_recordExistHeader {
+	margin-top: -17px;
+	color: orangered;
+}
+
+.serviceDeskModal_fixedActionBtn {
+	padding-top: 2%;
+	position: sticky;
+}
+
+.serviceDesk_noRecordMessage {
+	margin-top: 15px;
+	text-align: center;
+	font-family: "Open Sans" !important;
+	font-size: 17px !important;
+}
+
+.serviceDesk_headers {
+	font-family: "Open Sans" !important;
+	font-size: 12px !important;
+	font-style: normal !important;
+	font-variant: normal !important;
+	font-weight: 600 !important;
+	cursor: pointer !important;
+	text-transform: uppercase !important;
+}
+
+.serviceDesk_collectionMainRow {
+	font-family: sans-serif !important;
+	font-size: 12px !important;
+	font-style: normal !important;
+	font-variant: normal !important;
+	font-weight: 400 !important;
+	line-height: 20px !important;
+	padding-left: 0vw !important;
+	padding-right: 2vw !important;
+	padding-right: 0px !important;
+}
+
+.serviceDesk_collection {
+	margin: 3px !important;
+}
+
+.serviceDesk_collectionList {
+	cursor: pointer !important;
+	height: 45px !important;
+}
+
+.serviceDesk_mainContainer {
+	max-height: 100% !important;
+	overflow: auto !important;
+}
+
+.serviceDesk_searchIcon {
+	padding-top: 3px;
+	padding-left: 10px;
+	color: lightgray;
+}
+
+.serviceDesk_searchInput {
+	border-style: groove !important;
+	border: 2px solid lightgray !important;
+	border-radius: 8px !important;
+	padding-left: 50px !important;
+	background-color: white !important;
+	box-shadow: none !important;
+	margin-left: 0px !important;
+	width: 80% !important;
+}
+
+.serviceDesk_Pagination ::ng-deep .ngx-pagination .current {
+	padding: 0.1875rem 0.625rem !important;
+	background: #444 !important;
+	color: #fefefe !important;
+	cursor: default !important;
+}
+
+.serviceDesk_collpasible_MainData {
+	font-family: sans-serif;
+	font-size: 12px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 20px;
+	padding-left: 0vw;
+	padding-right: 2vw;
+	padding-right: 0px !important;
+}
+
+.serviceDesk_ng2-Completer ::ng-deep .completer-dropdown {
+	max-height: 150px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.owl-dt-timer-content .owl-dt-timer-input {
+	border: none !important;
+}
+
+.owl-dt-container-row tr {
+	border: none !important;
+}
+
+.owl-dt-container-row th {
+	padding: 5px 5px !important;
+}
+
+.owl-dt-calendar-control {
+	padding-bottom: 20px !important;
+}
+
+::placeholder {
+	font-size: 14px;
+	color: rgb(172, 176, 180);
+	font-family: 'Roboto', arial, sans-serif;
+	opacity: 1;
+	font-family: 'Roboto', arial, sans-serif;
+	/* Firefox */
+}
+
+.cdk-overlay-container {
+	position: fixed !important;
+	z-index: 1020 !important;
+}
+
+.owl-dialog-container {
+	margin-bottom: 130px !important;
+}
+
+.owl-dt-dialog-container .owl-dt-calendar {
+	width: 100% !important;
+	height: 80% !important;
+}
+
+.owl-dt-dialog-container .owl-dt-timer {
+	width: 34vh;
+}
+
+.view_noOverlay {
+	opacity: 0 !important;
+}
+
+.browser-default {
+	background-color: rgba(255, 255, 255, 0.9);
+	width: 100%;
+	padding: 5px;
+	border-top: 0px solid #fff;
+	border-right: 0px solid #fff;
+	border-left: 0px solid #fff;
+	border-bottom: 1px solid #9e9e9e;
+	border-radius: 2px;
+	height: 3.2rem;
+	display: block;
+}
+
+input:not([type]):focus:not([readonly])
+{
+box-shadow:01px 00 #ffffff !important;
+outline:none !important;
+}
+.owl-dt-timer-content .owl-dt-timer-input {
+	font-size: 2.5em !important;
+	margin: -6px !important;
+}
+
+input:not([type])
+{
+margin-bottom:0px!important;
+}
+
+/* To blur window when sidenav is open 
+.sidenav-overlay {
+	opacity: 0.8 !important;
+	background-color: white !important;
+
+}*/
+
+/* To blur window when sidenav is open */
+.sidenav-overlay {
+	background-color: #ffffffd4 !important;
+}
+
+/* Theme based styles for VISA application  */
+.visa_themecolourheader {
+	background-color: #ee6e73 !important;
+	color: white;
+}
+
+.visa_themecolourheaderfont {
+	color: white;
+}
+
+.visa_ThemeBasedSwitch label input[type=checkbox]:checked+.lever {
+	background-color: #ee6e73;
+	font-family: Open Sans;
+	font-color: white;
+}
+
+.visa_ThemeBasedSwitch label .lever {
+	background-color: #5a5a5a;
+}
+
+.visaTab .tab a:hover, .visaTab .tab a.active, .visaTab .tab a:focus {
+	background-color: #ee6e73 !important;
+	border-radius: 20px;
+	color: white;
+}
+
+.visaTab .tab .active {
+	background-color: #ee6e73 !important;
+	border-radius: 20px;
+	color: white;
+}
+/* Theme based styles for VISA application  */
+.dropdown-content {
+	max-height: 390px !important;
+	overflow: auto !important;
+	text-overflow: ellipsis;
+}
+
+/* For Global search ng2-completor */
+#neo_global_search .completer-holder .completer-input {
+	background-color: white !important;
+	height: 36px;
+	border-bottom: unset;
+	border-radius: 20px;
+	box-shadow: 0 0 7px 1px #a9a3a3;
+	padding-inline-start: 18px !important;
+	writing-mode: horizontal-tb !important;
+}
+
+#neo_global_search .completer-dropdown {
+	border: none;
+	width: 97% !important;
+	overflow-y: auto;
+	height: 250px !important;
+	max-height: 300px !important;
+	font-size: 14px;
+	font-weight: 400 !important;
+	opacity: 1;
+	padding: 0px !important;
+	transform: scaleX(1) scaleY(1);
+	box-shadow: 0 24px 38px 1px rgba(0, 0, 0, 0.14), 0 9px 46px 8px
+		rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
+	transform: scaleX(1) scaleY(1);
+	background-color: #ffffff !important;
+	transform-origin: 0px 0px 0px;
+	margin-left: 3%;
+	top: 60px;
+}
+
+#neo_global_search  .completer-row {
+	padding-top: 0%;
+	padding-left: 15px !important;
+	margin: 0px !important;
+	width: 100% !important;
+	line-height: 36px;
+	display: flex !important;
+}
+
+#neo_global_search .completer-row-wrapper {
+	padding-left: 0px !important;
+	height: 36px;
+}
+
+#neo_global_search .completer-selected-row {
+	background-color: #f0f0f0 !important;
+	color: black;
+	/* 	line-height: 36px; */
+}
+
+@media only screen and (max-width: 600px) {
+	#neo_global_search .completer-holder .completer-input {
+		background-color: white !important;
+		height: 35px;
+		border-bottom: unset;
+		border-radius: 20px;
+		box-shadow: 0 0 7px 1px #a9a3a3;
+		padding-inline-start: 18px !important;
+		writing-mode: horizontal-tb !important;
+	}
+	#neo_global_search .completer-dropdown {
+		border: none;
+		width: 97% !important;
+		height: 200px !important;
+		max-height: 200px !important;
+		font-size: 14px;
+		transform-origin: 0px 0px 0px;
+		opacity: 1;
+		padding: 0px !important;
+		-webkit-transform: scaleX(1) scaleY(1);
+		-ms-transform: scaleX(1) scaleY(1);
+		box-shadow: 0 24px 38px 1px rgba(0, 0, 0, 0.14), 0 9px 46px 8px
+			rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
+		transform: scaleX(1) scaleY(1);
+		background-color: #ffffff !important;
+		transform-origin: 0px 0px 0px;
+		margin-left: 5%;
+		top: 52px;
+	}
+}
+.owlCalendarBlock .owl-dt-inline-container, .owl-dt-popup-container{
+position: relative;
+width: 22.5em !important;
+box-shadow: unset !important;
+} 
+.owlCalendarBlock .owl-dt-calendar-main{
+padding: 0px 15px !important;
+}
+/* .owl-dt-calendar-table .owl-dt-calendar-cell-content{
+height:72% !important;
+width:70% !important;
+} */
+.owlCalendarBlock .owl-dt-container-info{
+display:none !important;
+}
+.owlCalendarBlock .owl-dt-inline-container .owl-dt-calendar, .owl-dt-popup-container .owl-dt-calendar{
+border: transparent !important;
+}
+.owlCalendarBlock .owl-dt-calendar-multi-year-view{
+height:260px !important;
+}
+.owlCalendarBlock .owl-dt-calendar-table .owl-dt-calendar-header .owl-dt-calendar-table-divider{
+display: none;
+}
+.owlCalendarBlock .owl-dt-calendar-control{
+padding-bottom: 10px !important;
+margin-bottom: 15px;
+border-bottom: 1px solid #dfeff9;
+}

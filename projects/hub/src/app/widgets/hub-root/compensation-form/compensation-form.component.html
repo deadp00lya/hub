@@ -1,0 +1,72 @@
+<div id="hub_compensation_form"
+	style="overflow: auto; height: 100% !important">
+
+	<!-------------------------- Start : Employee List --------------------------------------->
+
+	<div class="row" *ngIf="employeeListPage" style="margin: 1px;">
+
+		<div class="row" style="padding: 30px 0px 0px 0px;">
+			<universal-list-view [(listViewFromSource)]="employeeList"
+				totalCount="{{count}}"
+				itemsPerPageToDisplay={{itemsPerPageToDisplay}}
+				listViewUniqueCode="CompensationEmployeeList"
+				(outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+		</div>
+
+	</div>
+
+	<!-------------------------- End : Employee List ----------------------------------------->
+
+
+	<!-------------------------- Start : Compensation List ----------------------------------->
+
+	<div class="row" *ngIf="compensationListPage" style="margin: 1px;">
+
+		<div class="row" style="margin: 0px;">
+			<div id="btnBack" class="col s1 configBtn"
+				data-(click)="backToEmployeeList();"
+				style="margin: 10px 0px 15px 0px;">Back</div>
+		</div>
+
+		<div class="row" style="margin: 0px 0px 15px 0px;">
+			<div class="switch">
+				<label style="color: black; font-size: 15px;"> Effective
+					Records <input type="checkbox" [(ngModel)]="effectiveData"
+					data-(click)="effectiveDataClick()"> <span class="lever"></span>
+					All Records
+				</label>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<universal-list-view [(listViewFromSource)]="compensationList"
+				totalCount="{{count}}"
+				itemsPerPageToDisplay={{itemsPerPageToDisplay}}
+				listViewUniqueCode="EmployeeCompensationList"
+				(outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+		</div>
+
+	</div>
+
+	<!-------------------------- End : Compensation List ------------------------------------->
+
+
+	<!-------------------------- Start : Compensation Form ----------------------------------->
+
+	<div class="row" *ngIf="compensationFormView" style="margin: 1px;">
+
+		<app-form-template *ngIf="true" style="height:100%; "
+			[appCode]="appCode" [formCode]="formCode"
+			[clientCode]="keyRestrictions['clientCode']"
+			[countryCode]="keyRestrictions['countryCode']"
+			[businessunitCode]="keyRestrictions['businessunitCode']"
+			[keyRestrictions]="keyRestrictions"
+			[additionalValue]="additionalValue"
+			(outPutToParentComponent)="outputFromFormView($event)"></app-form-template>
+
+	</div>
+
+	<!-------------------------- End : Compensation Form ------------------------------------>
+
+</div>

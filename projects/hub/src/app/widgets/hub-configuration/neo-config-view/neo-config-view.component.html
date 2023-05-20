@@ -1,0 +1,74 @@
+<!-- ****************************************************************************** -->
+<div id="versionModal" class="modal versionModal">
+	<div class="row modal-header">
+		<div class="left">
+			<span>Configuration Code: {{configCode}}</span>
+		</div>
+		<div class="right">
+			<img class="modal-close" src="{{cdnUrl}}/Hub/close.svg"
+				data-(click)="closeNeoConfig();" title="close">
+		</div>
+	</div>
+	<div class="modal-body">
+
+		<div class="modal-content"
+			style="overflow-y: scroll; height: 265px; padding-top: 0px;">
+			<table class="responsive-table col s12">
+				<tr
+					style="position: fixed; width: 320px; background-color: #fafafa;">
+					<th style="padding-left: 10px;">Version</th>
+					<th style="padding-left: 30px;">Status</th>
+					<th style="padding-left: 60px;">Requested Body</th>
+				</tr>
+				<tr style="height: 50px; width: 320px; background-color: #fafafa;"></tr>
+
+				<tr *ngFor="let version of versionList | keyvalue:byOrder"
+					style="width: 100px;">
+					<!-- <div class="row">{{version|json}}</div> -->
+					<td style="padding-left: 10px;">{{version.key}}</td>
+					<td style="padding-left: 50px;">{{version.value.status}}</td>
+
+					<td class="acoes" style="padding: 2px; padding-left: 30px;">
+						<div class="center">
+							<a class="blue-text center"
+								data-(click)="viewJsonBody(version.key)"> <i
+								class="material-icons">visibility</i>
+							</a>
+						</div>
+					</td>
+				</tr>
+
+			</table>
+		</div>
+
+	</div>
+</div>
+
+<!-- ********************************************Json Body Modal*************************************************************** -->
+<div id="neoConfigModal" class="modal neoConfigModal">
+	<div class="row modal-header">
+		<div class="left">
+			<span>Json Body</span>
+		</div>
+		<div class="right">
+			<img class="modal-close" src="{{cdnUrl}}/Hub/close.svg"
+				data-(click)="closeNeoConfig();" title="close">
+		</div>
+	</div>
+	<div class="modal-body">
+		<div class="modal-content">
+			<div class="row">
+				<div class="col s4">
+					<h5>Request Body</h5>
+				</div>
+				<div>
+					<a class="waves-effect waves-light btn right" style="right: 5px;"
+					data-(click)="switchToPreviousVersion()">Use Version</a>
+				</div>
+				
+				<textarea name="" id="myTextarea" cols="30" rows="10"
+					readonly="true"></textarea>
+			</div>
+		</div>
+	</div>
+</div>

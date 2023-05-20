@@ -1,0 +1,40 @@
+<div *ngIf="!globalSeries" id="pexPrefrences" class="row fullHeight" style="overflow-y: auto !important;">
+  <div style="overflow: auto; height: 100% !important; cursor: pointer">
+    <a (click)="openSideNav()"><i class="material-icons" style="cursor: pointer" title="Menu">menu</i></a>
+    <ul id="pexSlideOut" class="sidenav pexsidenav  no-padding">
+      <li><a class="" (click)="setConfigPage(3)">Pex List</a></li>
+      <li>
+        <div class="divider"></div>
+      </li>
+      <li><a class="" (click)="setConfigPage(0)">Pex Role</a></li>
+      <li>
+        <div class="divider"></div>
+      </li>
+      <li><a class="" (click)="setConfigPage(4)">Pex Event</a></li>
+      <li><a class="" (click)="setConfigPage(5)">Pex Action</a></li>
+      <li>
+        <div class="divider"></div>
+      </li>
+      <li><a class="" (click)="setConfigPage(7)">Pex Series</a></li>
+      <li><a class="" (click)="setConfigPage(8)">Pex Routine</a></li>
+      <li><a class="" (click)="setConfigPage(9)">Event/Action Json
+          Configuration</a></li>
+      <li><a class="" (click)="setConfigPage(10)">Component Api</a></li>
+      <li><a class="" (click)="setConfigPage(11)">Log Field
+          Configuration</a></li>
+
+    </ul>
+    <app-hub-role class="col s12 fullHeight" *ngIf="configPage==0"></app-hub-role>
+    <app-hub-list class="col s12 fullHeight" *ngIf="configPage==3"></app-hub-list>
+    <app-hub-event class="col s12 fullHeight" *ngIf="configPage==4"></app-hub-event>
+    <app-action-log class="col s12 fullHeight" *ngIf="configPage==5"></app-action-log>
+    <app-series class="col s12 fullHeight" *ngIf="configPage==7"></app-series>
+    <app-hub-routine class="col s12 fullHeight" *ngIf="configPage==8"></app-hub-routine>
+    <app-event-log-configuration class="col s12 fullHeight" *ngIf="configPage==9"></app-event-log-configuration>
+    <app-api-map class="col s12 fullHeight" *ngIf="configPage==10"></app-api-map>
+    <app-log-field-configurator class="col s12 fullHeight" *ngIf="configPage==11"></app-log-field-configurator>
+  </div>
+</div>
+<div *ngIf="globalSeries">
+  <app-series class="col s12 fullHeight" *ngIf="configPage==7"></app-series>
+</div>

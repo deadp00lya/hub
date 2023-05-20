@@ -1,0 +1,76 @@
+<div id="eventsView" style="height: 100%;">
+
+  <universal-list-view *ngIf="!viewNeoConfig" [(listViewFromSource)]="eventsList" totalCount="{{count}}"
+    itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="PexEventList"
+    (outPutToParentComponent)="outputFromListView($event)" rowBasedCheckBoxEvent="true">
+  </universal-list-view>
+
+
+
+  <div id="EventList" class="modal">
+    <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+      <i id="closeModalIcon" class="col s2 material-icons left" (click)=" closeModal()">close</i>
+      <p id="modalname" class="col s8 center">Create Events</p>
+      <i id="saveModalIcon" class="col s2 material-icons right" (click)="saveEventList();">done</i>
+    </div>
+
+    <div class="modal-content">
+
+      <div class="row">
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="eventName"
+            [(ngModel)]="events.eventName" type="text" class="validate"> <label for="eventName">EventName</label>
+        </div>
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input [disabled]="events.id" id="eventCode"
+            [(ngModel)]="events.eventCode" type="text" class="validate"> <label for="eventCode">Eventcode</label>
+        </div>
+
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="dataInjection"
+            [(ngModel)]="events.dataInjection" type="text" class="validate"> <label for="dataInjection">Static Data
+            Input</label>
+        </div>
+
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="icons" [(ngModel)]="events.icons"
+            type="text" class="validate"> <label for="icons">Icons</label>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div id="eventModal" class="modal">
+    <div class="row card" style="margin : 0px; padding-left: 10px; padding-right: 10px;">
+      <i id="closeModalIconUpload" class="col s2 modal-close material-icons left">close</i>
+      <p id="modalname" class="col s8 center">Upload Events</p>
+
+    </div>
+
+    <div class="modal-content">
+      <form action="#" style="width: 70%;margin-left: 10%;">
+        <div class="file-field input-field">
+          <div class="btn">
+            <span>Export File</span>
+            <input type="file" (change)="uploadFileDocument1($event)">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="Upload file" id="configFile">
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<!-- Open Modal For neoConfig -->
+<!-- ***********************************check Neoconfig Version Starts ********************************** -->
+<div>
+	<app-neo-config-view *ngIf="viewNeoConfig" (versionEvent)="triggered($event)"
+	[configCode]='configCode'>
+    </app-neo-config-view>
+</div>
+
+<!-- ************************************ check Neoconfig Version Ends ****************************************** -->

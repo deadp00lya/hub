@@ -1,0 +1,60 @@
+
+<div  #settingsModal >
+	<div class="row settingcontent">
+			<div class="col s11 m11 l11 card mainCard">
+				<div class="col s12 m12 l12 headingContent secondary-light-border secondary-class">
+					<div class="">
+						<span id="headingSpan" style="color:#fff !important;" translate>Settings</span>
+					</div>
+				</div>
+
+				<div class="col s12 m12 l12 lowerContent">
+					<div class="col s12 m3 l3 card-panel leftPanel hide-on-small-only">
+						<!-- <div class="profileImage"></div> -->
+						<div class="viewGeneral">
+							<ul class="settingUl">
+								<li>
+									<span  id="generalContent" class="btn-flat secondary-class" translate>General</span>
+<!-- 									<a href='javascript:void(0);' id="generalContent" class="btn-flat secondary-class" >General</a>(click)=" openGeneralContent()" -->
+								</li>
+							</ul>
+						</div>
+					</div>
+	
+					<div class="col s12 m9 l9  rightPanel">
+						<div class="rightPanelContent  secondary-light-border" *ngIf="generalFlag">
+							<app-general></app-general>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+
+<!-- <div class="row settingcontent">
+		<div class="col s4 m3 l2">
+			<span class="heading">Settings</span>
+
+			<ul>
+				<li ><a href='javascript:void(0);' id="generalContent"
+					class="btn-flat" style="width: 100%;"
+					(click)=" openGeneralContent()">General</a></li>
+				<li><a href='javascript:void(0);' id="proxyContent"
+					class="btn-flat" style="width: 100%;" (click)="openProxyContent()">Proxy
+						User</a></li>
+			</ul>
+		</div>
+		<div id="split-content"></div>
+
+		<div class="col s7 m8 l9 right" *ngIf="generalFlag">
+			<app-general></app-general>
+		</div>
+
+		<div class="col s7 m8 l9 right" *ngIf="!generalFlag">
+			<app-proxy></app-proxy>
+		</div>
+
+	</div>
+		 -->
+
+

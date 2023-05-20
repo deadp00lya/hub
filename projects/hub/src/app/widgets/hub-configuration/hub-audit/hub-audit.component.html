@@ -1,0 +1,421 @@
+<div id="hub_audit" style="height: 100%; overflow: auto;">
+
+  <div class="row" style="margin: 0;"
+    *ngIf="(!eventLogDataView && fieldType == 'Event') || (!actionLogDataView && fieldType == 'Action')">
+    <div class="col s12 chip chip-label center">
+      <div style="padding: 4px;">
+        <label class="header_label left" translate>Audit Log</label>
+      </div>
+      <div class="col s1 right">
+        <img class="closeBtn" src="{{cdnUrl}}/Hub/close.svg" data-(click)="fetchRecordFilter('Event');">
+      </div>
+
+    </div>
+  </div>
+
+  <!---------------------------------- Start : Field Selection ------------------------------------------->
+
+  <div class="row" style="margin: 15px 0 15px 0;"
+    *ngIf="(!eventLogDataView && fieldType == 'Event') || (!actionLogDataView && fieldType == 'Action')">
+    <div class="col s3" style="width: 20%; padding-left: 0;">
+      <ul id="tabs" class="tabs left" style="cursor: pointer;">
+
+        <li id="deactive" class="tab col s6" title="Event"><a [ngClass]="{'active': fieldType == 'Event'}"
+            (click)="fetchRecordFilter('Event');">{{ 'Event' | translate }}</a></li>
+
+        <li id="active" class="tab col s6 " title="Action"><a [ngClass]="{'active': fieldType == 'Action'}"
+            (click)="fetchRecordFilter('Action');">{{ 'Action' | translate
+						}}</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!---------------------------------- End : Field Selection ------------------------------------------->
+
+  <!---------------------------------- Start : Event Audit Log ----------------------------------------->
+
+  <div *ngIf="eventPage">
+
+    <!----------------------- Start : Employee Log List ------------------------>
+
+    <div *ngIf="eventLogListView" id="eventLogListView">
+      <fieldset>
+        <div class="row" style="margin-bottom: 0">
+          <div class="col s2">
+            <label class="labels" for="bu">{{ 'Country'| translate}}</label>
+            <ng-select [items]="countryList" placeholder="{{ 'Select Country'| translate }}" bindLabel="countryName"
+              bindValue="countryCode" (open)="selectRefresh()" notFoundText="{{ 'Country Not Found' | translate}}"
+              [(ngModel)]="auditListDto.countryCode" (change)="getBusinessUnitList();"></ng-select>
+          </div>
+          <div class="col s2">
+            <label class="labels" for="bu">{{ 'Business Unit'|
+							translate}}</label>
+            <ng-select [items]="businessUnitList" placeholder="{{ 'Select Businessunit'| translate }}"
+              bindLabel="businessunitName" bindValue="businessunitCode" (open)="selectRefresh()"
+              notFoundText="{{ 'Business unit Not Found' | translate}}" [(ngModel)]="auditListDto.businessunitCode">
+            </ng-select>
+          </div>
+          <div class="col s2">
+            <label for="employee" class="labels">{{ 'Employee'|
+							translate }}</label>
+            <ng-select [items]="employeeList" placeholder="{{ 'Select employee' | translate }}" bindLabel="empIdAndName"
+              bindValue="employeeGlobalId" (open)="selectRefresh()" (search)="searchEmployee($event.term)"
+              notFoundText="{{ 'employee Not Found' | translate }}" [(ngModel)]="auditListDto.employeeGlobalId">
+            </ng-select>
+          </div>
+          <div class="col s2">
+            <label class="labels" for="event">{{ 'Event'| translate}}<span class="red-text">*</span></label>
+            <ng-select [items]="eventList" placeholder="{{ 'Select Event' | translate}}" bindLabel="eventType"
+              bindValue="eventType" (open)="selectRefresh()" notFoundText="{{ 'Event Not Found' | translate}}"
+              [(ngModel)]="auditListDto.eventType"></ng-select>
+          </div>
+          <div class="inputBox col s2">
+            <label class="labels" for="fromDate">{{ 'From Date'|
+							translate }}</label><input id="fromDate" type="text" class="datepicker" name="fromDate"
+              [(ngModel)]="auditListDto.fromDate" title="{{ 'From Date' }}"
+              (change)="auditListDto.fromDate = setDate($event.target.value);">
+          </div>
+          <div class="inputBox col s2">
+            <label class="labels" for="toDate">{{ 'Effective To Date'|
+							translate }}</label><input id="toDate" type="text" class="datepicker" name="toDate"
+              [(ngModel)]="auditListDto.toDate" title="{{ 'From Date' }}"
+              (change)="auditListDto.toDate = setDate($event.target.value);">
+          </div>
+        </div>
+        <div class="row" style="margin: 0px; padding: 6px 0px 11px 2%">
+          <div class="col s6 m6 l6 " data-(click)="fetchAuditList()"><button class="configBtn right">Get
+            Log List</button></div>
+
+          <div id="btnResetData" class="col s6 m6 l6 " data-(click)="resetData();">
+            <button class="configBtn left">Reset</button></div>
+        </div>
+      </fieldset>
+      <div *ngIf="auditList.length > 0" class="row" style="padding-top: 1%;">
+        <universal-list-view [(listViewFromSource)]="auditList" totalCount="{{count}}"
+          itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="PexEventAuditList"
+          (outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+      </div>
+    </div>
+
+    <!-------------------------- End : Employee Log List ----------------------------------->
+
+    <!----------------------- Start : Selected Employee Log Data --------------------------->
+
+    <div *ngIf="eventLogDataView" id="eventLogDataView">
+      <div *ngIf="eventDetailsView">
+        <div class="row" style="margin: 0;">
+          <div class="col s12 chip chip-label center">
+            <div class="col s3 letf" style="padding: 4px;">
+              <label class="header_label left" translate>Audit Log</label>
+            </div>
+            <div class="col s3" style="padding: 4px;">
+              <label class="header_label left" translate>Event: <span
+                  style="color: #007EE5">{{auditDataDto.eventType}}</span></label>
+            </div>
+            <div class="col s3" style="padding: 4px;">
+              <label class="header_label left" translate>Employee Name:
+                <span style="color: #007EE5">{{auditDataDto.employeeName}}</span>
+              </label>
+            </div>
+            <div class="col s1 right" style="margin-top: 8px;">
+              <img class="closeBtn" src="{{cdnUrl}}/Hub/close.svg" data-(click)="closeEventDetailsView();">
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin: 0;">
+          <div class="col s3" style="width: 20%; padding-top: 15px;">
+            <ul id="tabs" class="tabs left" style="cursor: pointer; border-radius: 20px;">
+              <li id="deactive" class="tab col s12" title="Event"><a [ngClass]="{'active': logType == 'Details'}"
+                  (click)="logTypeFilter('Details');" style="padding-left: 10px; border-radius: 20px;">{{ 'Event
+									Details' | translate }}</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="eventDetailsView || eventDetailsPage">
+        <div class="row" style="margin: 15px 10px 10px 10px;">
+          <div class="inputBox col custom-col">
+            <label class="labels" for="rev">{{ 'REV'| translate }}</label><input id="rev" type="text"
+              class="disabledFont" name="rev" [(ngModel)]="eventDetails.REV" title="{{ 'REV' }}" disabled>
+          </div>
+          <div class="inputBox col custom-col">
+            <label class="labels" for="employeeGlobalId">{{ 'Employee
+							Global ID'| translate }}</label><input id="employeeGlobalId" class="disabledFont" type="text"
+              name="employeeGlobalId" [(ngModel)]="eventDetails.employeeGlobalId" title="{{ 'Employee Global Id' }}"
+              disabled>
+          </div>
+          <div class="inputBox col custom-col">
+            <label class="labels" for="eventType">{{ 'Event Type'|
+							translate }}</label><input id="eventType" class="disabledFont" type="text" name="eventType"
+              [(ngModel)]="eventDetails.eventType" title="{{ 'Event Type' }}" disabled>
+          </div>
+          <div class="inputBox col custom-col">
+            <label class="labels" for="effectiveStartDate">{{
+							'Effective Start Date'| translate }}</label><input id="effectiveStartDate" type="text"
+              class="datepicker disabledFont" name="effectiveStartDate" [(ngModel)]="eventDetails.effectiveStartDate"
+              title="{{ 'Effective Start Date' }}"
+              (change)="eventDetails.effectiveStartDate = setDate($event.target.value);" disabled>
+          </div>
+          <div class="inputBox col custom-col">
+            <label class="labels" for="effectiveEndDate">{{ 'Effective
+							End Date'| translate }}</label><input id="effectiveEndDate" type="text" class="datepicker disabledFont"
+              name="effectiveEndDate" [(ngModel)]="eventDetails.effectiveEndDate" title="{{ 'Effective End Date' }}"
+              (change)="eventDetails.effectiveEndDate = setDate($event.target.value);" disabled>
+          </div>
+          <div class="inputBox col custom-col">
+            <label class="labels" for="eventReason">{{ 'Event Reason'|
+							translate }}</label><input id="eventReason" class="disabledFont" type="text" name="eventReason"
+              [(ngModel)]="eventDetails.eventReason" title="{{ 'Event Reason' }}" disabled>
+          </div>
+          <div class="inputBox col custom-col">
+            <label class="labels" for="modifiedBy">{{ 'Modified By'|
+							translate }}</label><input id="modifiedBy" class="disabledFont" type="text" name="modifiedBy"
+              [(ngModel)]="eventDetails.modifiedBy" title="{{ 'Modified By' }}" disabled>
+          </div>
+          <div class="inputBox col custom-col">
+            <label class="labels" for="modifiedOn">{{ 'Modified On'| translate }}</label><input id="modifiedOn"
+              type="text" name="modifiedOn" [(ngModel)]="eventDetails.modifiedOn" class="datepicker disabledFont"
+              title="{{ 'Modified On' }}" (change)="eventDetails.modifiedOn = setDate($event.target.value);" disabled>
+          </div>
+        </div>
+        <div *ngIf="!showDataFlag" class="row" style="margin: 0px; padding: 6px 0px 11px 40%">
+          <div class="col s3 m3 l3" data-(click)="showMore();"><button class="configBtn right">Show
+            More</button></div>
+        </div>
+        <div *ngIf="showDataFlag" class="row" style="margin: 0px; padding: 6px 0px 11px 40%">
+          <div class="col s3 m3 l3" data-(click)="showLess();"><button class="configBtn right">Show
+            More</button></div>
+        </div>
+      </div>
+
+      <!----------------------- Start : Show More ----------------------------->
+
+      <div *ngIf="fieldList.length > 0 && showDataFlag">
+        <div class="row" style="margin: 15px 10px 10px 10px;">
+          <div *ngFor="let field of fieldList;let i=index">
+            <div class="inputBox col custom-col">
+              <label class="labels" for="field">{{ field.fieldTitle }}</label><input id="field" type="text"
+                class="disabledFont" name="field" [(ngModel)]="field.fieldDisplay" title="{{ field.fieldTitle }}"
+                disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!----------------------- End : Show More ----------------------------->
+
+    </div>
+
+    <!----------------------- End : Selected Employee Log Data ----------------------------->
+
+  </div>
+
+  <!---------------------------------- End : Event Audit Log ------------------------------------------->
+
+  <!---------------------------------- Start : Action Audit Log ----------------------------------------->
+
+  <div *ngIf="actionPage">
+
+    <!----------------------- Start : Employee Log List ------------------------>
+
+    <div *ngIf="actionLogListView" id="actionLogListView">
+      <fieldset>
+        <div class="row" style="margin-bottom: 0">
+          <div class="col s2">
+            <label class="labels" for="bu">{{ 'Country'| translate}}</label>
+            <ng-select [items]="countryList" placeholder="{{ 'Select Country'| translate }}" bindLabel="countryName"
+              bindValue="countryCode" (open)="selectRefresh()" notFoundText="{{ 'Country Not Found' | translate}}"
+              [(ngModel)]="auditListDto.countryCode" (change)="getBusinessUnitList();"></ng-select>
+          </div>
+          <div class="col s2">
+            <label class="labels" for="bu">{{ 'Business Unit'|
+							translate}}</label>
+            <ng-select [items]="businessUnitList" placeholder="{{ 'Select Businessunit'| translate }}"
+              bindLabel="businessunitName" bindValue="businessunitCode" (open)="selectRefresh()"
+              notFoundText="{{ 'Business unit Not Found' | translate}}" [(ngModel)]="auditListDto.businessunitCode">
+            </ng-select>
+          </div>
+          <div class="col s2">
+            <label for="employee" class="labels">{{ 'Employee'|
+							translate }}</label>
+            <ng-select [items]="employeeList" placeholder="{{ 'Select employee' | translate }}" bindLabel="empIdAndName"
+              bindValue="employeeGlobalId" (open)="selectRefresh()" (search)="searchEmployee($event.term)"
+              notFoundText="{{ 'employee Not Found' | translate }}" [(ngModel)]="auditListDto.employeeGlobalId">
+            </ng-select>
+          </div>
+          <div class="col s2">
+            <label class="labels" for="action">{{ 'Action'|
+							translate}}<span class="red-text">*</span></label>
+            <ng-select [items]="actionList" placeholder="{{ 'Select Action' | translate}}" bindLabel="actionType"
+              bindValue="actionType" (open)="selectRefresh()" notFoundText="{{ 'Action Not Found' | translate}}"
+              [(ngModel)]="auditListDto.actionType"></ng-select>
+          </div>
+          <div class="inputBox col s2">
+            <label class="labels" for="fromDate">{{ 'From Date'|
+							translate }}</label><input id="fromDate" type="text" class="datepicker" name="fromDate"
+              [(ngModel)]="auditListDto.fromDate" title="{{ 'From Date' }}"
+              (change)="auditListDto.fromDate = setDate($event.target.value);">
+          </div>
+          <div class="inputBox col s2">
+            <label class="labels" for="toDate">{{ 'Effective To Date'|
+							translate }}</label><input id="toDate" type="text" class="datepicker" name="toDate"
+              [(ngModel)]="auditListDto.toDate" title="{{ 'From Date' }}"
+              (change)="auditListDto.toDate = setDate($event.target.value);">
+          </div>
+        </div>
+        <div class="row" style="margin: 0px; padding: 6px 0px 11px 2%">
+          <div class="col s6 m6 l6 " data-(click)="fetchAuditList()"><button class="configBtn right">Get
+            Log List</button></div>
+
+          <div id="btnResetData" class="col s6 m6 l6 " data-(click)="resetData();">
+            <button class="configBtn left">Reset</button></div>
+            
+        </div>
+      </fieldset>
+      <div *ngIf="auditList.length > 0" class="row" style="padding-top: 1%;">
+        <universal-list-view [(listViewFromSource)]="auditList" totalCount="{{count}}"
+          itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="PexActionAuditList"
+          (outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+      </div>
+    </div>
+
+    <!-------------------------- End : Employee Log List ----------------------------------->
+
+    <!----------------------- Start : Selected Employee Log Data --------------------------->
+
+    <div *ngIf="actionLogDataView" id="actionLogDataView">
+      <div *ngIf="actionDetailsView">
+        <div class="row" style="margin: 0;">
+          <div class="col s12 chip chip-label center">
+            <div class="col s3 letf" style="padding: 4px;">
+              <label class="header_label left" translate>Audit Log</label>
+            </div>
+            <div class="col s3" style="padding: 4px;">
+              <label class="header_label left" translate>Event: <span
+                  style="color: #007EE5">{{auditDataDto.actionType}}</span></label>
+            </div>
+            <div class="col s3" style="padding: 4px;">
+              <label class="header_label left" translate>Employee Name:
+                <span style="color: #007EE5">{{auditDataDto.employeeName}}</span>
+              </label>
+            </div>
+            <div class="col s1 right" style="margin-top: 8px;">
+              <img class="closeBtn" src="{{cdnUrl}}/Hub/close.svg" data-(click)="closeEventDetailsView();">
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin: 0;">
+          <div class="col s3" style="width: 20%; padding-top: 15px;">
+            <ul id="tabs" class="tabs left" style="cursor: pointer; border-radius: 20px;">
+              <li id="deactive" class="tab col s12" title="Event"><a [ngClass]="{'active': logType == 'Details'}"
+                  (click)="logTypeFilter('Details');" style="padding-left: 10px; border-radius: 20px;">{{ 'Action
+									Details' | translate }}</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="actionDetailsView || actionDetailsPage">
+        <div class="row" style="margin: 15px 10px 10px 10px;">
+          <div class="inputBox col custom-col">
+            <label class="labels" for="rev">{{ 'REV'| translate }}</label><input id="rev" type="text"
+              class="disabledFont" name="rev" [(ngModel)]="eventDetails.REV" title="{{ 'REV' }}" disabled>
+          </div>
+          <div class="inputBox col custom-col">
+            <label class="labels" for="employeeGlobalId">{{ 'Employee
+							Global ID'| translate }}</label><input id="employeeGlobalId" class="disabledFont" type="text"
+              name="employeeGlobalId" [(ngModel)]="eventDetails.employeeGlobalId" title="{{ 'Employee Global Id' }}"
+              disabled>
+          </div>
+          <div class="inputBox col custom-col">
+            <label class="labels" for="actionType">{{ 'Action Type'|
+							translate }}</label><input id="actionType" class="disabledFont" type="text" name="actionType"
+              [(ngModel)]="eventDetails.actionType" title="{{ 'Event Type' }}" disabled>
+          </div>
+          <div class="inputBox col custom-col">
+            <label class="labels" for="createdBy">{{ 'Created By'|
+							translate }}</label><input id="createdBy" class="disabledFont" type="text" name="createdBy"
+              [(ngModel)]="eventDetails.createdBy" title="{{ 'Created By' }}" disabled>
+          </div>
+          <div class="inputBox col custom-col">
+            <label class="labels" for="createdOn">{{ 'Created On'|
+							translate }}</label><input id="createdOn" type="text" class="datepicker disabledFont" name="createdOn"
+              [(ngModel)]="eventDetails.createdOn" title="{{ 'Created On' }}"
+              (change)="eventDetails.createdOn = setDate($event.target.value);" disabled>
+          </div>
+          <div class="inputBox col custom-col">
+            <label class="labels" for="effectiveStartDate">{{
+							'Effective Start Date'| translate }}</label><input id="effectiveStartDate" type="text"
+              class="datepicker disabledFont" name="effectiveStartDate" [(ngModel)]="eventDetails.effectiveStartDate"
+              title="{{ 'Effective Start Date' }}"
+              (change)="eventDetails.effectiveStartDate = setDate($event.target.value);" disabled>
+          </div>
+          <div class="inputBox col custom-col">
+            <label class="labels" for="effectiveEndDate">{{ 'Effective
+							End Date'| translate }}</label><input id="effectiveEndDate" type="text" class="datepicker disabledFont"
+              name="effectiveEndDate" [(ngModel)]="eventDetails.effectiveEndDate" title="{{ 'Effective End Date' }}"
+              (change)="eventDetails.effectiveEndDate = setDate($event.target.value);" disabled>
+          </div>
+          <div class="inputBox col custom-col">
+            <label class="labels" for="actionReason">{{ 'Action
+							Reason'| translate }}</label><input id="actionReason" class="disabledFont" type="text" name="actionReason"
+              [(ngModel)]="eventDetails.actionReason" title="{{ 'Action Reason' }}" disabled>
+          </div>
+          <div class="inputBox col custom-col">
+            <label class="labels" for="updatedBy">{{ 'Updated By'|
+							translate }}</label><input id="updatedBy" class="disabledFont" type="text" name="updatedBy"
+              [(ngModel)]="eventDetails.updatedBy" title="{{ 'Updated By' }}"
+              (change)="eventDetails.updatedBy = setDate($event.target.value);" disabled>
+          </div>
+          <div class="inputBox col custom-col">
+            <label class="labels" for="actionUpdatedDate">{{ 'Action
+							Updated Date'| translate }}</label><input id="actionUpdateDate" type="text" name="actionUpdateDate"
+              [(ngModel)]="eventDetails.actionUpdateDate" class="datepicker disabledFont"
+              title="{{ 'Action Updated Date' }}"
+              (change)="eventDetails.actionUpdateDate = setDate($event.target.value);" disabled>
+          </div>
+        </div>
+        <div *ngIf="!showDataFlag" class="row" style="margin: 0px; padding: 6px 0px 11px 40%">
+          <div class="col s3 m3 l3 " data-(click)="showMore();"><button class="configBtn right">Show
+            More</button></div>
+        </div>
+        <div *ngIf="showDataFlag" class="row" style="margin: 0px; padding: 6px 0px 11px 40%">
+          <div class="col s3 m3 l3 " data-(click)="showLess();"><button class="configBtn right">Show
+            Less</button></div>
+        </div>
+      </div>
+
+      <!----------------------- Start : Show More ----------------------------->
+
+      <div *ngIf="fieldList.length > 0 && showDataFlag">
+        <div class="row" style="margin: 15px 10px 10px 10px;">
+          <div *ngFor="let field of fieldList;let i=index">
+            <div class="inputBox col custom-col">
+              <label class="labels" for="field">{{ field.fieldTitle }}</label><input id="field" type="text"
+                class="disabledFont" name="field" [(ngModel)]="field.fieldDisplay" title="{{ field.fieldTitle }}"
+                disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!----------------------- End : Show More ----------------------------->
+
+    </div>
+
+    <!----------------------- End : Selected Employee Log Data ----------------------------->
+
+  </div>
+
+  <!---------------------------------- End : Action Audit Log ----------------------------------------->
+
+</div>
+
+<!----------------------- Start : Field Loader ------------------------>
+
+<div class="preloader-background" *ngIf="loader">
+  <div class="medium center active">
+    <img style="height: 70px;" alt="loader" src="{{cdnUrl}}/Hub/loader50.gif">
+  </div>
+</div>
+
+<!----------------------- End : Field Loader ------------------------>

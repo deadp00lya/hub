@@ -1,0 +1,25 @@
+<div id="ClientViewPage" style="height: 100%;">
+
+  <div id="createClient" class="modal">
+    <div class="modal-content row" id="createSeriesModalCss">
+      <div class="col s8">
+        <select [(ngModel)]="clientDTO">
+          <option value="" disabled selected>Choose your option</option>
+          <option *ngFor="let client of clientList" [ngValue]="client">{{client.clientName}}</option>
+        </select>
+      </div>
+      <a class="btn-small col s3" style="border-radius: 30px; margin-left: 3%; margin-top: 1%;"
+        (click)="createClient( clientDTO );">Submit</a> <a><i class="small material-icons col s1"
+          (click)="closeCreateClientModal();"
+          style="width: 5%; margin-top: -22px; color: black; cursor: pointer;">close</i></a>
+    </div>
+  </div>
+
+  <universal-list-view [(listViewFromSource)]="clientListWithSearchKey" totalCount="{{count}}"
+    itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="CreateClientListView"
+    (outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+</div>
+
+<div>
+  <app-loader *ngIf="loader" class="loading"></app-loader>
+</div>

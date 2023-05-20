@@ -1,0 +1,127 @@
+<div class="row" *ngIf="proxySetFlag">
+	<span class="heading">Proxy User Settings</span>
+</div>
+<div id="neo_proxy_content">
+	<div class="row" *ngIf="proxySetFlag">
+
+		<div class="col s12 m12 l12">
+
+			<div class="input-field col s12 m6 l6">
+				<select multiple [(ngModel)]="proxySettingDTO.proxiedTo">
+					<option value="" disabled translate>Select User</option>
+					<option *ngFor="let user of userList" [ngValue]="user.employeeId">{{user.employeeId}}</option>
+				</select> <label translate>Users</label>
+			</div>
+
+			<div class="input-field col s12 m6 l6">
+				<select name="widget" multiple
+					[(ngModel)]="proxySettingDTO.widgetCode">
+					<option value="" disabled translate>Select Widget</option>
+					<option *ngFor="let widget of allMyWidgets"
+						[ngValue]="widget.widgetCode">{{widget.widgetName}}</option>
+				</select> <label translate>Widgets</label>
+			</div>
+
+			<div class="input-field col s12 m6 l6">
+				<label for="dateStart" class="active" data-translate>Start
+					date</label> <input name="" id="dateStart" class="datepicker" type="text"
+					[(ngModel)]="proxySettingDTO.startDate"
+					(change)="startDate=($event.target.value)">
+			</div>
+
+
+
+			<div class="input-field col s12 m6 l6">
+				<label for="dateEnd" class="active" data-translate>End date</label>
+				<input name="text5" id="dateEnd" class="datepicker" type="text"
+					[(ngModel)]="proxySettingDTO.endDate"
+					(change)="endDate=($event.target.value)">
+			</div>
+
+
+			<div class="col s12 m12 l12">
+				<div class="input-field col s6 m6 l6">
+					<button class="btn neosuiteBtn right" name="action"
+						(click)="saveProxySetting()" translate>Save</button>
+				</div>
+				<div class="input-field col s6 m6 l6">
+					<button class="btn neosuiteBtn left" name="action"
+						(click)="cancel()" translate>Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" *ngIf="!proxySetFlag">
+
+		<div class="col s6 m6 l6">
+			<span class="heading">Proxy Users</span>
+		</div>
+		<div class="col s4 m4 l4">
+			<span class="right" style="cursor: pointer;"> <i
+				class="material-icons" title="Add Setting"
+				(click)="createProxySetting()">add_circle</i>
+			</span>
+		</div>
+	</div>
+
+	<div class="row center" *ngIf="!proxySetFlag">
+
+		<div class="col s2 m2 l2  ">
+			<label> <b translate>Proxied To</b>
+			</label>
+		</div>
+		<div class="col s2 m2 l2 ">
+			<label> <b translate>Widget</b>
+			</label>
+		</div>
+		<div class="col s2 m2 l2 ">
+			<label> <b translate>StartDate</b>
+			</label>
+		</div>
+		<div class="col s2 m2 l2 ">
+			<label> <b translate>EndDate</b>
+			</label>
+		</div>
+		<div class="col s2 m2 l2 ">
+			<label> <b translate>Action</b>
+			</label>
+		</div>
+	</div>
+
+
+
+	<ul class="collection center" *ngIf="!proxySetFlag">
+
+		<li class="collection-item row"
+			*ngFor="let proxySetting of proxySettingList; let i=index"><span
+			class="truncate col s2 m2 l2">{{proxySetting.proxiedToUser.userName}}</span>
+			<span class="truncate col s2 m2 l2">{{proxySetting.widget.widgetName}}</span>
+			<span class="truncate col s2 m2 l2">{{proxySetting.startDate |
+				date:"MMM-dd-yy" }}</span> <span class="truncate col s2 m2 l2">{{proxySetting.endDate
+				| date:"MMM-dd-yy" }}</span> <a class="col s2 m2 l2 modal-trigger" data-target="deleteProxyModal" href="javascript:void(0)" (click)="deleteproxy(proxySetting.widget.widgetCode,proxySetting.proxiedToUser.id,i)">
+			<i class="material-icons" title="Delete">delete</i>
+		</a></li>
+	</ul>
+
+<div id="deleteProxyModal" class="modal" #deleteProxyModal>
+	<div class="modal-content">
+		<div class="row input-field">
+			<h6 id="deleteProxyContent" translate>Are you sure you want to delete?</h6>
+		</div>
+	</div>
+	<div class="row center">
+		<button class="btn neosuiteBtn" (click)="deleteStatus('Yes')" translate>Yes</button>&nbsp;
+		<button class="btn neosuiteBtn" (click)="deleteStatus('No')" translate>No</button>
+	</div>
+</div>
+
+	<div class="row center"
+		*ngIf="proxySettingList.length == 0 && !proxySetFlag">
+		<label>
+			<h6 class="red-text" translate>No record available.</h6>
+		</label>
+	</div>
+</div>
+
+
+

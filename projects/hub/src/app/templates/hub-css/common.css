@@ -1,0 +1,11 @@
+::ng-deep .pex_view_right {
+	right: 0px !important;
+}
+
+::ng-deep .pex_view_right .owl-dt-popup-container {
+	width: 13.5em !important;
+}
+
+::ng-deep .pex_view_right .owl-dt-popup-container .owl-dt-calendar {
+    height: 16.00em !important;
+}

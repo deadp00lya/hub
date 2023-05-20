@@ -1,0 +1,73 @@
+#myTextarea{
+	width: 100%;
+    background-color: transparent;
+    height: 300px;
+}
+
+.neoConfigModal {
+	width: 50% !important;
+	max-height: 75% !important; 
+	border-radius: 10px;
+	overflow: hidden !important;
+}
+
+.neoConfigModal .modal-header {
+	height: 27px;
+	padding: 5px 10px 0px 10px;
+	background: #e5f2fd;
+	font-size: 12px;
+	font-weight: 600;
+	margin: 0px;
+}
+
+.neoConfigModal .modal-body {
+	overflow-y: auto !important;
+	overflow-x: hidden !important;
+	height: auto !important;
+  	max-height: calc(100vh - 200px);
+}
+
+.neoConfigModal .modal-content {
+	padding: 10px;
+}
+
+.neoConfigModal .modal-close {
+	size: 16px !important; 
+	height: 16px; 
+	cursor: pointer; 
+}
+
+
+
+.versionModal {
+	width: 25% !important;
+	height: 300px !important; 
+	border-radius: 10px;
+	overflow: hidden !important;
+}
+
+.versionModal .modal-header {
+	height: 30px;
+	padding: 5px 10px 0px 10px;
+	background: #e5f2fd;
+	font-size: 12px;
+	font-weight: 600;
+	margin: 0px;
+}
+
+.versionModal .modal-body {
+	overflow-y: auto !important;
+	overflow-x: hidden !important;
+	height: auto !important;
+  	max-height: calc(100vh - 200px);
+}
+
+.versionModal .modal-content {
+	padding: 10px;
+}
+
+.versionModal .modal-close {
+	size: 16px !important; 
+	height: 16px; 
+	cursor: pointer; 
+}

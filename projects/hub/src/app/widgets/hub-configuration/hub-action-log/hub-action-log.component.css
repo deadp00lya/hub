@@ -1,0 +1,51 @@
+#hub_action_log ::ng-deep .ng-select {
+    font-size: 14px;
+}
+
+
+#hub_action_log ::ng-deep .ng-select .ng-select-container {
+    border: 1px solid #007ee5;
+    height: 32px;
+    min-height: 35px;
+}
+
+
+#hub_action_log ::ng-deep .ng-select .ng-select-container .ng-value-container .ng-input>input {
+    height: 20px;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+
+#hub_action_log ::ng-deep .ng-dropdown-panel{
+    border: 1px solid #007ee5;
+}
+
+#hub_action_log .inputBox ::ng-deep input[type=text]:not(.browser-default) {
+	border: 1px solid #007ee5; 
+	border-radius: 5px;
+	text-align: center;
+	height: 34px;
+    min-height: 34px;
+}
+
+.labels {
+	color: #007ee5;
+	font-weight: bold;
+	font-size: 13px;
+}
+
+.modal {
+	width: 40%;
+	min-height: 55%;
+	border-radius: 10px;
+	border: 5px solid #007ee5;
+}
+
+td {
+	border: 1px solid;
+}
+
+.collapsible-body {
+	padding: 10px !important;
+}

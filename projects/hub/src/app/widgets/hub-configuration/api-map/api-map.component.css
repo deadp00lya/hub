@@ -1,0 +1,83 @@
+::ng-deep .ng-select .ng-select-container {
+	margin-bottom: 15px;
+	margin-top: 0px;
+}
+
+::ng-deep .ng-dropdown-panel-items {
+	max-height: 150px !important;
+}
+
+::ng-deep .dropdown-content {
+	max-height: 140px !important;
+	overflow-y: auto;
+	backface-visibility: hidden !important;
+}
+
+.neomodal {
+	border-radius: 15px;
+	border: #2196f3 solid 0.2px;
+	padding: 6px !important;
+	width: 25% !important
+}
+
+.neomodal-header {
+	border-radius: 15px 15px 0px 0px;
+	width: 100%;
+	background-color: #eef7ff;
+	height: 38px;
+	padding: 10px 10px;
+	text-align: center;
+}
+
+.neomodal-header h {
+	font-family: 'Roboto';
+	font-weight: bold;
+}
+
+a.neo_flatbtn:hover {
+	background: #66BB6A;
+	border: none;
+	color: white;
+	border: 1px white solid;
+}
+
+a.neo_btn:hover {
+	background: white;
+	border: 1px #66BB6A solid;
+	color: #66BB6A;
+}
+
+.neo_btn {
+	border: none;
+	display: inline-block;
+	height: 36px;
+	line-height: 36px;
+	padding: 0 16px;
+	text-transform: uppercase;
+	vertical-align: middle;
+	-webkit-tap-highlight-color: transparent;
+	background-color: #66BB6A;
+	border-radius: 25px;
+	color: #66BB6A;
+	cursor: pointer;
+}
+
+.neo_flatbtn {
+	border: 1px #66BB6A solid;
+	display: inline-block;
+	line-height: 35px;
+	height: 36px;
+	padding: 0 16px;
+	text-transform: uppercase;
+	vertical-align: middle;
+	-webkit-tap-highlight-color: transparent;
+	border-radius: 25px;
+	color: #66BB6A;
+	cursor: pointer;
+	font-weight: inherit;
+}
+
+.neo_flatbtn i, .neo_btn i {
+	font-size: 1.3rem;
+	line-height: inherit;
+}

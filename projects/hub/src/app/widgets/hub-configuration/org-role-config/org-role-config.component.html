@@ -1,0 +1,68 @@
+<div class="modal neomodal" #orcModalInstance>
+	<div class="neomodal-header ">
+		<Span>Org Role Configuration</Span> <img class="pointer"
+			data-(click)="closeModal()" style="" height="18px" width="18px"
+			class="right" src="{{cdnUrl}}/Hub/close.svg" alt="close">
+	</div>
+	<div class="neomodal-body row" style="margin: 0px">
+
+		<div class="input-field col s4">
+			<select [(ngModel)]="applicationDTO"
+				(change)="fetchRolesByAppCode();">
+				<option value="" disabled selected>Select Application</option>
+				<option *ngFor="let app of listOfApplications" [ngValue]="app">{{app.appName}}</option>
+			</select> <label>Application<span class="red-text">*</span></label>
+		</div>
+		<div class="input-field col s4">
+			<select [(ngModel)]="orgRoleConfigDTO.roleCode">
+				<option value="" disabled selected>Select Role</option>
+				<option *ngFor="let role of listOfRolesByApplication"
+					[ngValue]="role.roleCode">{{role.roleName}}</option>
+			</select> <label>Roles<span class="red-text">*</span></label>
+		</div>
+
+		<div class="input-field col s4" (change)="onCountrySelect()">
+			<select [(ngModel)]="orgRoleConfigDTO.countryCode">
+				<option value="" disabled selected>Select Country</option>
+				<option *ngFor="let country of countryList"
+					[ngValue]="country.countryCode">{{country.countryName}}</option>
+			</select> <label>Country</label>
+		</div>
+		<div class="input-field col s4">
+			<select [(ngModel)]="orgRoleConfigDTO.businessUnitCode">
+				<option value="" disabled selected>Select BusinessUnit</option>
+				<option *ngFor="let bu of countryBusinessUnitList"
+					[ngValue]="bu.businessunitCode">{{bu.businessunitName}}</option>
+			</select> <label>BusinessUnit</label>
+		</div>
+		<div class="myNgSelect input-field col s4" id="myNgselect2">
+
+			<ng-select [items]="orgConfigList" class="mySelectCss"
+				bindLabel="orgStructureName" [dropdownPosition]="'bottom'"
+				bindValue="orgStructureCode" [(ngModel)]="orgRoleConfigDTO.orgCode">
+			</ng-select>
+			<label class="myLabelCss" translate>Select Org Config <span
+				class="red-text">*</span></label>
+
+		</div>
+		<div class="input-field col s4">
+			<input id="sequence" [(ngModel)]="orgRoleConfigDTO.sequence"
+				type="number" class="validate"> <label for="sequence">Sequence</label>
+		</div>
+	</div>
+	<div class="row">
+		<div class="input-field col s12">
+			<div class="center">
+				<a class="neo_flatbtn  " data-(click)="refreshOrgRoleConfig()">RESET</a>&nbsp;
+				<a class="neo_flatbtn " data-(click)="saveOrgRoleConfig();">SAVE</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div>
+	<universal-list-view [(listViewFromSource)]="orgRoleConfigList"
+		totalCount="{{totalCount}}"
+		itemsPerPageToDisplay={{itemsPerPageToDisplay}}
+		listViewUniqueCode="orgRoleConfigurationListView"
+		(outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+</div>

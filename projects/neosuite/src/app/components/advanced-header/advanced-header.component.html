@@ -1,0 +1,547 @@
+<div class="advHeaderParent" style="margin-bottom: 1px">
+  <nav class="adv_menuNavbar">
+    <div class="nav-wrapper">
+      <ul id="nav-mobile-left" class="left" style="height: 100%">
+        <li class="vertical_alignment">
+          <img
+            src="../../../assets/WidgetIcon/Neosuite_logo.svg"
+            id="neeyamo_works_logo"
+            class="nw-logo"
+            onerror="this.style.display='none'"
+          />
+        </li>
+        <li>
+          <div class="adv_vlBar"></div>
+        </li>
+        <li class="vertical_alignment hide-on-small-only">
+          <img
+            id="clientLogo"
+            onerror="this.style.display='none'"
+            class="nw-client-logo"
+          />
+        </li>
+      </ul>
+
+      <ul id="nav-mobile-right" class="right" style="height: 100%">
+        <!-- <li class="hide-on-small-only" [hidden]="proxyUserFlag"><span
+				class="col s12 myFont truncate" style="display: inline-flex;">
+					<label>Proxied As</label>
+			</span></li> -->
+
+        <li class="vertical_alignment">
+          <a
+            class="row"
+            style="
+              padding-right: 0 !important;
+              height: 100%;
+              border-bottom-right-radius: 10px;
+            "
+            (click)="openRightSideBarSetting()"
+            href="javascript:void(0);"
+            data-target="setting_SideBar_out"
+            class="button-collapse menu"
+          >
+            <span class="col s12 myFont truncate" style="display: inline-flex">
+              <span class="hide-on-med-and-down" style="padding-right: 5px"
+                ><span
+                  title="{{ userFullName }}"
+                  class="truncate"
+                  style="max-width: 150px"
+                  >{{ userFullName }}</span
+                >
+              </span>
+              <span style="padding: 0px 5px">
+                <i
+                  class="fa fa-spinner fa-spin fa-fw grey-text"
+                  style="position: absolute; right: 3%"
+                  *ngIf="loading"
+                ></i>
+                <img
+                  class="circle adv_headerProfileImg"
+                  id="userLoginImg"
+                  [src]="profileImg"
+                  onerror="this.src='assets/WidgetIcon/usergrey.png';"
+                />
+              </span>
+              &nbsp;
+              <span class="hide-on-small-only" style="padding: 2px 5px">
+                <i style="font-size: 20px" class="material-icons"
+                  >keyboard_arrow_down</i
+                >
+              </span>
+            </span>
+          </a>
+        </li>
+      </ul>
+      <!-- Advanced UI Header Options start for web-->
+      <ul class="right adv_header" style="height: 100%">
+        <!-- <li><a href='javascript:void(0);'
+				(mousedown)="isSearchdown = true; widgetmenu = true; appShow=showWidget = isAppsdown = isHomedown = isNotificationdown = false">
+					<i class="material-icons "
+					[ngClass]="{'secondary-text activeTab secondary-border-bottom':isSearchdown}">search</i>
+			</a></li> -->
+
+        <li title="{{ 'Home' | translate }}">
+          <a
+            routerLink="/home"
+			routerLinkActive="active-link"
+          >
+            <img
+              class="headerImgSize"
+              src="assets/WidgetIcon/adv_home.svg"
+              
+            />
+          </a>
+        </li>
+
+        <li title="{{ 'Favourites' | translate }}">
+          <a
+            routerLink="/favourite"  routerLinkActive="active-link"
+           
+          >
+            <img
+              class="headerImgSize"
+              src="assets/WidgetIcon/adv_favorite.svg"
+             
+            />
+          </a>
+        </li>
+ <!-- Announcement start -->
+ <li title="{{ 'Announcement' | translate }}">
+  <a routerLink="/annoucements" routerLinkActive="active-link"> 
+    <img
+      class="headerImgSize"
+      [src]="
+      announcementList ? 'assets/WidgetIcon/announcement.svg'
+        : 'assets/WidgetIcon/no_announcement.svg'"
+      style="width: 24px"
+    />
+  </a>
+</li>
+<!-- Announcement End -->
+        <li
+          title="{{ 'Notifications' | translate }}"
+          (click)="createDropDown()"
+          class="adv_notification__bell dropdown-trigger"
+          href="#"
+          data-target="dropdown1"
+          id="alertBox"
+          #alertBox
+        >
+          <!-- <span 
+					class="notification__badge_header notification__badge_headerAdv1"
+					*ngIf="notifcationcount != 0">{{notifcationcount}}</span> -->
+          <a
+            class="notifCount"
+            href="javascript:void(0);"
+          >
+            <img
+              class="headerImgSize"
+              style="width: 16px"
+              [src]="
+                notifList.length > 0
+                  ? 'assets/WidgetIcon/adv_notif_red.svg'
+                  : 'assets/WidgetIcon/adv_notif.svg'
+              "
+             
+          /></a>
+
+          <ul id="dropdown1" class="dropdown-content advWebNotification">
+            <div
+              *ngIf="noNotifFlag"
+              class="row col s12 zeroMargin"
+              id="notifHead"
+            >
+              <div
+                class="col s7 grey-text"
+                style="
+                  height: 20px;
+                  line-height: 25px;
+                  font-size: 12px;
+                  font-weight: 600;
+                "
+                translate
+              >
+                No New Notifications
+              </div>
+              <div
+                class="col s1 right cursor-pointer"
+                style="padding: 0 5px; margin-top: 3px"
+                (click)="closeDropDown()"
+              >
+                <a class="right closeNotif"
+                  ><i class="material-icons" style="margin-right: 0"
+                    >clear</i
+                  ></a
+                >
+              </div>
+            </div>
+            <div class="row col s12 zeroMargin" id="notifHead1" style="padding-bottom: 10px;">
+              <div
+                class="col s4 m4 l4 grey-text"
+                style="
+                  height: 20px;
+                  line-height: 25px;
+                  font-size: 12px;
+                  font-weight: 600;
+                "
+                translate
+              >
+                Notifications
+              </div>
+              <div
+                class="col s1 m1 l1 right cursor-pointer"
+                *ngIf="!noNotifFlag"
+                style="padding: 0; margin-top: 3px"
+                (click)="closeDropDown()"
+              >
+                <a class="right closeNotif"
+                  ><i class="material-icons" style="margin-right: 0"
+                    >clear</i
+                  ></a
+                >
+              </div>
+
+              <div
+                *ngIf="!noNotifFlag"
+                class="cursor-pointer col s4 m4 l4"
+                style="padding-right: 0"
+                (click)="clearAllNotifications()"
+                data-target="settingsModal"
+              >
+                <a class="clearAllNotif center red-text" translate>Clear All</a>
+              </div>
+
+              <div
+                class="modal-trigger right cursor-pointer col s3 m3 l3"
+                style="padding-right: 5px"
+                (click)="openModal('notifications')"
+                data-target="settingsModal"
+              >
+                <a class="allNotif center" translate>See All</a>
+              </div>
+            </div>
+            <div
+              style="height: auto; max-height: 215px"
+              class="scrollOnHover notifContents"
+            >
+              <div
+                *ngFor="let notif of notifList; let i = index"
+                class="col s12 notifBorder"
+              >
+                <img
+                  class="col left s3 notification_app_icon"
+                  [src]="notif.appIcon"
+                  onerror="this.src='assets/WidgetIcon/defaulticon.jpg';"
+                />
+                <span class="col s7 truncate notifSpan myFont"
+                  ><a
+                    class="col s8 truncate black-text showTwoLine"
+                    (click)="notifToWidgetLoader(notif.routeUrl)"
+                    title="{{ notif.description }}"
+                    ><label>{{ notif.fromUser }}</label>
+                    {{ notif.description }}</a
+                  ><a class="col s4"></a>
+                  <label
+                    style="font-size: 11px"
+                    class="col s4 notifLabel truncate left"
+                    >{{ notif.createdOnDate }} at
+                    {{ notif.createdOnTime }}</label
+                  >
+                  <label
+                    class="col s4 notifLabel truncate right red-text cursor-pointer"
+                    style="font-size: 11px"
+                    (click)="markedNotificationRead(i, notif.id)"
+                    translate
+                    >mark as read</label
+                  >
+                </span>
+              </div>
+            </div>
+          </ul>
+        </li>
+       
+        
+      </ul>
+      <!-- Advanced UI Header Options ends for web-->
+    </div>
+  </nav>
+
+  <!-- Side Nav Bar for Setting starts-->
+  <ul id="setting_SideBar_out" class="sidenav advSideBarSettings" #sideSetting>
+    <li [ngClass]="{ 'secondary-class primary-text': advancedUI }" class="">
+      <div
+        class="user-view userDetails"
+        style="padding-left: 16px !important; margin-bottom: unset !important"
+      >
+        <div class="row adv_sideNavClose"></div>
+        <div class="center">
+          <span class="displayImg">
+            <img
+              id="userImg"
+              class="circle"
+              [src]="profileImg"
+              onerror="this.src='assets/WidgetIcon/usergrey.png';"
+          /></span>
+          <span
+            class="name myFont truncate"
+            style="font-weight: 400 !important; color: #fff"
+            ><span title="{{ userFullName }}" class="truncate">{{
+              userFullName
+            }}</span></span
+          >
+          <span
+            class="email myFont truncate"
+            style="
+              font-weight: 400 !important;
+              color: #fff;
+              font-size: 14px !important;
+            "
+            >{{ currentUser.additionalDetails.mdm.email }}</span
+          >
+        </div>
+      </div>
+    </li>
+
+    <li title="{{ 'Proxy Now' | translate }}" *ngIf="proxyUserFlag">
+      <a class="modal-trigger" href="#proxyUserModal" translate>
+        <a class="right adv_sideBarIconWrap">
+          <img
+            class="adv_sideBarIcon"
+            src="assets/WidgetIcon/adv_proxy.svg" /></a
+        >Proxy Now
+      </a>
+    </li>
+    <!-- 		<li title="{{'Sign out Proxy' | translate}}" *ngIf="!proxyUserFlag"> -->
+    <!-- 			<a class="cursor-pointer" (click)="becomeSelf()" translate><a -->
+    <!-- 				class="right adv_sideBarIconWrap"> <img class="adv_sideBarIcon" -->
+    <!-- 					src="assets/WidgetIcon/adv_proxy.svg"></a>Become Self </a> -->
+    <!-- 		</li> -->
+    <li
+      class="hide-on-small-only"
+      title="{{ 'Delegate' | translate }}"
+      *ngIf="proxyUserFlag"
+    >
+      <a
+        class="cursor-pointer"
+        href="javascript:void(0);"
+routerLink="/delegations"
+        translate
+        ><a class="right adv_sideBarIconWrap">
+          <img class="adv_sideBarIcon" src="assets/WidgetIcon/adv_delegate.svg"
+        /></a>
+        Delegate
+      </a>
+    </li>
+    <li>
+      <ul id="neoAppRole_Collapsible" class="collapsible">
+        <li>
+          <a class="collapsible-header" translate>
+            App Roles
+            <!-- <i
+					class="large material-icons right" style="margin-right: 0;">accessibility</i> -->
+            <!-- <img src="assets/WidgetIcon/AppRole.svg" class="app-Role-Img"
+			 class="right black-text" style="margin-top: 5%;"> -->
+            <a class="right adv_sideBarIconWrap">
+              <img
+                class="adv_sideBarIcon"
+                src="assets/WidgetIcon/adv_appRole.svg"
+            /></a>
+          </a>
+
+          <div class="collapsible-body">
+            <ul id="appRole_Collapsible" class="collapsible">
+              <li
+                *ngFor="let userRole of userAppRoles | keyvalue; let i = index"
+              >
+                <div
+                  class="collapsible-header row"
+                  *ngIf="userRole.value != null"
+                  style="margin: 0%; font-weight: 400; padding: 0 !important"
+                >
+                  <div class="col s10 truncate">
+                    <img
+                      class="appRole-app-iconImg"
+                      title="{{ userRole.key }}"
+                      [src]="userRole.value[0].applications.iconName"
+                      onerror="this.src='assets/WidgetIcon/defaulticon.jpg';"
+                    />
+                    <span title="{{ userRole.key | translate }}" translate>{{
+                      userRole.key
+                    }}</span>
+                  </div>
+                  <div
+                    class="col s2 right center"
+                    style="padding: inherit !important"
+                  >
+                    <i class="material-icons secondary-text" style="margin: 0"
+                      >keyboard_arrow_down</i
+                    >
+                  </div>
+                </div>
+                <div class="collapsible-body">
+                  <div
+                    class="row"
+                    style="margin: 0%; line-height: 35px"
+                    *ngFor="let role of userRole.value; let i = index"
+                  >
+                    <div
+                      class="col s12"
+                      style="padding-bottom: 0%; padding-top: 0%"
+                    >
+                      <div class="col s8 truncate" style="font-weight: 300">
+                        <span title="{{ role.roleName | translate }}" translate
+                          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{
+                            role.roleName
+                          }}</span
+                        >
+                      </div>
+
+                      <div
+                        class="col s2 switch appRoles_toggle_btn"
+                        style="padding-bottom: 0%; padding-top: 0%"
+                      >
+                        <label>
+                          <input
+                            type="checkbox"
+                            (click)="preventEvent($event, role.active)"
+                            class="right"
+                            (change)="
+                              appRoleChanges(
+                                userRole.key,
+                                role.roleName,
+                                role.active
+                              )
+                            "
+                            [(ngModel)]="role.active"
+                          />
+                          <span class="lever"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+
+            <div class="row center" style="margin: 0">
+              <a
+                class="btn neosuiteBtn"
+                (click)="updateAppRoleActivation()"
+                title="{{ 'SAVE APP ROLE' | translate }}"
+                style="text-transform: capitalize; color: #fff !important"
+                translate
+                >Save App Role</a
+              >
+            </div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li title="{{ 'Settings' | translate }}" *ngIf="proxyUserFlag">
+      <a
+        href="javascript:void(0);"
+        translate
+        routerLink="/settings"
+        >Settings
+        <a class="right adv_sideBarIconWrap"
+          ><img
+            class="adv_sideBarIcon"
+            src="assets/WidgetIcon/adv_settings.svg"
+        /></a>
+      </a>
+    </li>
+    <li style="cursor: pointer" title="{{ 'Logout' | translate }}">
+      <a (click)="logout()" translate>
+        Logout
+        <a class="right adv_sideBarIconWrap">
+          <img class="adv_sideBarIcon" src="assets/WidgetIcon/adv_logout.svg"
+        /></a>
+      </a>
+    </li>
+  </ul>
+  <!-- Side Nav Bar for Setting ends-->
+
+  <!-- proxy modal popup starts-->
+  <div id="proxyUserModal" class="modal">
+    <div class="modal-content" style="margin-top: -18px; padding-left: 15px; padding-right: 15px;">
+      <div style="display: inline-flex; width: 100%">
+        <h6
+          style="
+            font-size: 13px;
+            font-weight: 600;
+            width: 100%;
+            padding-left: 5px;
+          "
+          translate
+        >
+          Proxy as other user
+        </h6>
+        <a
+          _ngcontent-pbr-c76=""
+          class="right proxy_closeBtn"
+          title="{{ 'Close' | translate }}"
+          (click)="cancel()"
+        >
+          <img
+            _ngcontent-pbr-c76=""
+            src="./assets/WidgetIcon/adv_proxyClose.svg"
+            style="width: 16px"
+        /></a>
+      </div>
+      <div class="input-field col s12">
+        <div
+          style="border: 1px solid #adc2d3; display: flex; border-radius: 23px"
+        >
+          <i class="material-icons" style="margin-top: 6px; margin-left: 5px"
+            >search</i
+          >
+
+          <div style="width: 100%" class="searchproxy" translate>
+            <ng-select
+              appendTo="body"
+              [multiple]="false"
+              placeholder="{{ 'Search by Name | ID' | translate }}"
+              [(ngModel)]="this.proxyDTO.proxiedToUser"
+              (keyup)="fetchUserForProxy($event)"
+              notFoundText="{{ 'User not found' | translate }}"
+              (change)="setProxyUser(this.proxyDTO.proxiedToUser)"
+              translate
+            >
+              <ng-option *ngFor="let user of userList" [value]="user">
+                {{ user.employeeId }} {{ user.firstName }} {{ user.lastName }}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row center" style="bottom: 0; position: absolute; width: 100%">
+      <button style="height: 31px !important;"
+        class="modal-close btn neosuiteBtn ProxyCancel secondary-light-border"
+        name="action"
+        translate
+        (click)="cancel()"
+      >
+        Reset
+      </button>
+      &nbsp;
+      <button
+        class="btn neosuiteBtn proxySave secondary-class"
+        name="action"
+        (click)="addProxyUser()"
+        translate
+      >
+        Proxy
+      </button>
+    </div>
+  </div>
+  <!-- proxy modal popup ends-->
+</div>
+<div id="settingsModal" class="modal">
+  <!-- <i class="material-icons black-text modal-close" style="float: right;" title="Close" >close</i> -->
+  <a class="right closeBtn" (click)="close()" title="{{ 'Close' | translate }}">
+    <img src="./assets/images/close_button.svg" width="25" />
+  </a>
+  <div #headerComponent></div>
+</div>

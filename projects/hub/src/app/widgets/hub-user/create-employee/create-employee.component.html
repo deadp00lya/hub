@@ -1,0 +1,47 @@
+<div *ngIf="landingPage" id="createMainDiv">
+  <div *ngIf=" !loader" style="height: 100%; width: 100%">
+    <div class="parentDiv">
+      <div class="row">
+        <div class="col" style="position: relative;"
+          [ngClass]="getResponsiveClasses(widgetWidth,[[12,5],[8,5],[12,12]],'s12 m6 l4')">
+          <div [ngClass]="{'changePosition':!candidateView}"
+            style="display: inline-grid; position: absolute; left: 25%; top: 50%; transform: translate3d(-30px, 100%, 0px);">
+            <i class="large material-icons iconDiv" style="cursor: pointer;" (click)="openCreateComponent()">person</i>
+            <span class="spanClass center" translate>Employee</span>
+          </div>
+        </div>
+        <div class="col" *ngIf="candidateView"
+          [ngClass]="getResponsiveClasses(widgetWidth,[[12,2],[8,2],[12,1]],'s12 m6 l4')">
+          <div id="middleLine" class="center "></div>
+
+        </div>
+        <div class="col" *ngIf="candidateView" style="position: relative;"
+          [ngClass]="getResponsiveClasses(widgetWidth,[[12,5],[8,5],[12,12]],'s12 m6 l4')">
+          <div style="display: inline-grid; left: 25%; top: 50%; transform: translate3d(50%, 100%, 0px);">
+            <i class="large material-icons iconDiv" style="cursor: pointer;" (click)="openCandidateComponent()">
+              person_outline</i> <span class="spanClass center" translate>Candidate</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <div style="border: 1px solid #ECF5FC">
+
+    <!-- <app-create-template *ngIf="!landingPage" [appCode]="appCode" [component]="component"
+      (nameEvent)="nameEventHander($event)"></app-create-template> -->
+
+
+
+
+
+
+  </div>
+</div>
+
+<div>
+  <app-loader *ngIf="loader" class="loading"></app-loader>
+</div>

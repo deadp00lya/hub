@@ -1,0 +1,106 @@
+#viewSeriesSelectPageSize {
+	overflow: inherit !important;
+	border-radius: 10px;
+	min-width: 43px !important;
+	width: 10px !important;
+	height: auto !important;
+}
+
+#viewSeriesSelectPageSize:after {
+	content: "";
+	position: absolute !important;
+	width: 25px !important;
+	height: 25px;
+	background: #ffffff;
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+	top: 0 !important;
+	right: 10px !important;
+	z-index: -1;
+}
+
+#viewSeriesSelectPageSize>li {
+	text-align: center !important;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	line-height: 45px;
+}
+
+.loading {
+	top: 50%;
+	bottom: 50%;
+	position: absolute;
+	left: 50%;
+}
+
+#searchiconcss {
+	color: #07b1d4;
+}
+
+.tophalf {
+	margin-bottom: 10px !important;
+}
+
+#createSeries {
+	overflow-x: hidden !important;
+}
+
+#updateSeries{
+	overflow-x: hidden !important;
+}
+
+
+#createSeries {
+	width: 31% !important;
+	overflow-y: unset !important;
+}
+
+#closeModalIcon {
+	font-size: 34px !important;
+	margin-left: -5% !important;
+	cursor: pointer;
+	/* 	color: #F44336 !important; */
+	color: #95a1ab;
+	display: inline-flex;
+}
+
+#saveModalIcon {
+	font-size: 34px !important;
+	margin-right: -5% !important;
+	cursor: pointer;
+	/* 	color: #26a69a; */
+	color: #55b2f9;
+	display: inline-flex;
+}
+
+#modalname {
+	font-size: 22px !important;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+#formIcon {
+	font-size: 27px !important;
+	color: #7a8086;
+}
+
+#myTextarea{
+	width: 100%;
+    background-color: transparent;
+    height: 260px;
+}
+#closeModalIcon[_ngcontent-adt-c114] {
+    font-size: 34px !important;
+    margin-left: -5% !important;
+    cursor: pointer;
+    margin-top: 11px;
+    color: #95a1ab;
+    display: inline-flex;
+}
+
+#uploadModal {
+    max-height: 34%;
+    width: 37%;
+}
+
+

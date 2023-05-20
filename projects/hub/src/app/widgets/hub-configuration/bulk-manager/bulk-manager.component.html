@@ -1,0 +1,91 @@
+<div id="bulk_manager">
+  <div class="row" style="margin: 0;">
+    <div class="col s12 chip chip-label center" style="background: #007ee5; height: 40px; border-radius: 5px;">
+      <div style="padding: 4px;">
+        <label class="label-font center" style="color: white; font-size: 18px; font-weight: 600;"
+          translate>Bulk-Manager</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="margin: 0;">
+    <div class="col s4" style="padding-left: 0;">
+      <label class="labels" for="bu">{{ 'Select Manager Type'|
+				translate}}</label>
+      <ng-select [items]="managerTypeList" placeholder="{{ 'Select Manager Type'| translate }}" bindLabel="fieldName"
+        bindValue="fieldCode" (open)="selectRefresh()" notFoundText="{{ 'Manager Not Found' | translate}}"
+        (change)="selectedManagerTypeMethod($event);" [(ngModel)]="selectedManagerType"></ng-select>
+    </div>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <fieldset style="border: 1px solid #007ee5; border-radius: 10px; padding-bottom: 0;">
+      <div class="row" style="margin-bottom: 0">
+        <div class="col s4">
+          <label for="oldManager" class="labels">{{ 'Old ' +
+						selectedManagerTypeName | translate }}</label>
+          <ng-select [items]="oldManagerList" placeholder="{{ 'Select Manager' | translate }}" bindLabel="empIdAndName"
+            bindValue="reportingManagerFunctionalEmployeeGlobalId" (open)="selectRefresh()"
+            (search)="searchOldManager($event.term)" [(ngModel)]="oldManagerId" (change)="fetchEmployeeList();">
+          </ng-select>
+        </div>
+        <div class="col s4">
+          <label class="labels" for="bu">{{ 'Employees'| translate}}</label>
+          <ng-select [items]="employeeList" placeholder="{{ 'Select Employee'| translate }}" bindLabel="preferredName"
+            bindValue="employeeGlobalId" (open)="selectRefresh()"
+            notFoundText="{{ 'Employee unit Not Found' | translate}}" (change)="selectedEmployee($event);"
+            [(ngModel)]="employeeListValues" multiple="true" #getModelValue="ngModel">
+            <ng-template ng-header-tmp>
+              <div>
+                <button class="btn configBtn" style="width: 30% !important; margin-bottom: 0px;"
+                  (click)="onSelectAll(getModelValue)">Select All</button>
+                <button class="btn configBtn right"
+                  style="width: 30% !important; margin-left: 10px; margin-bottom: 0px;"
+                  (click)="onClearAll(getModelValue)">Clear All</button>
+              </div>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div class="col s4">
+          <label class="labels" for="newManager">{{ 'New ' +
+						selectedManagerTypeName | translate}}</label>
+          <ng-select [items]="newManagerList" placeholder="{{ 'Select new Manager' | translate }}"
+            bindLabel="empIdAndName" bindValue="reportingManagerFunctionalEmployeeGlobalId" (open)="selectRefresh()"
+            (search)="searchNewManager($event.term);" notFoundText="{{ 'employee Not Found' | translate }}"
+            [(ngModel)]="newManagerId" [disabled]="selectedEmployeeList.length == 0"></ng-select>
+        </div>
+        <div class="col s4" style="margin-left: -11px;">
+          <label class="labels" style="margin: 12px; display: inline-flex;"
+            for="newManager">{{ 'Effective Date'| translate}}</label>
+          <div class="dateValue">
+            <input #dateTime="ngModel" class="col s11" style="height: 35px; border-bottom: none;"
+              [(ngModel)]="effectiveDate" id="targetDateTimeOneToManyInput"
+              [owlDateTimeTrigger]="targetDateTimeOneToManyInputPicker"
+              [owlDateTime]="targetDateTimeOneToManyInputPicker"> <i class="far fa-calendar-alt dateIcon"
+              style="margin-top: 12px"></i>
+            <owl-date-time [pickerType]="'calendar'" #targetDateTimeOneToManyInputPicker></owl-date-time>
+          </div>
+        </div>
+        <div class="col s4">
+          <label class="labels" style="margin-top: 7px;" for="eventReason">Event Reason</label>
+          <input type="text" style="border: 1px solid #007ee5; border-radius: 3px; padding-bottom: 0; height: 2em; margin-top: 7px;"
+            [(ngModel)]="eventReason" >
+        </div>
+      </div>
+      <div class="row" style="margin-bottom: 2px">
+        <div class="col s2 m2 l2 right" style="width: 13%;">
+          <a class="btn configBtn" (click)="resetData();" id="btnResetData">Reset</a>
+        </div>
+        <div class="col s2 m2 l2 right" style="width: 13%; margin-right: -50px;">
+          <a class="btn configBtn" (click)="transferEmployee();" id="btnTransferEmp">Transfer</a>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="card-panel" *ngIf="selectedEmployeeList.length > 0" style="border-radius: 5px; margin-top: 35px;">
+    <universal-list-view [(listViewFromSource)]="selectedEmployeeList" totalCount="{{count}}"
+      itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="BulkEmployeeList"
+      (outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+  </div>
+</div>

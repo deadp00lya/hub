@@ -1,0 +1,152 @@
+<div id="groupView" style="height: 100%;">
+  <universal-list-view [(listViewFromSource)]="groupList" totalCount="{{count}}"
+    itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="PexGroupList"
+    (outPutToParentComponent)="outputFromListView($event)" rowBasedCheckBoxEvent="true">
+  </universal-list-view>
+
+  <div id="group" class="modal">
+    <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+      <i id="closeModalIcon" class="col s2 material-icons left modal-close" (click)="reset();" title="close">close</i>
+      <p id="modalname" class="col s8 center">Create Group</p>
+      <i id="saveModalIcon" class="col s2 material-icons right" (click)="saveGroup();" title="Add group">done</i>
+    </div>
+
+    <div class="modal-content">
+
+      <div class="row">
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="group_Name" class="material-icons prefix">description</i> <input id="group_Name"
+            [(ngModel)]="group.groupName" type="text" class="validate"> <label for="group_Name">Group
+            Name</label>
+        </div>
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="group_Code" class="material-icons prefix">description</i> <input id="group_Code"
+            [(ngModel)]="group.groupCode" type="text" class="validate"> <label for="group_Code">Group
+            Code</label>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<div>
+  <div id="viewParticipant" class="modal">
+    <div class="modal-content">
+      <i class="material-icons right" style="cursor: pointer; margin: -10px;" title="close"
+        (click)="closeviewParticipantModal()">clear</i>
+      <div class="modal-content">
+        <div class="modal-header" style="display: inline-flex;">
+          <i class="material-icons medium" style="color: deepskyblue;">people</i>
+          <h4 style="margin: 13px;">{{groupName}}</h4>
+
+        </div>
+        <a class="btn-floating btn-small right red" style="margin: 15px;"><i class="material-icons"
+            title="Add participants" (click)="addParticipant=true;">person_add</i></a>
+
+        <div class="row">
+          <div class="  col" id="viewGroupParticipant"
+            [ngClass]="getResponsiveClasses(widgetWidth,[[4,4],[8,4],[12,8]],'s4 m4 l3')" *ngIf="addParticipant">
+            <!-- 						<ng2-completer class="completer-title" [datasource]="dataService" -->
+            <!-- 							[minSearchLength]="0" [(ngModel)]="groupParticipant.employeeId " -->
+            <!-- 							inputClass="form-control form-control-inline " -->
+            <!-- 							inputName="employeeId" id="employeeId" [minSearchLength]="1" -->
+            <!-- 							[textNoResults]="" [clearSelected]=true [clearUnselected]=true -->
+            <!-- 							placeholder="Add Participant" style="border-bottom:none" -->
+            <!-- 							(selected)="add($event ,groupParticipant)"> </ng2-completer> -->
+
+            <ng-select id="employeeId" [searchable]="true" [virtualScroll]="true" [searchFn]="customSearchFn"
+              (search)="getAutoComplete($event)" (ngModelChange)="add($event ,groupParticipant)" [items]="suggestions"
+              notFoundText="{{ 'Employee not found' }}" placeholder="Add Participant" bindValue="employeeGlobalId"
+              [(ngModel)]="groupParticipant.employeeId">
+              <ng-template ng-label-tmp let-item="item">
+                {{resolvePattern(item)}} </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+                {{resolvePattern(item)}} </ng-template>
+            </ng-select>
+          </div>
+          <i class="material-icons" style="cursor: pointer; margin: 16px;" *ngIf="addParticipant"
+            (click)="addParticipant=false;" title="close">cancel</i>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <ul class="collection with-header" style="background-color: #bbdcf5;">
+            <li class="collection-item black-text row" style="background-color: #bbdcf5; margin: -11px">
+              <div class="col " [ngClass]="getResponsiveClasses(widgetWidth,[[4,1],[8,2],[12,6]],'s1 m6 l1')"
+                style="display: inline-flex; padding: 22px;">
+                <label style="font-size: 15px; color: initial;">Employee</label><i class="small material-icons"
+                  style="margin: -4px;">arrow_drop_down</i>
+              </div>
+              <div class="col " [ngClass]="getResponsiveClasses(widgetWidth,[[4,1],[8,2],[12,6]],'s1 m6 l1')"
+                style="display: inline-flex; color: initial;">
+                <abbr title="SearchParticipant"><input type="text" placeholder="Search" id="searchId"
+                    [(ngModel)]="searchparticipantKey"
+                    style="border: 1px solid #524343ba; border-radius: 50px; margin: 10px; padding-left: 13px; background-color: white;"></abbr>
+              </div>
+
+            </li>
+          </ul>
+        </div>
+
+        <div class="col s12">
+          <ul class="collection" style="margin-top: -16px; max-height: 300px; overflow-y: auto; overflow-x: hidden;">
+            <li class="collection-item row" style="height: 50px; cursor: pointer;"
+              *ngFor="let employeeId of employeeIds | search:searchparticipantKey">
+              <div class="col" id="demo" [ngClass]="getResponsiveClasses(widgetWidth,[[4,1],[8,2],[12,6]],'s1 m6 l1')">
+                {{employeeId}}
+              </div>
+              <div class="col right" [ngClass]="getResponsiveClasses(widgetWidth,[[4,1],[8,2],[12,2]],'s1 m6 l1')">
+                <i class="small material-icons blue-text right" style="margin: -4px;"
+                  (click)="removeParticipant(employeeId)">delete</i>
+              </div>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+    <div class="preloader-background" *ngIf="loader">
+      <div class="medium center active">
+        <img src="{{cdnUrl}}/Hub/loader50.gif">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Open Modal For Upload Button-->
+<div id="uploadModal" class="modal">
+  <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+    <i id="closeModalIcon" class="col s2 material-icons left" (click)="closeUploadModal()"
+      style="cursor: pointer; margin: 20px" title="Close Modal">close</i>
+    <p style="	font-size: 22px !important; margin-bottom: 0px; margin-top: 19px;" class="col s8 center">Upload Groups
+    </p>
+    <i id="saveModalIcon" class="col material-icons right" style="cursor: pointer; margin: 20px" title="Save Action"
+      (click)="onUpload()">done</i>
+  </div>
+
+  <div class="modal-content">
+    <div class="row">
+      <div class="file-field input-field">
+        <div class="btn">
+          <span>File</span>
+          <input type="file" (change)="fileChanged($event)" class="file-upload">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate file-upload" type="text">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Open Modal For neoConfig -->
+<!-- ***********************************check Neoconfig Version Starts ********************************** -->
+<div>
+	<app-neo-config-view *ngIf="viewNeoConfig" (versionEvent)="triggered($event)"
+	[configCode]='configCode'>
+    </app-neo-config-view>
+</div>
+
+<!-- ************************************ check Neoconfig Version Ends ****************************************** -->

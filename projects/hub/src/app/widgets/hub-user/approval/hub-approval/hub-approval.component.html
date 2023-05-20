@@ -1,0 +1,566 @@
+<div *ngIf="!loader" id="pexApprovalPage" style="height: 100%; overflow: overlay !important;">
+  <div class="row black white-text">
+    <div style="display: inline-flex;">
+      <a (click)="back()" style="cursor: pointer;"> <i class="material-icons">reply</i>
+      </a><b translate>Approval Id </b><b>:
+        {{approvalData?.tbMasApproval?.id}}</b>
+    </div>
+  </div>
+
+  <fieldset>
+
+    <legend>
+      <label translate>Approval Information</label>
+    </legend>
+
+    <div class="row">
+
+      <i style="position: relative; float: right; right: 0px; cursor: pointer;" class="material-icons modal-trigger"
+        href="#pexApprovalHistory" (click)="fetchApprovalHistory()">info</i>
+
+      <div class="col " [ngClass]="getResponsiveClasses(widgetWidth,[[6,12],[8,12],[12,6]],'s2 m6 l6')">
+        <label translate>Approval Created By </label> <label>:
+          {{approvalData.tbMasApproval.createdBy}}
+          {{employeeInfo[approvalData.tbMasApproval.createdBy]?.preferredName}}</label>
+      </div>
+      <div class="col " [ngClass]="getResponsiveClasses(widgetWidth,[[6,12],[8,12],[12,6]],'s2 m6 l6')">
+        <label translate>Approval Created On </label> <label>:
+          {{approvalData.tbMasApproval.createdOn | date : 'medium'}}</label>
+      </div>
+      <div class="col " [ngClass]="getResponsiveClasses(widgetWidth,[[6,12],[8,4],[12,6]],'s2 m6 l6')">
+        <label translate>Approval Assigned By </label> <label>:
+          {{approvalData.assignedBy}}
+          {{employeeInfo[approvalData.assignedBy]?.preferredName}}</label>
+      </div>
+      <div class="col " [ngClass]="getResponsiveClasses(widgetWidth,[[6,12],[8,4],[12,6]],'s2 m6 l6')">
+        <label translate>Approval Received On </label> <label>:
+          {{approvalData.createdOn | date : 'medium'}}</label>
+      </div>
+
+      <div class="col " [ngClass]="getResponsiveClasses(widgetWidth,[[6,12],[8,4],[12,6]],'s2 m6 l6')">
+        <label translate>Approval For Employee </label> <label>:
+          {{approvalData.tbMasApproval.approvalFor}}
+          {{employeeInfo[approvalData.tbMasApproval.approvalFor]?.preferredName}}</label>
+      </div>
+
+      <div *ngIf="approvalData.proxyBy != nul" class="col "
+        [ngClass]="getResponsiveClasses(widgetWidth,[[6,12],[8,4],[12,6]],'s2 m6 l6')">
+        <label translate>Proxy By </label> <label>:
+          {{approvalData.proxyBy}}
+          {{employeeInfo[approvalData.proxyBy]?.preferredName}}</label>
+      </div>
+
+      <div class="col " [ngClass]="getResponsiveClasses(widgetWidth,[[6,12],[8,4],[12,6]],'s2 m6 l6')">
+        <label *ngIf="approvalData.status.statusCode=='APR'" translate>Approval
+          Approved By </label> <label *ngIf="approvalData.status.statusCode=='RJT'" translate>Approval Rejected By
+        </label> <label *ngIf="approvalData.status.statusCode=='CNL'" translate>Approval
+          Cancelled By </label> <label *ngIf="approvalData.status.statusCode!='OPN'">:
+          {{approvalData.tbMasApproval.updatedBy}}
+          {{employeeInfo[approvalData.tbMasApproval.updatedBy]?.preferredName}}</label>
+      </div>
+
+      <div class="col " [ngClass]="getResponsiveClasses(widgetWidth,[[6,12],[8,4],[12,6]],'s2 m6 l6')">
+        <label *ngIf="approvalData.status.statusCode=='APR'" translate>Approval
+          Approved On :</label> <label *ngIf="approvalData.status.statusCode=='RJT'" translate>Approval Rejected On :
+        </label> <label *ngIf="approvalData.status.statusCode=='CNL'" translate>Approval
+          Cancelled On : </label> <label *ngIf="approvalData.status.statusCode!='OPN'">{{approvalData.tbMasApproval.updatedOn
+					| date : 'medium'}}</label>
+      </div>
+
+    </div>
+
+
+  </fieldset>
+  <div class="row" *ngIf="personalDetailDB && personalDetail">
+    <table class="highlight">
+      <thead>
+        <tr>
+          <th translate>Field</th>
+          <th translate>Old Value</th>
+          <th translate>Updated Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let changedField of changedFields;let i=index">
+
+          <th><span *ngIf="allFieldTitles[changedField]; else elseBlockFieldTitle"
+              translate>{{allFieldTitles[changedField]}}</span>
+            <ng-template #elseBlockFieldTitle> <span translate>{{changedField}}</span></ng-template>
+          </th>
+
+          <td>
+            <div
+              *ngIf="allFieldDetails[changedField]?.fieldType=='bit' || (allFieldDetails[changedField]?.fieldType=='select' && !allFieldDetails[changedField]?.sdmValue) || allFieldDetails[changedField]?.fieldType=='datetime' || allFieldDetails[changedField]?.fieldType=='autocomplete';else elseBlockOldValue">
+
+              <div
+                *ngIf="allFieldDetails[changedField]?.fieldType=='bit' || (allFieldDetails[changedField]?.fieldType=='select' && !allFieldDetails[changedField]?.sdmValue) || allFieldDetails[changedField]?.fieldType=='autocomplete'">
+                <span>{{oldDataDisplayNames[changedField]}}</span>
+              </div>
+
+              <div *ngIf="allFieldDetails[changedField]?.fieldType=='datetime'">
+                <span>{{getLocalDate(personalDetailDB[changedField])}}</span>
+              </div>
+
+            </div>
+            <ng-template #elseBlockOldValue> <span>{{personalDetailDB[changedField]}}</span></ng-template>
+
+          </td>
+
+          <td>
+
+            <div
+              *ngIf="allFieldDetails[changedField]?.fieldType=='bit' || (allFieldDetails[changedField]?.fieldType=='select' && !allFieldDetails[changedField]?.sdmValue) || allFieldDetails[changedField]?.fieldType=='datetime' || allFieldDetails[changedField]?.fieldType=='autocomplete';else elseBlockNewValue">
+
+              <div
+                *ngIf="allFieldDetails[changedField]?.fieldType=='bit' || (allFieldDetails[changedField]?.fieldType=='select' && !allFieldDetails[changedField]?.sdmValue) || allFieldDetails[changedField]?.fieldType=='autocomplete'">
+                <span>{{newDataDisplayNames[changedField]}}</span>
+              </div>
+
+              <div *ngIf="allFieldDetails[changedField]?.fieldType=='datetime'">
+                <span>{{getLocalDate(personalDetail[changedField])}}</span>
+              </div>
+
+            </div>
+            <ng-template #elseBlockNewValue> <span>{{personalDetail[changedField]}}</span></ng-template>
+
+          </td>
+
+
+        </tr>
+      </tbody>
+    </table>
+
+
+
+    <br>
+    <h4 class="center" *ngIf="oneToMany" translate>One To Many</h4>
+    <br>
+
+    <ul class="collapsible">
+      <li *ngFor="let o2mChangedField of one2ManyChangedFields; let i = index;">
+        <div class="collapsible-header" style="height: 40px; padding: 9px;" (click)="initializeCollapse()" translate>
+          {{o2mChangedField.one2ManyDataSource}}</div>
+        <div class="collapsible-body collaps">
+
+          <ul class="collapsible">
+            <li *ngIf="o2mChangedField.addedValueEnabled">
+              <div class="collapsible-header" style="height: 40px; padding: 9px;" translate>Added</div>
+              <div class="collapsible-body collaps">
+                <fieldset *ngFor="let coloumn of o2mChangedField.addedValues; let j = index;">
+                  <table>
+                    <tr>
+                      <th translate>Field</th>
+                      <th *ngFor="let addedValues of o2mChangedField.addedValues[j].values; let k = index"><span
+                          *ngIf="allFieldTitles[addedValues]; else elseBlockAddedValues"
+                          translate>{{allFieldTitles[addedValues]}}</span>
+                        <ng-template #elseBlockAddedValues> <span>{{addedValues}}</span></ng-template>
+                      </th>
+
+                    </tr>
+                    <tbody>
+                      <tr>
+                        <th translate>Value</th>
+                        <th *ngFor="let addedValues of o2mChangedField.addedValues[j].values; let k = index">
+                          <div
+                            *ngIf="personalDetail[o2mChangedField.one2ManyDataSource][o2mChangedField.addedValues[j].index]">
+
+                            <div
+                              *ngIf="allFieldDetails[addedValues]?.fieldType=='bit' || (allFieldDetails[addedValues]?.fieldType=='select' && !allFieldDetails[addedValues]?.sdmValue) || allFieldDetails[addedValues]?.fieldType=='datetime' || allFieldDetails[addedValues]?.fieldType=='autocomplete';else elseBlockNewAddedValue">
+
+                              <span
+                                *ngIf="allFieldDetails[addedValues]?.fieldType=='bit' || (allFieldDetails[addedValues]?.fieldType=='select' && !allFieldDetails[addedValues]?.sdmValue) || allFieldDetails[addedValues]?.fieldType=='autocomplete'">{{newDataDisplayNames[o2mChangedField.one2ManyDataSource][[o2mChangedField.addedValues[j].index]][addedValues]}}</span>
+
+                              <span
+                                *ngIf="allFieldDetails[addedValues]?.fieldType=='datetime'">{{getLocalDate(personalDetail[o2mChangedField.one2ManyDataSource][[o2mChangedField.addedValues[j].index]][addedValues])}}</span>
+                            </div>
+
+                            <ng-template #elseBlockNewAddedValue>
+                              <span>{{personalDetail[o2mChangedField.one2ManyDataSource][[o2mChangedField.addedValues[j].index]][addedValues]}}</span>
+                            </ng-template>
+
+                          </div>
+
+                        </th>
+                      </tr>
+
+                    </tbody>
+                    <tr *ngIf="o2mChangedField.addedValues[j].isJson">
+                      <th translate>Field</th>
+                      <th *ngFor="let addedValues of o2mChangedField.addedValues[j].jsonValues; let k = index"><span
+                          *ngIf="allFieldTitles[addedValues]; else elseBlockAddedValues"
+                          translate>{{allFieldTitles[addedValues]}}</span>
+                        <ng-template #elseBlockAddedValues> <span>{{addedValues}}</span></ng-template>
+                      </th>
+                    </tr>
+                    <tbody *ngIf="o2mChangedField.addedValues[j].isJson">
+                      <tr>
+                        <th translate>Value</th>
+                        <th *ngFor="let addedValues of o2mChangedField.addedValues[j].jsonValues; let k = index">
+                          <div
+                            *ngIf="personalDetail[o2mChangedField.one2ManyDataSource][o2mChangedField.addedValues[j].index]">
+
+                            <div
+                              *ngIf="allFieldDetails[addedValues]?.fieldType=='bit' || (allFieldDetails[addedValues]?.fieldType=='select' && !allFieldDetails[addedValues]?.sdmValue) || allFieldDetails[addedValues]?.fieldType=='datetime' || allFieldDetails[addedValues]?.fieldType=='autocomplete';else elseBlockNewAddedValue">
+
+                              <span
+                                *ngIf="allFieldDetails[addedValues]?.fieldType=='bit' || (allFieldDetails[addedValues]?.fieldType=='select' && !allFieldDetails[addedValues]?.sdmValue) || allFieldDetails[addedValues]?.fieldType=='autocomplete'">{{newDataDisplayNames[o2mChangedField.one2ManyDataSource][[o2mChangedField.addedValues[j].index]][o2mChangedField.addedValues[j].json][addedValues]}}</span>
+
+                              <span
+                                *ngIf="allFieldDetails[addedValues]?.fieldType=='datetime'">{{getLocalDate(personalDetail[o2mChangedField.one2ManyDataSource][[o2mChangedField.addedValues[j].index]][o2mChangedField.addedValues[j].json][addedValues])}}</span>
+                            </div>
+
+                            <ng-template #elseBlockNewAddedValue>
+                              <span>{{personalDetail[o2mChangedField.one2ManyDataSource][[o2mChangedField.addedValues[j].index]][o2mChangedField.addedValues[j].json][addedValues]}}</span>
+                            </ng-template>
+
+                          </div>
+                        </th>
+                      </tr>
+
+                    </tbody>
+
+                  </table>
+                </fieldset>
+              </div>
+            </li>
+            <li *ngIf="o2mChangedField.changedValueEnabled">
+              <div class="collapsible-header" style="height: 40px; padding: 9px;" translate>Changed</div>
+              <div class="collapsible-body collaps">
+                <fieldset *ngFor="let coloumn of o2mChangedField.changedValues; let j = index;">
+                  <table>
+                    <tr>
+                      <th translate>Field</th>
+                      <th translate>Old Value</th>
+                      <th translate>Updated Value</th>
+                    </tr>
+                    <tbody>
+                      <tr *ngFor="let changedValues of o2mChangedField.changedValues[j].values; let k = index">
+                        <th><span *ngIf="allFieldTitles[changedValues]; else elseBlockChangedValuesTitle"
+                            translate>{{allFieldTitles[changedValues]}}</span>
+                          <ng-template #elseBlockChangedValuesTitle> <span>{{changedValues}}</span></ng-template>
+                        </th>
+
+                        <th
+                          *ngIf="personalDetailDB[o2mChangedField.one2ManyDataSource][o2mChangedField.changedValues[j].index]">
+                          <div
+                            *ngIf="allFieldDetails[changedValues]?.fieldType=='bit' || (allFieldDetails[changedValues]?.fieldType=='select' && !allFieldDetails[changedValues]?.sdmValue) || allFieldDetails[changedValues]?.fieldType=='datetime' || allFieldDetails[changedValues]?.fieldType=='autocomplete';else elseBlockOldChangedValue">
+                            <span
+                              *ngIf="oldDataDisplayNames[o2mChangedField.one2ManyDataSource] && allFieldDetails[changedValues]?.fieldType=='bit' || (allFieldDetails[changedValues]?.fieldType=='select' && !allFieldDetails[changedValues]?.sdmValue) || allFieldDetails[changedValues]?.fieldType=='autocomplete'">{{oldDataDisplayNames[o2mChangedField.one2ManyDataSource][[o2mChangedField.changedValues[j].index]][changedValues]}}</span>
+
+                            <span
+                              *ngIf="allFieldDetails[changedValues]?.fieldType=='datetime'">{{getLocalDate(personalDetailDB[o2mChangedField.one2ManyDataSource][[o2mChangedField.changedValues[j].index]][changedValues])}}</span>
+
+                          </div>
+                          <ng-template #elseBlockOldChangedValue>
+                            <span>{{personalDetailDB[o2mChangedField.one2ManyDataSource][[o2mChangedField.changedValues[j].index]][changedValues]}}</span>
+                          </ng-template>
+                        </th>
+                        <th
+                          *ngIf="personalDetail[o2mChangedField.one2ManyDataSource][[o2mChangedField.changedValues[j].index]]">
+
+                          <div
+                            *ngIf="allFieldDetails[changedValues]?.fieldType=='bit' || (allFieldDetails[changedValues]?.fieldType=='select' && !allFieldDetails[changedValues]?.sdmValue) || allFieldDetails[changedValues]?.fieldType=='datetime' || allFieldDetails[changedValues]?.fieldType=='autocomplete';else elseBlockNewChangedValue">
+                            <span
+                              *ngIf="newDataDisplayNames[o2mChangedField.one2ManyDataSource] && allFieldDetails[changedValues]?.fieldType=='bit' || (allFieldDetails[changedValues]?.fieldType=='select' && !allFieldDetails[changedValues]?.sdmValue) || allFieldDetails[changedValues]?.fieldType=='autocomplete'">{{newDataDisplayNames[o2mChangedField.one2ManyDataSource][[o2mChangedField.changedValues[j].index]][changedValues]}}</span>
+
+                            <span
+                              *ngIf="allFieldDetails[changedValues]?.fieldType=='datetime'">{{getLocalDate(personalDetail[o2mChangedField.one2ManyDataSource][[o2mChangedField.changedValues[j].index]][changedValues])}}</span>
+
+                          </div>
+                          <ng-template #elseBlockNewChangedValue>
+                            <span>{{personalDetail[o2mChangedField.one2ManyDataSource][[o2mChangedField.changedValues[j].index]][changedValues]}}</span>
+                          </ng-template>
+
+                        </th>
+                      </tr>
+                    </tbody>
+                    <tbody *ngIf="o2mChangedField.changedValues[j].isJson">
+                      <tr *ngFor="let changedValues of o2mChangedField.changedValues[j].jsonValues; let k = index">
+                        <th><span *ngIf="allFieldTitles[changedValues]; else elseBlockChangedValuesTitle"
+                            translate>{{allFieldTitles[changedValues]}}</span>
+                          <ng-template #elseBlockChangedValuesTitle> <span>{{changedValues}}</span></ng-template>
+                        </th>
+
+                        <th
+                          *ngIf="personalDetailDB[o2mChangedField.one2ManyDataSource][[o2mChangedField.changedValues[j].index]]">
+                          <div
+                            *ngIf="allFieldDetails[changedValues]?.fieldType=='bit' || (allFieldDetails[changedValues]?.fieldType=='select' && !allFieldDetails[changedValues]?.sdmValue) || allFieldDetails[changedValues]?.fieldType=='datetime' || allFieldDetails[changedValues]?.fieldType=='autocomplete';else elseBlockOldChangedValue">
+                            <span
+                              *ngIf="oldDataDisplayNames[o2mChangedField.one2ManyDataSource] && allFieldDetails[changedValues]?.fieldType=='bit' || (allFieldDetails[changedValues]?.fieldType=='select' && !allFieldDetails[changedValues]?.sdmValue) || allFieldDetails[changedValues]?.fieldType=='autocomplete'">{{oldDataDisplayNames[o2mChangedField.one2ManyDataSource][[o2mChangedField.changedValues[j].index]][o2mChangedField.changedValues[j].json][changedValues]}}</span>
+
+                            <span
+                              *ngIf="allFieldDetails[changedValues]?.fieldType=='datetime'">{{getLocalDate(personalDetailDB[o2mChangedField.one2ManyDataSource][[o2mChangedField.changedValues[j].index]][o2mChangedField.changedValues[j].json][changedValues])}}</span>
+
+                          </div>
+                          <ng-template #elseBlockOldChangedValue>
+                            <span>{{personalDetailDB[o2mChangedField.one2ManyDataSource][[o2mChangedField.changedValues[j].index]][o2mChangedField.changedValues[j].json][changedValues]}}</span>
+                          </ng-template>
+                        </th>
+                        <th
+                          *ngIf="personalDetail[o2mChangedField.one2ManyDataSource][[o2mChangedField.changedValues[j].index]]">
+
+                          <div
+                            *ngIf="allFieldDetails[changedValues]?.fieldType=='bit' || (allFieldDetails[changedValues]?.fieldType=='select' && !allFieldDetails[changedValues]?.sdmValue) || allFieldDetails[changedValues]?.fieldType=='datetime' || allFieldDetails[changedValues]?.fieldType=='autocomplete';else elseBlockNewChangedValue">
+                            <span
+                              *ngIf="newDataDisplayNames[o2mChangedField.one2ManyDataSource] && allFieldDetails[changedValues]?.fieldType=='bit' || (allFieldDetails[changedValues]?.fieldType=='select' && !allFieldDetails[changedValues]?.sdmValue) || allFieldDetails[changedValues]?.fieldType=='autocomplete'">{{newDataDisplayNames[o2mChangedField.one2ManyDataSource][[o2mChangedField.changedValues[j].index]][o2mChangedField.changedValues[j].json][changedValues]}}</span>
+
+                            <span
+                              *ngIf="allFieldDetails[changedValues]?.fieldType=='datetime'">{{getLocalDate(personalDetail[o2mChangedField.one2ManyDataSource][[o2mChangedField.changedValues[j].index]][o2mChangedField.changedValues[j].json][changedValues])}}</span>
+
+                          </div>
+                          <ng-template #elseBlockNewChangedValue>
+                            <span>{{personalDetail[o2mChangedField.one2ManyDataSource][[o2mChangedField.changedValues[j].index]][o2mChangedField.changedValues[j].json][changedValues]}}</span>
+                          </ng-template>
+
+                        </th>
+                      </tr>
+                    </tbody>
+
+                  </table>
+                </fieldset>
+              </div>
+            </li>
+            <li *ngIf="o2mChangedField.removedValueEnabled">
+              <div class="collapsible-header" style="height: 40px; padding: 9px;" translate>Removed</div>
+              <div class="collapsible-body collaps"></div>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+
+    <br>
+    <h4 class="center" *ngIf="attachmentViewFlag" translate>Attachments</h4>
+    <br>
+
+    <div *ngIf="attachmentViewFlag && addedAttachments" class="center card-panel" translate
+      style="margin: 0px !important; line-height: 0.5 !important;" (click)="openAddedAttachmnetView()">
+      <span translate>Added Files</span>
+    </div>
+
+    <div *ngIf="attachmentViewFlag && removedAttachments" class="center card-panel" translate
+      style="margin: 0px !important; line-height: 0.5 !important;" (click)="openRemovedAttachmnetView()">
+      <span translate>Removed Files</span>
+    </div>
+
+    <div id="attachmentModal" class="modal" style="height: 100%; width: 90%">
+      <div class="modal-header" style="height: 10%;">
+
+        <h5 class="center card-panel" translate>
+          <span *ngIf="fieldView" translate>Fields</span>
+          <div *ngIf="fieldView" class="left">
+            <i class="material-icons" (click)="backToApprovalView()" style="cursor: pointer;">reply</i>
+          </div>
+
+
+
+          <span *ngIf="attachmentView" translate> <span
+              *ngIf="allFieldTitlesByFieldCode[currentField];else documnetFieldTitle"
+              translate>{{allFieldTitlesByFieldCode[currentField]}}</span>
+            <ng-template #documnetFieldTitle> <span translate>{{currentField}}</span></ng-template>
+          </span>
+
+          <div *ngIf="attachmentView" class="left">
+            <i class="material-icons" (click)="backToFieldView()" style="cursor: pointer;">reply</i>
+          </div>
+
+
+          <span *ngIf="fileView" translate>{{currentDocument}}</span>
+
+          <div *ngIf="fileView" class="left">
+            <i class="material-icons" (click)="backToDocumentView()" style="cursor: pointer;">reply</i>
+          </div>
+
+        </h5>
+
+      </div>
+
+      <div class="modal-content" style="height: 85%;">
+        <div class="row" *ngIf="attachmentView || fieldView" style="height: 100%">
+          <ul class="collection with-header" *ngIf="fieldView">
+
+            <li class="collection-item" *ngFor="let field of listOfCurrentAttachmentFields;">
+              <div>
+                <span *ngIf="allFieldTitlesByFieldCode[field];else documnetFieldTitle"
+                  translate>{{allFieldTitlesByFieldCode[field]}}</span>
+                <ng-template #documnetFieldTitle> <span>{{field}}</span></ng-template>
+                <a class="secondary-content"><i class="material-icons" style="cursor: pointer"
+                    (click)="openDocumnetByField(field)" title="Document view">visibility</i></a>
+              </div>
+            </li>
+
+          </ul>
+
+          <ul class="collection with-header" *ngIf="attachmentView&&!filePathOnetomany">
+
+            <ng-container *ngFor="let document of listOfCurrentDocumentsByFields[currentField];let i=index">
+              <li class="collection-item">
+                <div>
+                  <span translate>{{document}} </span><a class="secondary-content"><i class="material-icons"
+                      style="cursor: pointer"
+                      (click)="openFileByDocumentAndField(listOfCurrentDocumentsByFields[currentField]['filePathData'][i],document)"
+                      title="Document view">visibility</i></a>
+                </div>
+              </li>
+            </ng-container>
+
+
+          </ul>
+
+          <ul class="collection with-header" *ngIf="attachmentView&&filePathOnetomany">
+
+
+            <ng-container *ngFor="let document of listOfCurrentDocumentsByFields[currentField];let i=index">
+              <li class="collection-item">
+                <div>
+
+                  <span translate><span style="font-weight: bold;">{{document}}</span>
+                    -
+                    {{extractFilePath(listOfCurrentDocumentsByFields[currentField]['filePathData'][i]['filePathData'],document,listOfCurrentDocumentsByFields[currentField])}}
+                  </span><a class="secondary-content"><i class="material-icons" style="cursor: pointer"
+                      (click)="openFileByDocumentAndField(listOfCurrentDocumentsByFields[currentField]['filePathData'][i],document)"
+                      title="Document view">visibility</i></a>
+                </div>
+              </li>
+            </ng-container>
+
+          </ul>
+
+
+          <div class="modal-footer">
+            <a class=" btn-flat" (click)="closeAttachmentModal()" style="cursor: pointer"><span
+                translate>close</span></a>
+          </div>
+        </div>
+        <div class="row" *ngIf="fileView" style="height: 100%">
+
+          <div *ngIf="!oldFileFlag || !newFileFlag" class="col s3"></div>
+          <div *ngIf="oldFileFlag" class="col s6" style="height: 100%;">
+            <span class="col s12 center"><span translate>Old
+                File</span> : <span translate>{{this.oldFile.fileName}}</span></span> <i class="material-icons"
+              style="cursor: pointer;" (click)="fetchFile('oldValue');">visibility</i> <i class="material-icons"
+              style="cursor: pointer;" (click)="fetchdownloadFile('oldValue')"
+              title="{{'Download File'|translate}}">cloud_download</i> <i class="fa fa-spinner fa-spin fa-fw red-text"
+              style="position: absolute; margin: 200px;" *ngIf="loadingForOldFile"></i>
+            <div *ngIf="fileNotFound1" style="height: 10% !important">
+              <div>
+                <img src='{{cdnUrl}}/Hub/undraw_Image__folder_re_hgp7.svg'
+                  style="height: 180px !important; margin-left: 35%; margin-top: 10%">
+              </div>
+              <span style="font-size: xxx-large; margin-left: 42%" translate>No
+                Preview</span>
+            </div>
+            <embed
+              *ngIf="oldUrl&&oldContentType!='image/png' && oldContentType!='image/jpg' &&oldContentType!='image/jpeg'"
+              id="embedTag" view="Fit" [src]="oldUrl" style="height: 100%; width: 100%">
+            <div
+              *ngIf="oldUrl&&oldContentType=='image/png' || oldContentType=='image/jpg' ||oldContentType=='image/jpeg'">
+              <img alt="" [src]="oldUrl" style="width: 100%" id="display-file">
+
+            </div>
+          </div>
+
+
+          <div *ngIf="newFileFlag" class="col s6" style="height: 100%;">
+            <span class="col s12 center"><span translate>New
+                File</span> : <span translate>{{this.newFile.fileName}}</span></span> <i class="material-icons"
+              style="cursor: pointer;" (click)="fetchFile('newValue');">visibility</i> <i class="material-icons"
+              style="cursor: pointer;" (click)="fetchdownloadFile('newValue')"
+              title="{{'Download File'|translate}}">cloud_download</i> <i class="fa fa-spinner fa-spin fa-fw red-text"
+              style="position: absolute; margin: 200px;" *ngIf="loadingForNewFile"></i>
+
+            <div *ngIf="fileNotFound" style="height: 10% !important">
+              <div>
+                <img src='{{cdnUrl}}/Hub/undraw_Image__folder_re_hgp7.svg'
+                  style="height: 180px !important; margin-left: 35%; margin-top: 10%">
+              </div>
+              <span style="font-size: large; margin-left: 42%" translate>No
+                Preview</span>
+            </div>
+
+            <iframe
+              *ngIf="newUrl&&newContentType!='image/png' && newContentType!='image/jpg' &&newContentType!='image/jpeg'"
+              id="embedTag" view="Fit" [src]="newUrl" file style="height: 100%; width: 100%"> </iframe>
+
+            <div
+              *ngIf="newUrl&&newContentType=='image/png' || newContentType=='image/jpg' ||newContentType=='image/jpeg'">
+              <img alt="" [src]="newUrl" style="width: 100%" id="display-file">
+
+            </div>
+          </div>
+          <div *ngIf="!oldFileFlag || !newFlag" class="col s3"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+  <div id="pexApprovalHistory" class="modal">
+    <div class="modal-content">
+      <div class="wrapper">
+        <h5 class="center" translate>Approval History</h5>
+        <ul class="step-progress">
+          <li class="step-progress-item" *ngFor="let approvalH of approvalHistory;let i=index"
+            [ngClass]="{'self':approvalH.statusCode=='SLF','reject':approvalH.statusCode=='RJT','current':approvalH.statusCode=='OPN','approved':approvalH.statusCode=='APR','cancel':approvalH.statusCode=='CNL','final':i+1==approvalHistory?.length}"
+            title="{{approvalH.statusName | translate}}">
+            <div class="row">
+              <div class="col s10">
+                <strong>{{approvalH.spoc}}
+                  {{employeeInfo[approvalH.spoc]?.preferredName}}</strong>
+              </div>
+              <div class="col s2">
+                <i style="font-size: 18px; padding-top: 3px;" class="Tiny material-icons"
+                  title="{{approvalH.note | translate}}">note</i>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-close btn-flat" translate>Close</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <a class="btn red right pexBtns" style="margin-right: 3%;" (click)="openModal('reject')"
+      *ngIf="onMe&&approvalData.status.statusCode=='OPN'"><i class="material-icons left">close</i> <span
+        translate>Reject</span></a>&nbsp;
+    <a class="btn right pexBtns" style="margin-right: 3%;" (click)="openModal('approve')"
+      *ngIf="onMe&&approvalData.status.statusCode=='OPN'"><i class="material-icons left">done</i> <span
+        translate>Approve</span></a> <a class="btn red right pexBtns" style="margin-right: 3%;"
+      (click)="openModal('cancel')" *ngIf="!onMe&&approvalData.tbMasApproval.status.statusCode=='OPN'"><i
+        class="material-icons left">close</i> <span translate>Cancel</span></a>
+  </div>
+
+  <div id="approval" class="modal">
+    <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+      <i id="closeModalIcon" class="col s2 material-icons left" (click)="closeModal()">close</i>
+      <p id="modalname" class="col s8 center" translate>Comments</p>
+      <i id="saveModalIcon" class="col s2 material-icons right" (click)="save();">done</i>
+    </div>
+
+    <div class="modal-content">
+
+      <div class="row">
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="eventName" [(ngModel)]="note"
+            type="text" class="validate">
+          <label for="eventName" translate>Comment</label>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+<span class="preloader-background" *ngIf="loader">
+  <div class="medium center active">
+    <img src="{{cdnUrl}}/Hub/loader50.gif">
+  </div>
+</span>

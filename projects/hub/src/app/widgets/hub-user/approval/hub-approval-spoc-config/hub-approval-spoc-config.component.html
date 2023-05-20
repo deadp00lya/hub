@@ -1,0 +1,257 @@
+<div id="viewSpoc" style="height: 100%;">
+  <i class="material-icons right" *ngIf="detailedIcon" (click)="viewNeoConfig1()">info_outline</i>
+  <i class="material-icons" style="cursor: pointer; position: absolute; margin: 20px;" (click)="back()">reply</i>
+  <div class="row">
+    <button class="btn waves-light right" type="submit" name="action" (click)="addSpoc()"
+      style="border-radius: 50px; margin-right: 100px">
+      Add Levels <i class="material-icons right">send</i>
+    </button>
+
+  </div>
+  <div>
+    <div [hidden]="spocList?.length==0" id="spocList{{spocList.length}}">
+      <ul class="collapsible">
+        <li *ngFor="let spoc of spocList;let i=index">
+          <div class="collapsible-header" (click)="fetchData(i)">
+            <i class="material-icons">record_voice_over</i>Spoc [Level
+            {{i+1}}] <i class="material-icons right" (click)="eventStopProp($event);removeSpoc(i)">close</i>
+          </div>
+          <div class="collapsible-body">
+            <div class="">
+              <div class="row">
+                <div class="switch col s12">
+                  <label>Dynamic <input type="checkbox" (change)="selectRefresh()" [(ngModel)]="spoc.staticConfig">
+                    <span class="lever"></span> Static
+                  </label>
+                </div>
+              </div>
+
+              <div *ngIf="!spoc.staticConfig" class="row">
+                <div class="row">
+                  <div class="switch left col s10">
+                    <label>DynamicFormControl <input type="checkbox" (change)="selectRefresh()"
+                        [(ngModel)]="spoc.formControl">
+                      <span class="lever"></span> StaticFormControl
+                    </label>
+                  </div>
+
+                  <div class="col s2">
+                    <p>
+                      <label> <input type="checkbox" (change)="skipApproval(i,spoc.skip)" [checked]="spoc.skip" />
+                        <span>Skip</span>
+                      </label>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div *ngIf="!spoc.formControl">
+                    <div class="input-field col s6">
+                      <ng2-completer [(ngModel)]="spoc.apiurl.apiName" [datasource]="suggestions" [minSearchLength]="0"
+                        [clearUnselected]=true (selected)="selectApi($event,spoc)" placeholder="Fetch Api" id="pexAuto">
+                      </ng2-completer>
+                    </div>
+                    <div class="input-field col s6">
+                      <select [(ngModel)]="spoc.primaryRole.id">
+                        <option value="" disabled selected>Choose your
+                          option</option>
+                        <option *ngFor="let actionrole of actionRoles;" [ngValue]="actionrole.id">
+                          {{actionrole.actionRoleName}}</option>
+                      </select> <label>Primary Role</label>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="row">
+                    <div *ngIf="spoc.formControl">
+                      <div class=" col s6" id="viewSpocCompleter">
+                        <input id="field_Name" [(ngModel)]="spoc.fieldName" type="text"> <label for="field_Name">Field
+                          Name</label>
+                      </div>
+                      <div class="col s6">
+                        <p>
+                          <label> <input name="currentData{{i}}" [(ngModel)]="spoc.currentData" [value]="true"
+                              type="radio">
+                            <span>CurrentData</span>
+                          </label>
+                        </p>
+                        <p>
+                          <label> <input name="currentData{{i}}" [(ngModel)]="spoc.currentData" [value]="false"
+                              type="radio"> <span>OldData</span>
+                          </label>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="spoc.staticConfig">
+                <div class=" col" id="viewSpocCompleter">
+                  <ng2-completer class="completer-title" (keyup)="fetchEmployeeList()" [datasource]="suggestions2"
+                    [(ngModel)]="autoComplete[i]" selectOnClick=true [clearUnselected]=true
+                    inputClass="form-control form-control-inline " inputName="spocList" id="spocList" [textNoResults]=""
+                    placeholder="SpocList" (selected)="onItemSelect($event,i)" id="pexAuto"> </ng2-completer>
+                </div>
+
+              </div>
+              <div class="" style="cursor: pointer;" (click)="openEmailModal(i)">
+                <i class="material-icons right pointer" title="Add mail">email</i>
+              </div>
+              <div class="" style="cursor: pointer;" (click)="openNeosuiteNotificationModal(i)">
+                <i class="material-icons right pointer" title="Add notification">notifications</i>
+              </div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+
+  <div *ngIf="showMailConfiguration">
+
+    <div id="notificationModal" class="modal">
+      <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+        <i id="closeModalIcon" class="col s2 material-icons left" (click)="closeEmailModal()">close</i>
+        <p id="modalname" class="col s8 center">Notification Modal</p>
+        <i (click)="saveEmailCOnfiguration()" id="saveModalIcon" class="col s2 material-icons right">done</i>
+      </div>
+
+      <div class="modal-content" style="overflow: auto;">
+
+        <ul class="collapsible" style="overflow: auto;">
+          <li *ngFor="let singleRole of allActionRoles;" style="overflow: auto;">
+            <div class="collapsible-header">{{singleRole.roleName}}</div>
+
+
+            <div class="collapsible-body">
+
+              <div class=" col s12" *ngFor="let mail of notification[singleRole.roleIdentifier].mails;let idx=index">
+
+                <fieldset>
+                  <legend>
+                    Notification {{idx+1}}<i class="material-icons right pointer" style="cursor: pointer;"
+                      title="Remove mail" (click)="removeMail(singleRole.roleIdentifier,idx)">close</i>
+                    <i *ngIf="idx==(notification[singleRole.roleIdentifier].mails.length-1)"
+                      class="material-icons right pointer" style="cursor: pointer;" title="Add mail"
+                      (click)="addMail(singleRole.roleIdentifier,idx)">add</i>
+                  </legend>
+                  <div class="chip" *ngFor="let variable of mail?.to;let jx=index">
+                    <span>{{variable}}</span> <i class="close material-icons"
+                      (click)="chipRemoved(singleRole.roleIdentifier,idx,'to',jx)">close</i>
+                  </div>
+                  <input class="custom-class" placeholder="To"
+                    [(ngModel)]="inputVariableTo[singleRole.roleIdentifier][idx][jx]"
+                    (keyup.enter)="chipAdded(singleRole.roleIdentifier,idx,'to',jx)">
+
+
+                  <div class="chip" *ngFor="let variable of mail?.cc; let k=index">
+                    <span>{{variable}}</span> <i class="close material-icons"
+                      (click)="chipRemoved(singleRole.roleIdentifier,idx,'cc',k);">close</i>
+                  </div>
+                  <input class="custom-class" placeholder="CC"
+                    [(ngModel)]="inputVariableCC[singleRole.roleIdentifier][idx][k]"
+                    (keyup.enter)="chipAdded(singleRole.roleIdentifier,idx,'cc',k)">
+
+
+                  <div class="chip" *ngFor="let variable of mail?.bcc; let k=index">
+                    <span>{{variable}}</span> <i class="close material-icons"
+                      (click)="chipRemoved(singleRole.roleIdentifier,idx,'bcc',k);">close</i>
+                  </div>
+                  <input class="custom-class" placeholder="BCC"
+                    [(ngModel)]="inputVariableBCC[singleRole.roleIdentifier][idx][k]"
+                    (keyup.enter)="chipAdded(singleRole.roleIdentifier,idx,'bcc',k)">
+
+                  <div class="input-field col s12 m12 l12">
+                    <input id="tCode" type="text" class="validate"
+                      [(ngModel)]="notification[singleRole.roleIdentifier].mails[idx].templateCode">
+                    <label for="tCode">Template Code</label>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="showNeosuiteNotificationConfiguration">
+
+    <div id="neosuiteNotificationSpocModal" class="modal">
+      <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+        <i id="closeModalIcon" class="col s2 material-icons left" (click)="closeNeosuiteNotificationModal()">close</i>
+        <p id="modalname" class="col s8 center">Notification Modal</p>
+        <i (click)="saveNeosuiteNotificationConfiguration()" id="saveModalIcon"
+          class="col s2 material-icons right">done</i>
+      </div>
+
+      <div class="modal-content" style="overflow: auto;">
+
+        <ul class="collapsible" style="overflow: auto;">
+          <li *ngFor="let singleRole of allActionRoles;" style="overflow: auto;">
+            <div class="collapsible-header">{{singleRole.roleName}}</div>
+
+
+            <div class="collapsible-body">
+
+              <div class=" col s12"
+                *ngFor="let notification of neosuiteNotifications[singleRole.roleIdentifier].notifications;let idx=index">
+
+                <fieldset>
+                  <legend>
+                    Notification {{idx+1}}<i class="material-icons right pointer" style="cursor: pointer;"
+                      title="Remove notification"
+                      (click)="removeNeosuiteNotification(singleRole.roleIdentifier,idx)">close</i>
+                    <i *ngIf="idx==(neosuiteNotifications[singleRole.roleIdentifier].notifications.length-1)"
+                      class="material-icons right pointer" style="cursor: pointer;" title="Add Notification"
+                      (click)="addNeosuiteNotification(singleRole.roleIdentifier,idx)">add</i>
+                  </legend>
+                  <div class="chip" *ngFor="let variable of notification?.to;let jx=index">
+                    <span>{{variable}}</span> <i class="close material-icons"
+                      (click)="notificationChipRemoved(singleRole.roleIdentifier,idx,'to',jx)">close</i>
+                  </div>
+                  <input class="custom-class" placeholder="To"
+                    [(ngModel)]="inputVariableNotificationTo[singleRole.roleIdentifier][idx][jx]"
+                    (keyup.enter)="notificationChipAdded(singleRole.roleIdentifier,idx,'to',jx)">
+
+
+                  <div class="input-field col s12 m12 l12">
+                    <input id="nValue" type="text" class="validate"
+                      [(ngModel)]="neosuiteNotifications[singleRole.roleIdentifier].notifications[idx].notifyValue">
+                    <label for="nValue">Notify Value</label>
+                  </div>
+                  <div class="input-field col s12 m12 l12">
+                    <input id="pnValue" type="text" class="validate"
+                      [(ngModel)]="neosuiteNotifications[singleRole.roleIdentifier].notifications[idx].proxyNotifyValue">
+                    <label for="pnValue">Proxy Notify Value</label>
+                  </div>
+                </fieldset>
+              </div>
+
+
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <a class="  btn" (click)="saveSpocConfig()" style="border-radius: 50px"><i
+        class="material-icons left">add_circle_outline</i>saveSpoc</a>&nbsp;
+    <a class="  btn" (click)="reset()" style="border-radius: 50px"><i class="material-icons left">autorenew</i>Reset</a>
+  </div>
+</div>
+
+<!-- ***********************************check Neoconfig Version Starts ********************************** -->
+<div>
+	<app-neo-config-view *ngIf="viewNeoConfig" (versionEvent)="triggered($event)"
+	[configCode]='configCode'>
+    </app-neo-config-view>
+</div>
+
+<!-- ************************************ check Neoconfig Version Ends ****************************************** -->

@@ -1,0 +1,212 @@
+.color {
+	height: 40px;
+	width: 40px;
+	display: inline-block;
+	text-align: center;
+	line-height: 40px;
+	position: relative;
+	margin-left: 15px;
+	margin-top: 5px;
+}
+/*demo only*/
+.color:before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: inherit;
+	width: inherit;
+	background: rgba(200, 200, 200, 0.6);
+	transition: all 0.4s;
+}
+
+.color:hover:before {
+	background: rgba(200, 200, 200, 0);
+}
+
+.color:hover {
+	transform: scale(1.1);
+}
+.settingsSaveBtn{
+	width: 100%;
+	position: sticky;
+	bottom: 0;
+	background: #fafbfd;
+	margin:0;
+	
+}
+.advActionBtn{
+	text-transform: capitalize;
+	 margin: 10px 30px;
+	 width:75px;
+	 float:right;
+}
+
+#OutlookContectModal {
+	width: 25%;
+	margin-top: 260px;
+	margin-top: -8px
+}
+
+#Outlookicon {
+	margin-top: -8px
+}
+
+#outlookContent {
+	margin-left: 38px
+}
+
+#outlookModal {
+	width: 25%;
+	/* margin-top: 50px; */
+}
+
+.heading {
+	font-weight: 600;
+	font-size: 20px;
+}
+
+.imagechip {
+	display: inline-flex;
+}
+
+@media only screen and (max-width: 680px) {
+	#neo_general_content {
+		max-height: 450px;
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+	.dottedPortion{
+	width:103% !important;
+	}
+	#neo_general_content::ng-deep .language_select input{
+	width:103% !important;
+	}
+	.imagechip{
+	margin-top: 10px !important;
+	}
+}
+
+/* .themeContent .primo {
+	*display: inline-block;
+	width: 25px;
+	float: left;
+	height: 46px;
+	vertical-align: center;
+}
+
+.themeContent .secondo {
+	*display: inline-block;
+	width: 25px;
+	float: right;
+	height: 46px;
+	vertical-align: center;
+} */
+.themeContent .usertheme {
+	*display: inline-block;
+	width: 40px;
+	height: 40px;
+	vertical-align: center;
+	border-radius: 6px;
+}
+
+.themeContent {
+	width: 46px;
+	height: 46px;
+	display: inline-block;
+	margin-right: 7px;
+	border: none;
+	opacity: 0.4;
+	transition: 0.3s;
+	/* border: 1px solid black; */
+	margin-left: 7px;
+	margin-top: 8px;
+}
+
+.themeContent:hover {
+	opacity: 1;
+	transform: scale(1.2);
+}
+
+.activeTheme {
+	opacity: 1;
+	/* transform: scale(1.2); */
+}
+.activeThemeIndication{
+	height: 10px;
+    background: #fff;
+    float: right;
+    width: 10px;
+    border-radius: 5px;
+    margin: 2px;
+    border-bottom-left-radius: 20px;
+}
+
+#neo_general_content {
+	margin-top: 1px;
+	margin-left: 8px;
+	background: #fafbfd;
+	
+}
+
+.row {
+	margin-bottom: 0px !important;
+}
+
+.commonText {
+	font-size: 14px !important;
+}
+
+#neo_general_content::ng-deep .selectAndInputbox input {
+	border: 1px solid #66baff;
+	height: 32px;
+	border-radius: 6px;
+	font-size: 13px;
+	padding-left: 5px;
+	margin: 5px 0px;
+	padding-right: 20px !important;
+    width: 92% !important;
+}
+.selectAndInputbox{
+	margin:8px 0px;
+}
+
+.zeroPadding {
+	padding: 0px !important;
+}
+.bg_addIcon{
+	vertical-align: -webkit-baseline-middle;
+    border: 1px solid #007ee5;
+    border-radius: 27px;
+    color: #007ee5;
+    font-size: 13px;
+    background: #007EE51A;
+    padding: 1px;
+    margin: 0px 10px 2px 4px;
+}
+
+.neo_general_labelBorder {
+	padding-bottom: 4px;
+	/* border-bottom: 1px solid #ddd; */
+}
+.settings_select::ng-deep ul li span
+	{
+	padding: 6px 12px !important;
+	font-size: 14px !important;
+}
+.settings_select::ng-deep .dropdown-content li{
+	min-height: 35px !important;
+}
+
+.settings_select::ng-deep .select-wrapper ul
+	{
+	max-height: 140px !important;
+	top: 38px !important;
+}
+.language_select::ng-deep .select-wrapper
+	{
+width:96%;
+}
+.pointerNone{
+	pinter-events:none;
+}

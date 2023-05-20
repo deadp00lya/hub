@@ -1,0 +1,120 @@
+.margin0 {
+	margin: 0px !important;
+}
+
+#pexFieldConfigDropDown {
+	width: 200px !important;
+}
+
+#pexFieldConfigDropDown ::ng-deep>li>p {
+	margin: 5px 0px 0px 5px !important;
+}
+
+#viewPage {
+	height: 100%;
+	overflow: auto;
+	grid-auto-columns: minmax(300px, auto);
+}
+
+/* #viewPage ::ng-deep .dropdown-content{ */
+/* 	max-height: 200px !important; */
+/* } */
+.pexEventsDropdown {
+	width: 150px !important;
+}
+
+#viewEmployeeSelectPageSize {
+	overflow: inherit !important;
+	border-radius: 10px;
+	min-width: 43px !important;
+	width: 10px !important;
+	height: auto !important;
+}
+
+#viewEmployeeSelectPageSize:after {
+	content: "";
+	position: absolute !important;
+	width: 25px !important;
+	height: 25px;
+	background: #ffffff;
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+	top: 0 !important;
+	right: 10px !important;
+	z-index: -1;
+}
+
+#viewEmployeeSelectPageSize>li {
+	text-align: center !important;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	line-height: 45px;
+}
+
+::ng-deep .dropdown-content {
+	height: auto !important;
+	max-height: 280px !important;
+	overflow-y: auto;
+	max-height: 280px !important;
+}
+
+.searchcss {
+	border: 1px solid #07b1d4 !important;
+	border-radius: 26px !important;
+	height: 35px;
+	width: 30%;
+	margin-top: 10px;
+	margin-left: 33%;
+}
+
+#searchcssinput {
+	height: 45%;
+	width: 85%;
+	border-bottom: none;
+}
+
+#searchiconcss {
+	color: #07b1d4;
+}
+
+.tophalf {
+	margin-bottom: 10px !important;
+}
+
+#NewEntryButtonCss {
+	margin-top: 10px;
+	margin-left: -110px;
+}
+
+.preloader-background {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent;
+	position: relative;
+	z-index: 999;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0; p { padding-top : 120px;
+	margin-left: -60px;
+	opacity: 0.8;
+}
+
+}
+
+.tablecss {
+	overflow-x: scroll !important;
+}
+
+.dropdown-content {
+	width: 150px;
+	height: 250px;
+}
+
+.switch label {
+    cursor: pointer;
+    position: absolute;
+    margin-top: 50px;
+    z-index: 1;
+}

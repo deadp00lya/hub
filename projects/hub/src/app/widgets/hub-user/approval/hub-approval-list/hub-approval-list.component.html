@@ -1,0 +1,102 @@
+<div id="Group_Main_Div" [ngClass]="{'groupLoader':loadingGroupDetail}" *ngIf="listPage">
+  <div class="row"></div>
+  <div class="row" style="margin-top: 10px">
+
+    <div class="col" id="viewTicketTabs" style="padding: 0; margin-bottom: 15px"
+      *ngIf="fieldConfiguration['onMe']?.visible&&fieldConfiguration['byMe']?.visible">
+      <div class="col buzzerPointer viewTicketTabDiv" *ngIf="fieldConfiguration['onMe']?.visible"
+        [ngClass]="{active: onMe}" (click)="fetchOnMerecords()">
+        <div class="viewTicketTabInnerDiv">
+          <span translate class="viewTicketTabSpan" translate>APPROVALS</span>
+        </div>
+      </div>
+      <div class="col buzzerPointer viewTicketTabDiv" *ngIf="fieldConfiguration['byMe']?.visible"
+        [ngClass]="{active: !onMe}" (click)="fetchByMerecords()">
+        <div class="viewTicketTabInnerDiv">
+          <span translate class="viewTicketTabSpan" translate>MY
+            REQUESTS</span>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="col" [ngStyle]="{'width': widgetWidth < 10 ? '75%' : '40%' }"
+      [ngClass]="getResponsiveClasses(widgetWidth,[[4,8],[8,8],[12,8]],'s8 m8 l8')">
+      <ng-container *ngFor="let status of statusAndCount;let i=index">
+        <div id="filterCol_{{status.e}}" class="col s2  filterCol filterCol_{{status.e}} buzzerPointer truncate "
+          *ngIf="i<4" (click)="setStatusFilter(status.e,this.flag[status.e],$event);"
+          [ngClass]="{'textBold':flag[status.e]}" style="cursor: pointer !important"
+          title="{{status.e | translate }} {{status.count || '(0)'}}">
+
+          {{status.e | translate }} {{status.count || '(0)'}}</div>
+      </ng-container>
+    </div>
+
+
+
+  </div>
+
+
+  <div *ngIf="onMe">
+    <universal-list-view [(listViewFromSource)]="approvals" totalCount="{{count}}"
+      itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="PexOnMeApprovalList"
+      (outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+
+  </div>
+
+
+  <div *ngIf="!onMe">
+    <universal-list-view [(listViewFromSource)]="approvals" totalCount="{{count}}"
+      itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="PexByMeApprovalList"
+      (outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+  </div>
+
+  <div class="preloader-background" *ngIf="loader">
+    <div class="medium center active">
+      <img src="{{cdnUrl}}/Hub/loader50.gif">
+    </div>
+  </div>
+
+</div>
+
+<div id="approvalListModal" class="modal" [ngClass]="{'approvalListModal2': widgetWidth <= 7 }">
+
+  <div class="preloader-background" *ngIf="loader1">
+    <div class="medium center active">
+      <img src="{{cdnUrl}}/Hub/loader50.gif">
+    </div>
+  </div>
+  <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+    <i id="closeModalIcon" class="col s2 material-icons left" (click)="closeModal()">close</i>
+    <p id="modalname" class="col s8 center" translate>Comments</p>
+    <i id="saveModalIcon" class="col s2 material-icons right" (click)="save($event);">done</i>
+  </div>
+
+  <div class="modal-content">
+
+    <div class="row">
+      <div class="input-field col s12" style="margin-left: -8px;">
+        <i id="formIcon" class="material-icons prefix">description</i> <input id="eventName" [(ngModel)]="note"
+          type="text" class="validate">
+        <label for="eventName" translate>Comment</label>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div>
+  <app-loader *ngIf="loadingGroupDetail" id="myGroupLoader"></app-loader>
+</div>
+
+<div class="center" *ngIf="maintenance" style="height: 97%">
+  <img style="height: 100%; width: 100%;" src="{{cdnUrl}}/Hub/underMaintenance.jpg"
+    alt="{{ 'Maintenance' | translate }}">
+</div>
+
+<div style="height: 100%" *ngIf="!listPage">
+  <app-hub-approval [approvalData]="approvalData" [onMe]="onMe" [appCode]="appCode"
+    (backApprovalEvent)="backApprovalEventHander($event)"></app-hub-approval>
+</div>

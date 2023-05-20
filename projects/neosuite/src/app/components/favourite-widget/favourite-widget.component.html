@@ -1,0 +1,175 @@
+<div class="parent">
+	<div  *ngIf="!(favouriteWidgets.length == 1)">
+		<div id="slide-out" class="sidenav sidenav-fixed app-sidenav">
+		<div
+		  class="center advancedUI_appIcon_container"
+		  *ngFor="let widget of favouriteWidgets; let i = index"
+		  (click)="hideShowWidget(widget)"
+		  [ngClass]="{ 'advancedUI_widget_selected_mob ': widget.visible }"
+		>
+		  <div
+			class="advancedUI_appIcon"
+			(mouseenter)="setWidgetIcon(widget, 'gif')"
+			(mouseleave)="setWidgetIcon(widget, 'img')"
+		  >
+			<img
+			  [hidden]="!widget.showImg"
+			  class="ns-tile-icon"
+			  [src]="widget.widgetIcon"
+			  onerror="this.src='assets/WidgetIcon/defaulticon.jpg';"
+			/>
+			<img
+			  [hidden]="!widget.showGif"
+			  class="ns-tile-icon"
+			  [src]="widget.widgetGif"
+			  onerror="this.src='assets/WidgetIcon/defaulticon.jpg';"
+			/>
+		  </div>
+		  <div
+			class="logoName"
+			style="background: transparent"
+			[ngClass]="{ 'advancedUI_widget_selected_mob ': widget.visible }"
+			title="{{ widget.widgetName }}"
+		  >
+			{{ widget.widgetName }}
+		  </div>
+		</div>
+		</div>
+	  </div>
+<div class="content-area" [style.padding-left]="favouriteWidgets.length == 1 ? '0px' : null">
+	<div id="{{'capture_' + componentLoadWidget.id }}"
+	>
+		<div class="card-title">
+			<div class="float-wrapper">
+				<div style="padding: 0 1%;" class="left" title={{componentLoadWidget.widgetName}}>
+					<span
+            class="cursor-pointer sidenav-trigger hide-on-large-only" data-target="slide-out" 
+           [hidden]="favouriteWidgets.length == 1 ? true : null"
+          >
+          <i class="material-icons tiny" style="vertical-align: middle;">menu</i>
+		  &nbsp;
+          </span>
+					<span style="font-size: 11px;font-weight: 600;">{{componentLoadWidget.widgetName}}</span>
+				</div>
+				<div class="right ">
+					<div class=" left">
+						<span class='cursor-pointer'
+							id="add_bookmark{{componentLoadWidget.id}}"
+							title="{{ 'Remove Favourites' | translate }}"
+							(click)="UnfavouriteWidget(componentLoadWidget)"> <img
+							src="assets/WidgetIcon/bookmark.png">
+						</span>
+					</div>
+
+					<!-- <div class=" left"
+						[ngStyle]="{display: (!currentBrowser.isEdge && !currentBrowser.isIe)  ?'':'none'}">
+						<span class='cursor-pointer '
+							title="{{'Take screenshot' | translate}}"
+							(click)="takeScreenshot(componentLoadWidget)"> <img
+							class="" src="assets/WidgetIcon/camera.png">
+
+						</span>
+					</div> -->
+					<div class=" left">
+						<span class='cursor-pointer ' title="{{'Help' | translate}}"
+							id="add_help{{componentLoadWidget.id}}"
+							(click)="openModel(componentLoadWidget)"> <img
+							src="assets/WidgetIcon/help.png">
+						</span>
+					</div>
+					<span class=" cursor-pointer"
+						title="{{ 'Close Widget' | translate }}" routerLink="/home"
+						(click)="componentLoadWidget.visible=false; saveUserWidgetLog()">
+						<img class="widget-icons" src="assets/WidgetIcon/Close.png">
+					</span>
+				</div>
+
+			</div>
+		</div>
+		<div class="card-content adv_appPortion">
+			<div style="height: 100%"
+					*ngIf="componentLoadWidget.widgetHtml!=null;else other_content">
+					<iframe (load)="buildContent(componentLoadWidget.widgetHtml,$event)"
+						frameBorder="0" height="100%" width="100%"> </iframe>
+
+			</div>
+			<ng-template appAdd  #other_content>
+
+			</ng-template>
+		</div>
+	</div>
+	</div>
+	<!-- <div class="card-panel advanceAppBottomTray hide-on-small-only">
+		<div class="card-content ">
+
+			<div class="row advanced_widgetDrawer">
+
+				<div class="col s12 m12 l12" style="padding: 0px !important">
+					
+					<div class="col s11 m11 l11" style="margin: 0px;">
+						<div class=" advancedUI_appIcon_container center col s4 m2 l2"
+							*ngFor="let widget of favouriteWidgets; let i = index;"
+							(click)="hideShowWidget(widget);"
+							[ngClass]="{'advancedUI_widget_selected_mob ': widget.visible}">
+							<div class='advancedUI_appIcon'
+
+								(mouseenter)="setWidgetIcon(widget,'gif')"
+								(mouseleave)="setWidgetIcon(widget,'img')">
+								<img [hidden]="!widget.showImg" class="ns-tile-icon"
+									[src]="widget.widgetIcon"
+									onerror="this.src='assets/WidgetIcon/defaulticon.jpg';">
+								<img [hidden]="!widget.showGif" class="ns-tile-icon"
+									[src]="widget.widgetGif"
+									onerror="this.src='assets/WidgetIcon/defaulticon.jpg';">
+							</div>
+							<div class="logoName truncate" title="{{widget.widgetName}}" [ngClass]="{'advancedUI_widget_selected_mob ': widget.visible}">{{widget.widgetName}}</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+</div>
+
+<!--  Knowledge Base Help model -->
+
+	<div id="helpModel" class="modal" #helpmodal>
+		<div class="modal-header white-text row"
+			style="background-color: #37474f; margin-bottom: 0px;">
+			<label translate class="col s10 m10 l10 white-text"
+				style="font-size: 14px;"> Help </label>
+			<div class="col s2">
+				<a href="javascript:void(0)" class="right white-text"
+					title="{{'Close Model'| translate}}" (click)="closeModel()"> <i
+					class="material-icons">close</i>
+				</a>
+			</div>
+		</div>
+
+		<div class="">
+			<div class="row" id="kbRow">
+				<ul class="tabs" id="faq-tabs-swipe">
+					<li class="tab col s3" style="cursor: pointer"><a
+						class="active black-text" id="faq-faq-tab"
+						(click)="setPage('faqPage')" translate>FAQ</a></li>
+					<li class="tab col s3" style="cursor: pointer"><a
+						id="faq-faqTrendingPage-tab" class="black-text"
+						(click)="setPage('faqTrendingPage')" translate>Trending </a></li>
+					<li class="tab col s3" style="cursor: pointer"><a
+						class="black-text" (click)="setPage('knowledgebasePage');"
+						translate>Knowledge Base </a></li>
+					<li class="tab col s3" style="cursor: pointer"><a
+						class="black-text" (click)="setPage('ContactUs');" translate>Contact
+							Us </a></li>
+				</ul>
+			</div>
+
+			<!-- Faq, Knowledgebase, Trending And Contact Us Component -->
+
+			<div class="row" id="home" style="margin-top: 32px;">
+				<div #homeComponent></div>
+			</div>
+
+		</div>
+	</div>

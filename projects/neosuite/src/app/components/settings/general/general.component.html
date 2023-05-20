@@ -1,0 +1,208 @@
+<div id="neo_general_content">
+	<div class=" col s12 m12 l12 zeroPadding neo_general_labelBorder">
+		<span class="active secondary-text commonText" translate>Themes</span>
+	</div>
+	<div class="row">
+			<div class=" input-field col s12 m12 l12 selectAndInputbox"  style="padding-left:5px !important;">
+			<div class="themeContent" (click)="setCurrentTheme('default')"
+				[ngClass]="{activeTheme : currentUser.additionalDetails.themeColor==='default'}"
+				title="{{'default' | translate}}">
+
+				<!-- <div class="primo" style="background-color: white"></div> -->
+
+					<div class="usertheme" style="background-color: #007ee5"><div><a [ngClass]="{activeThemeIndication : currentUser.additionalDetails.themeColor==='default'}"></a></div></div>
+			</div>
+			<div class="themeContent" (click)="setCurrentTheme(theme.theme)"
+				[ngClass]="{activeTheme : currentUser.additionalDetails.themeColor === theme.theme}"
+				title="{{theme.theme}}" *ngFor="let theme of themes">
+
+				<!-- <div id="primo" class="primo" [ngStyle]="{'background-color': filter(theme.theme ,'p')}"></div>
+					<div id="secondo" class="primo" [ngStyle]="{'background-color': filter(theme.theme ,'s')}"></div> -->
+
+				<div class="usertheme"
+					[ngStyle]="{'background-color': theme.theme }">
+					<div>
+						<a
+							[ngClass]="{activeThemeIndication : currentUser.additionalDetails.themeColor === theme.theme}"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" *ngIf="profileInfo.widgetMenuView=='AdvancedUI' && !isClientBgImageEnabled" >
+		<div class="file-field input-field col s11 m5 l5 selectAndInputbox">
+			<span class="active secondary-text commonText" translate>
+				Background Image</span> <input id="userBgImg" name="backgroundImage"
+				style="margin-top: 24px !important;" type="file" accept="image/*"
+				(change)="getBackgroundImage($event)">
+			<div class="file-path-wrapper dottedPortion"
+				style="padding-left: 0px; display: inline-flex; width: 100%; border: 1px dashed #007ee5; border-radius: 6px; height: 32px; margin-top: 6px;">
+				<input id="backgroundImage" [value]="fileName"
+					style="width: 100%; border: transparent; height: 20px; box-shadow: none;"
+					class="file-path validate" type="text"> <a><i
+					class="material-icons bg_addIcon">add</i></a>
+			</div>
+		</div>
+		<div class="col s11 m6 l4 "
+			*ngIf="profileInfo.userBackgroundImage != null && profileInfo.userBackgroundImage != '' ">
+			<div class="chip imagechip" style="margin-top: 35px;">
+				<span class="truncate" title="{{profileInfo.userBackgroundImage}}">{{profileInfo.userBackgroundImage}}</span>
+				<i class="close material-icons"
+					(click)="userDTO.userBackgroundImageFlag=true && addFile=true">close</i>
+			</div>
+		</div>
+	</div>
+
+<!-- 	<div class="col s12 m12 l12 zeroPadding neo_general_labelBorder"> -->
+<!-- 				<span  class="col s12 m12 l12 secondary-text commonText left" style="padding-left: 0px !important;" -->
+<!-- 					translate>View</span> -->
+<!-- 	</div> -->
+
+<!-- 	<div class="col s12 m8 l8 zeroPadding"> -->
+<!-- 			<div class="col s12 m12 l12 zeroPadding" style="margin-top: 10px;margin-left:2px;"> -->
+<!-- 			<label *ngIf="view == 'Basic View'"> <input -->
+<!-- 				class="with-gap col s3" value="Grid" name="menuView" type="radio" -->
+<!-- 				[(ngModel)]="profileInfo.widgetMenuView" /> <span translate>Grid</span> -->
+<!-- 			  </label> &nbsp; <label *ngIf="view == 'Basic View'"> -->
+<!-- 				  <input class="with-gap col s3" value="List" name="menuView" -->
+<!-- 				  type="radio" [(ngModel)]="profileInfo.widgetMenuView" /> <span -->
+<!-- 				  translate>List</span> -->
+<!-- 			   </label >&nbsp; <label *ngIf="view == 'Advanced View'" style=" margin-left: -18px !important;"> <input -->
+<!-- 				class="with-gap col s3" value="AdvancedUI" name="menuView" -->
+<!-- 				type="radio" [(ngModel)]="profileInfo.widgetMenuView" /> <span -->
+<!-- 				translate>AdvancedUI</span> -->
+<!-- 			</label> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+
+
+	<div class="col s12 m12 l12 zeroPadding neo_general_labelBorder">
+		<span class="active secondary-text commonText" translate>Language</span>
+	</div>
+	<div class="col s12 m12 l12 zeroPadding">
+			<div class=" input-field col s11 m5 l5 selectAndInputbox zeroPadding settings_select language_select">
+			<select class="" [(ngModel)]="userDTO.languageDTO">
+				<option *ngFor="let preferredLang of languages; let i = index"
+					[ngValue]="preferredLang">{{preferredLang.languageName}}</option>
+			</select>
+		</div>
+	</div>
+	<!-- 			<div class="input-field col s6 m3 l3 right"> -->
+	<!-- <label>
+			        <input type="checkbox" checked="checked" />
+			        <span>Advanced UI</span>
+      			</label> -->
+	<!-- 				<span class="col s12 m12 l12 secondary-text commonText left" -->
+	<!-- 					translate>Advanced UI</span> -->
+
+	<!-- 				<div class="switch" style="margin-top: 30px;"> -->
+	<!-- 					<label>  <span translate>Advanced UI</span> <input -->
+	<!-- 						type="checkbox" [(ngModel)]="profileInfo.advancedUI"> <span -->
+	<!-- 						class="lever"></span> <span translate>Advanced</span> -->
+	<!-- 					</label> -->
+	<!-- 				</div> -->
+	<!-- 			</div> -->
+
+<!-- 	<div class="row"> -->
+<!-- 		<div -->
+<!-- 			class="input-field securityQuestion col s11 m5 l5   selectAndInputbox settings_select"> -->
+<!-- 			<span for="questionId" class="active secondary-text commonText" -->
+<!-- 				translate>Security Questions</span> <select id="selectDropdown" -->
+<!-- 				name="secQuestion" (change)="userDTO.answer=null" id="questionId" -->
+<!-- 				[(ngModel)]="userDTO.securityQuestion"> -->
+<!-- 				<option selected disabled>{{ 'Select Security Question' | -->
+<!-- 					translate}}</option> -->
+<!-- 				<option *ngFor="let questions of securityQuestionList" -->
+<!-- 					[ngValue]="questions">{{questions.question | translate}}</option> -->
+<!-- 			</select> -->
+<!-- 		</div> -->
+
+<!-- 		<div class="input-field col s11 m5 l5 selectAndInputbox"> -->
+<!-- 			<span for="answerid" class="active secondary-text commonText" -->
+<!-- 				translate>Enter Your Answer</span> <input placeholder="" -->
+<!-- 				id="answerid" name="answer" [(ngModel)]="userDTO.answer" -->
+<!-- 				autocomplete="off"> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+
+
+
+
+	<!-- <div class="row">
+			<div class=" input-field col s11 m5 l5">
+				<label class="active" translate>Widget Menu View</label>
+				<select [(ngModel)]="profileInfo.widgetMenuView">
+					<option *ngFor="let widgetMenu of widgetMenuView; let i = index" [ngValue]="widgetMenu">{{widgetMenu}}</option>
+				</select>
+			</div>
+		</div> -->
+
+	<!-- <div class="row">
+		<div class="file-field input-field col s12 m6 l6" *ngIf="addFile">
+			<input id="userImageId" name="userImage" type="file" accept="image/*"
+				(change)="getUserImage($event)">
+			<div class="file-path-wrapper">
+				<input id="userImage"
+					placeholder="{{ 'Select Profile Image' | translate }}"
+					[value]="fileName" class="file-path validate" type="text">
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col s12 m6 l6"
+			*ngIf="profileInfo.userImage != null && profileInfo.userImage != '' ">
+			<div class="chip imagechip">
+				<span class="truncate" title="{{profileInfo.userImage}}">{{profileInfo.userImage}}</span>
+				<i class="close material-icons"
+					(click)="userDTO.userImageFlag=true && addFile=true">close</i>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="row" style="margin-bottom: 10px !important;">
+		<!-- <div class=" input-field col s12 m6 l6 ">
+				<label class="active" translate>Access</label>
+				<div class="switch">
+					<label>
+						Off
+						<input id="mySwitch" type="checkbox" [(ngModel)]="outlookFlag" (click)="openOutlookModal()" style="cursor:pointer !important;">
+						<span class="lever"></span>
+						<span>On</span>
+						
+					</label>
+					&nbsp;&nbsp;
+					<span class="" title="Push" translate> Outlook Access </span>
+				</div>
+
+			</div> -->
+
+		<!-- <div class=" input-field col s11 m5 l5 ">
+				<a class="modal-trigger" style="cursor: pointer" title="Push" data-target="outlookModal" translate> Outlook Access </a>
+			</div> -->
+
+		<!-- <div id="outlookModal" class="modal no-autoinit" #outlookModal>
+				<div class="modal-content">
+					<div class="row input-field">
+						<i class="material-icons prefix" id="Outlookicon" translate>contact_mail</i>
+						<h6 id="outlookContent" translate>Allow OUTLOOK to take permission for create calendar events?</h6>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a class="btn-flat" (click)="closeOutlookModal()" translate>DENY</a>
+					<a class="modal-close btn-flat" (click)="loginOutlookMS365() " [(ngModel)]="outlookFlag" translate>ALLOW</a>
+					<a class="btn-flat" (click)="loginOutlookMS365() " translate>ALLOW</a>
+				</div>
+			</div> -->
+	</div>
+	<div class="row" style="margin-bottom: 10px !important;"></div>
+	<div class="row" style="margin-bottom: 10px !important;"></div>
+	<div class="row" style="margin-bottom: 10px !important;"></div>
+	<div class="row" ></div>
+
+	<div class="row right settingsSaveBtn">
+		<button class="btn neosuiteBtn advActionBtn"
+			(click)="updateUserProfile()" translate>Save</button>
+	</div>
+</div>
+

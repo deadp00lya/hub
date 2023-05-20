@@ -1,0 +1,552 @@
+<div class="delegate-old" >
+	<div class="row ">
+
+		<div class="delegateDrawer" [hidden]="!openDelegate"
+			id="delegateModal" #delegateModal>
+
+			<!-- <div class="col s12" [hidden]="closeBtn">
+			<a class=" right closeBtn" (click)="close()">
+				<img src="./assets/images/close_button.svg" width="25">
+			</a>
+		</div> -->
+			<div class="col s12 m12 l12 right delegateContent zeroPadding"
+				[hidden]="showDelegate">
+				<div class="col s12 m12 l12 delegateSideSpace">
+					<!-- <div class="col s4 delegateBtn">
+				<button class="btn neosuiteBtn" translate>Delegate</button>
+				<button class=" btn neosuiteBtn" translate>History</button>
+
+			</div> -->
+
+					<div class="col s11 secondary-border" id="delegateTabs"
+						style="padding: 0;">
+						<div class="col s3"
+							[ngClass]="{'active secondary-class' :componentName=='Delegate'}"
+							style="width: auto" (click)="delegateComponent()">
+							<div>
+								<span translate class="delegateTabSpan secondary-text">
+									Create Delegation</span>
+							</div>
+						</div>
+
+						<div class="col s3"
+							[ngClass]="{'active secondary-class' :componentName=='Delegations'}"
+							style="width: auto" (click)="delegationsComponent()">
+							<div>
+								<span translate class="delegateTabSpan secondary-text">Delegations</span>
+							</div>
+						</div>
+
+						<div class="col s3"
+							[ngClass]="{'active secondary-class':componentName=='History'}"
+							style="width: auto" (click)="historyComponent()">
+							<div>
+								<span translate class="delegateTabSpan secondary-text">History</span>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col s11 right secondary-border" id="delegateTabs"
+						style="padding: 0;" *ngIf="!delegateViewFlag">
+						<div class="col s3"
+							[ngClass]="{'secondary-class active':subComponentName=='OnMe'}"
+							style="width: auto" (click)="onMeComponent()">
+							<div>
+								<span translate class="delegateTabSpan secondary-text">On
+									Me</span>
+							</div>
+						</div>
+
+						<div class="col s3"
+							[ngClass]="{'secondary-class active':subComponentName=='ByMe'}"
+							style="width: auto" (click)="byMeComponent()">
+							<div>
+								<span translate class="delegateTabSpan secondary-text">By
+									Me</span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
+				<!-- <div class="col s12 m12 l12 "> -->
+
+				<div id="appgrid" class="s12 m12 l12" *ngIf="delegateViewFlag">
+					<div class="row"></div>
+					<div translate class="col s12 m12 l12 widgetline delegateSideSpace"
+						style="font-weight: 600;" translate>Select Widgets you want to
+						Delegate</div>
+					<div class="col s12 m12 l12 delegateSideSpace ">
+						<hr style="color: #007EE5 !important;">
+					</div>
+
+					<!-- <div class="col s12 m12 l12 "> -->
+					<div class="col s12 m12 l12 center" [hidden]="noWidgetImg"
+						style="margin-top: 30px;">
+
+						<div class="col 112 m12 l12">
+							<img style="width: 30%;"
+								src="/assets/images/emptyHistoryList.svg">
+						</div>
+
+						<div translate class="col s12 m12 l12">Oops!! No Delegations</div>
+					</div>
+					<div class="col s11 m11 l11 center" style="margin: 0 4%;">
+
+						<div class='col s12 m6 l6 delegate-container'
+							*ngFor="let app of appWidgetMap | keyvalue ; let i=index;">
+							<div class="col s12 m12 l12"
+								style="border-radius: 5px; border: 1px solid #e0e0e0; padding: 5px 0px;">
+								<!--<div class='ns-tile-inner'> -->
+								<div class="col s5 delegateImageContent">
+									<div class="delegate-inner-appIcon "
+										(mouseenter)="setAppIcon(app.key,'gif')"
+										(mouseleave)="setAppIcon(app.key,'img')">
+										<img [hidden]="!app.key.showImg" class='delegate-icon'
+											[src]="app.key.iconName"
+											onerror="this.src='assets/WidgetIcon/defaulticon.jpg';">
+										<img [hidden]="!app.key.showGif" class='delegate-icon'
+											[src]="app.key.gifName"
+											onerror="this.src='assets/WidgetIcon/defaulticon.jpg';">
+									</div>
+									<div class="delegate-tile truncate "
+										title="{{app.key.appName | translate}}" translate>{{app.key.appName}}</div>
+								</div>
+
+								<!-- <div class="col s5 ">
+						<div class="chips">
+							<input class="custom-class">
+						</div>
+					</div> -->
+
+
+								<div class="col s7 widgetBox">
+									<div class='widgetwrapper col s12 m12 l12 center  '
+										style="display: inline-block">
+										<div *ngFor="let widget of app.value ; let i=index;"
+											(click)="selectWidget($event,widget,app.key)">
+											<div class="row bottomWidgetLine">
+												<div class="col s12 truncate delegationWidgetName"
+													[ngClass]="currentWidget.indexOf(widget)>-1 ? 'chip secondary-class white-text' : ''" translate>
+													{{widget.widgetName}} <i
+														[hidden]="!(currentWidget.indexOf(widget)>-1)"
+														class="close material-icons primary-text close-align">close</i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- <div [hidden]="!(tempAppModules!=null && tempAppModules.length > 0)">
+					<div style="margin: 28px"></div>
+					<div class='widgetwrapper col s12 m12 l12 center' style="display: inline-block;">
+						<div class="" *ngFor="let module of tempAppModules; let i = index">
+							<div class=" ns-tile-container center " *ngFor="let widget of filterWidgets(module); let i = index;">
+								<div class="ns-tile-tile truncate" title="widget.widgetName">{{widget.widgetName}}</div>
+
+							</div>
+						</div>
+					</div>
+				</div> -->
+
+				<!-- </div> -->
+			</div>
+			<div class="row"></div>
+			<div class="row" [hidden]="delegateBtn" *ngIf="delegateViewFlag">
+				<div class="col s12 m12 l12 center-align">
+					<button translate class=" btn delegate-btn "
+						(click)="showDelegates()">
+						Delegate <i class="material-icons proxy-icon left">reply</i>
+					</button>
+				</div>
+			</div>
+			<div class="row" [hidden]="hideDelegate" style="height: 100%">
+				<div class="col s12 m12 l12" style="height: auto;">
+					<!-- <div class="col s1 m1 l1" style="cursor:pointer;" *ngIf="delegateViewFlag"><i class="material-icons" title="{{'Back' | translate}}">arrow_back</i></div>  -->
+					<div class="col s12 m12 l12">
+						<div class="col s1 m1 l1" style="cursor: pointer;margin-top:3%;"
+							(click)="backBtn()">
+							<i class="material-icons" title="{{'Back' | translate}}">arrow_back</i>
+						</div>
+						<div class="col s9  m9 l11 " style="display: inline-block;">
+							<div class=" col s1 m1 l1  pulse selected-appIcon popup"
+								style="margin: 10px 20px; text-align: center; width: 93px;"
+								(mouseover)="showWidget(i)" (mouseout)="showWidget(i)"
+								*ngFor="let selectedapp of selectedAppWidget | keyvalue ; let i=index;">
+								<div class="popuptext" id="widgetPopup_{{i}}">
+									<div *ngFor="let widget of selectedapp.value">
+										<div class="col s12 "
+											style="border-bottom: 1px solid #db32363d;" translate>{{widget.widgetName}}</div>
+									</div>
+								</div>
+
+								<div (mouseenter)="setAppIcon(selectedapp.key,'gif')"
+									(mouseleave)="setAppIcon(selectedapp.key,'img')"
+									class=" btn-floating red  btn-float popup">{{selectedapp.value.length}}</div>
+								<div>
+									<img [hidden]="!selectedapp.key.showImg" class='delegate-img '
+										[src]="selectedapp.key.iconName"
+										onerror="this.src='assets/WidgetIcon/defaulticon.jpg';">
+									<img [hidden]="!selectedapp.key.showGif" class='delegate-img '
+										[src]="selectedapp.key.gifName"
+										onerror="this.src='assets/WidgetIcon/defaulticon.jpg';">
+								</div>
+								<!-- <div class="row right selected-app "
+							*ngFor="let widget of selectedapp.value">
+							<div class="col s2 popuptext" id="myPopup">{{widget.widgetName}</div>
+				</div> -->
+								<div class=" app-name" title="{{selectedapp.key.appName | translate}}" translate>{{selectedapp.key.appName}}</div>
+							</div>
+							<!-- <div class="row popup" (click)="showWidget()" >
+						Click me to toggle the popup! <div class="col s4 popuptext" id="myPopup">A
+							Simple Popup!</div>
+					</div> -->
+
+							<!-- 					<div class="col s2"*ngFor="let widget of selectedapp.value" >123</div> -->
+
+						</div>
+					</div>
+					<div class=" col s12 m12 l12" style="height: 100%;margin-top: 20px;width: 100%;display: flex;">
+						<!-- 					<div class="col s12  m12 l12" style="height: 20%"></div> -->
+						<div class="card col s12 m9 l6"
+							style="margin: 0 auto;">
+							<div class="col s12 m12 l12" style="margin:0 6px;">
+								<div class=" input-field col s12 m6 l6 input-align">
+									<div class="col s2"
+										style="margin-left: -42px; margin-top: 10px;">
+										<img src="./assets/images/EmployeeFieldIcon.svg">
+									</div>
+									<input class="" type="text" name="employee"
+										title="{{userNameId | translate}}" style="margin-left: 9px;width:90%;"
+										[(ngModel)]="userNameId" [disabled]="true"> <label
+										translate class="active employeeFields" for="employee"
+										translate> Employee Name</label>
+								</div>
+
+								<div class="col s12 m6 l6 " style="height: 100px;">
+									<div class="row " style="margin-bottom: -15px;">
+										<h6 translate class="center-align grey-text selectDate">Select
+											Date</h6>
+									</div>
+									<div class="row">
+										<div class=" input-field col s12 date_field ">
+											<i class="material-icons prefix calender_Icon"
+												[owlDateTimeTrigger]="datePicker">date_range</i> <input
+												placeholder="{{'Start Date - End Date' | translate}}" [(ngModel)]="dateRange"
+												[selectMode]="'range'" [owlDateTime]="datePicker"
+												[owlDateTimeTrigger]="datePicker" [min]="min"
+												[readonly]="true">
+											<owl-date-time [pickerType]="'calendar'" #datePicker></owl-date-time>
+										</div>
+									</div>
+								</div>
+								<div class=" input-field col s12 m12 l12 left input-align"
+									style="margin: 0;">
+									<div class="col s1 m1 l1"
+										style="margin-left: -42px; margin-top: 10px;">
+										<img src="./assets/images/DelegatedToFieldIcon.svg">
+									</div>
+								<!-- 	<ng2-completer [datasource]="dataService" [minSearchLength]="3"
+										[clearSelected]="false" [clearUnselected]="true"
+										id="delegated_to" [openOnFocus]='false'
+										placeholder="{{ 'Delegate To'| translate}}"
+										[fillHighlighted]="false" [(ngModel)]="delegatedToUSer"
+										(selected)="setDelegateUser($event)"> </ng2-completer> -->
+
+									<!-- <label
+									style="margin-top: -10px;" class="active" for="employee"
+									translate> Delegate To </label> <a><i
+									class="material-icons right grey-text searchIcon">search</i></a> -->
+									<div class="col s7 m7 l6 searchDelegate" >
+										<!-- <label class="ngselectLabel" translate>Delegate To<span class="red-text"> * </span>
+					                    </label> -->
+					                    <ng-select [(ngModel)]="this.proxyDTO.proxiedToUser" (keyup)="fetchDelegateUserList($event)"
+					                     (change)="setDelegateUser(this.proxyDTO.proxiedToUser)" 
+					                     placeholder= "Search to delegate..">
+					                        <ng-option *ngFor="let user of userList;" [value]="user">
+					                        {{user.employeeId}} {{user.firstName}}  {{user.lastName}}
+					                        </ng-option>
+					                    </ng-select>
+					                    </div>
+								</div>
+							</div>
+							
+							<div class="col s12 m12 l12" style="height: 100%">
+
+								<div class="col s12 m12 l12"
+									style="margin: 15px 0px; padding: 0;">
+									<div class="col s9 m6 l5" style="float:right;">
+										<div class="col s6 m6 l6 right">
+											<button translate
+												class=" btn secondary-class left delegate-btn"
+												(click)="saveDelegate()">Save</button>
+										</div>
+										<div class="col s6 m6 l6">
+											<button translate
+												class=" btn secondary-class right delegate-btn"
+												(click)=reset()>Reset</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row col s12 m12 l12" *ngIf="!saveDelegation" style="height: 100%;display: flex;width: 100%;">
+				<!-- 			<div class="row" style="height: 5%"></div> -->
+				<div class="col s12 m9 l8 offset-s2" style="height: 100%;margin:0 auto;">
+					<div class="col s12 m12 l12" style="height: 15%">
+						<div class="col s3 m2 l2 center" style=" height: 100%">
+							<i class="fa fa-spinner fa-spin fa-fw grey-text"
+								style="position: absolute; right: 74%; top: 11%; font-size: 40px;"
+								*ngIf="loadingImg"></i> <img class='UserImages ' id="userImage"
+								[src]='profileImg' onerror="this.src='/assets/WidgetIcon/usergrey.png';">
+							<div class="center" style="padding-top: 10px;font-size: 14px;">{{delegatedBy}}</div>
+						</div>
+						<div class="col s6 m8 l8">
+							<div class="savedWidgets col s12 m12 l12">
+								<div style="width: 100px; margin-right: 16px;"
+									*ngFor="let savedWidget of savedAppWidget | keyvalue ; let i = index">
+
+									<div class="center" (mouseenter)="setAppIcon(savedWidget.key,'gif')"
+										(mouseleave)="setAppIcon(savedWidget.key,'img')">
+										<img [hidden]="!savedWidget.key.showImg" class='appImg '
+											[src]="savedWidget.key.iconName"
+											onerror="this.src='assets/WidgetIcon/defaulticon.jpg';">
+										<img [hidden]="!savedWidget.key.showGif" class='appImg '
+											[src]="savedWidget.key.gifName"
+											onerror="this.src='assets/WidgetIcon/defaulticon.jpg';">
+									</div>
+									<div class="appName center truncate" style="" translate>{{savedWidget.key.appName}}</div>
+								</div>
+							</div>
+							<div class="line-container">
+								<span class="line arrow-right"></span>
+							</div>
+
+						</div>
+
+						<div class="col s3 m2 l2 center" style="height: 100%">
+							<i class="fa fa-spinner fa-spin fa-fw grey-text"
+								style="position: absolute; right: 22%; top: 11%; font-size: 40px;"
+								*ngIf="loadingImg"></i> <img class='UserImages'
+								id="proxyUserImg" [src]='proxyUserImg'
+								onerror="this.src='/assets/WidgetIcon/usergrey.png';">
+							<div class="center" style="padding-top: 10px;font-size: 14px;">{{delgatedToUName}}</div>
+						</div>
+					</div>
+					<div class="col s12 m12 l12" style="height: 50px;"></div>
+					<div class="col s12 m12 l12">
+						<span translate class="DelegatedHeading">Widget Delegated</span>
+					</div>
+					<div class="col s12 m12 l12 card-panel"
+						*ngFor=" let savedWidget of savedAppWidget | keyvalue ; let i = index">
+						<div class='col s12 ' style="margin: 2% 0;">
+							<div class="col s3 m3 l3  push-l1  cardHeading">
+								<b translate>Application Name</b>
+							</div>
+							<div class="col s4 m4 l4 center cardHeading" >
+								<b translate>Delegated To</b>
+							</div>
+							<div class="col s2 m2 l2 center cardHeading" >
+								<b translate>Start Date</b>
+							</div>
+							<div class="col s2 m2 l2 right cardHeading">
+								<b translate>End Date</b>
+							</div>
+						</div>
+						<div class="col s12">
+							<div class=" col s1 m1 l1">
+								<img class='history-icon' [src]="savedWidget.key.iconName"
+									onerror="this.src='assets/WidgetIcon/defaulticon.jpg';">
+							</div>
+							<div class="col s3 m3 l3 center panelItems truncate "
+								style="margin-left: -25px;" title="{{savedWidget.key.appName | translate}}"  translate>{{savedWidget.key.appName}}</div>
+							<div class="col s3 m3 l3 center panelItems truncate "
+								title="{{'this.delegatedTo' | translate}}">{{delegatedTo | translate}}</div>
+							<div class="col s3 m3 l3 center panelItems">{{startDate |
+								date:"dd-MMM-yyyy"}}</div>
+							<div class="col s2 m2 l2 center panelItems">{{endDate |
+								date:"dd-MMM-yyyy"}}</div>
+							<div class="col s12">
+								<div class="left widget" translate>Widgets</div>
+							</div>
+							<div class="col s12" style="margin: 1% 0;">
+
+								<div class="chip widgetChip secondary-class truncate"
+									title="{{widget.widgetName | translate}}"
+									*ngFor="let widget of savedWidget.value "  translate>{{widget.widgetName}}</div>
+
+							</div>
+						</div>
+
+
+					</div>
+					<div class="col s12 m12 l12 center-align">
+						<button class=" btn  saveddelegate-btn" translate
+							(click)="showDelegateHistory()">View Delegations</button>
+					</div>
+				</div>
+			</div>
+
+			<div id="historygrid" class="row" *ngIf="!delegateViewFlag">
+				<div translate class="col s12 m12 l12 widgetline delegateSideSpace"
+					*ngIf="!delegationList" style="font-weight: 600;">Delegation
+					History</div>
+				<div translate class="col s12 m12 l12 widgetline delegateSideSpace"
+					*ngIf="delegationList" style="font-weight: 600;">Delegations</div>
+				<div class="col s12 m12 l12 delegateSideSpace">
+					<hr style="color: #007EE5 !important;">
+				</div>
+
+				<div class="col s12 m12 l12 delegateSideSpace"
+					*ngIf="historyList?.length > 0 && !onMeFlag">
+					<div class="card">
+						<div class="card-content historyHeader">
+							<div class="col s2 m2 l2 left headerAlign text_wrap" >
+								<b translate>Application Name</b>
+							</div>
+							<div class="col s2 m2 l2 left headerAlign text_wrap" >
+								<b translate>Number of Widgets</b>
+							</div>
+							<div class="col s3 m3 l3 left headerAlign text_wrap" >
+								<b translate>Delegated To</b>
+							</div>
+							<div class="col s2 m2 l2 left headerAlign text_wrap" >
+								<b translate>Start Date</b>
+							</div>
+							<div class="col s2 m2 l2 left headerAlign text_wrap" >
+								<b translate>End Date</b>
+							</div>
+							<div class="col s1 m1 l1 left headerAlign text_wrap" 
+								*ngIf="onMeFlag && delegationList">
+								<b translate>Action</b>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col s12 m12 l12 delegateSideSpace"
+					*ngIf="historyList?.length > 0 && onMeFlag">
+					<div class="card">
+						<div class="card-content historyHeader">
+							<div class="col s2 m2 l2 left headerAlign text_wrap" >
+								<b translate>Application Name</b>
+							</div>
+							<div class="col s2 m2 l2 left headerAlign text_wrap" >
+								<b translate>Number of Widgets</b>
+							</div>
+							<div class="col s3 m3 l3 left headerAlign text_wrap" >
+								<b translate>Delegated By</b>
+							</div>
+							<div class="col s2 m2 l2 left headerAlign text_wrap" >
+								<b translate>Start Date</b>
+							</div>
+							<div class="col s2 m2 l2 left headerAlign text_wrap" >
+								<b translate>End Date</b>
+							</div>
+							<div class="col s1 m1 l1 left headerAlign text_wrap" 
+								*ngIf="!onMeFlag && delegationList">
+								<b translate>Action</b>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col s12 m12 l12 alignlist delegateSideSpace"
+					[hidden]="!historyList?.length > 0 && delegateViewFlag">
+					<!-- *ngIf="historyList?.length > 0 && !delegateViewFlag" -->
+
+					<div class="card-panel listpanel col s12 m12 l12"
+						*ngFor="let history of historyList; let i = index">
+						<div class="col s12 m12 l12" style="padding: 0;">
+							<div class="col s2 m2 l2 left panelItems">
+								<div class="col s3" style="padding: 0;">
+									<img class='delegatehistory-icon'
+										[src]="history.application.iconName"
+										onerror="this.src='assets/WidgetIcon/defaulticon.jpg';">
+								</div>
+								<div class="col s8 truncate"
+									title="{{history.application.appName | translate}}"  translate>{{history.application.appName}}</div>
+
+							</div>
+							<div class="col s2 m2 l2 left panelItems">
+								<span class="">{{history.noOfWidgets}}</span>
+							</div>
+							<div class="col s3 m3 l3 left panelItems truncate">
+								<span class="" title="{{history.delegatedToUser | translate}}">{{history.delegatedToUser
+									|| history.delegatedByUser}}</span>
+							</div>
+							<div class="col s2 m2 l2 left panelItems">
+								<span class="">{{history.startDate |
+									date:"dd-MMMM-yyyy"}}</span>
+							</div>
+							<div class="col s2 m2 l2 left panelItems">
+								<span class="">{{history.endDate | date:"dd-MMMM-yyyy"}}</span>
+							</div>
+							<div class="col s1 m1 l1 left panelItems"
+								*ngIf="!onMeFlag && delegationList">
+								<!-- <i class="material-icons edithistory">create</i> -->
+								<i class="material-icons removehistory modal-trigger"
+									data-target="deleteDelegateModal" 
+									(click)="deleteDelegate(history,i)" title="{{'Remove Delegation' | translate}}">cancel</i>
+							</div>
+						</div>
+
+
+						<div class="col s12 m12 l12">
+							<div class="col s2 m2 l2" style="padding-left: 5px;">
+								<label translate class="" style="font-size: 11px;">Widgets</label>
+							</div>
+						</div>
+
+						<div class="col s12 m12 l12">
+
+							<div *ngFor="let widget of history.widgets">
+								<div
+									class="col s2 m3 l2 chip widgetchip secondary-class truncate center"
+									title="{{widget.widgetName | translate}}" translate>{{widget.widgetName}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col s12 m12 l12 center"
+					[hidden]="!historyList?.length == 0 " style="margin-top: 30px;">
+
+					<div class="col s12 m12 l12">
+						<img style="width: 30%;" src="/assets/images/emptyHistoryList.svg">
+					</div>
+
+					<div translate class="col s12 m12 l12">Oops!! No Delegations</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="deleteDelegateModal" class="modal" #deleteDelegateModal>
+			<div class="modal-content center">
+				<div translate class="center">Are you sure you want to end the
+					delegation?</div>
+
+				<div class="col s12 m12 l12 deletehistoryContent"></div>
+			</div>
+
+			<div class="col s12 m12 l12 ">
+				<div class="center">
+					<div class=" chip truncate deletehistorybtn center secondary-class"
+						translate (click)="deleteStatus('Yes')">End Delegation</div>
+
+					<div class=" chip truncate deletehistorybtn center secondary-class"
+						translate (click)="deleteStatus('No')">Cancel</div>
+					&nbsp;
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

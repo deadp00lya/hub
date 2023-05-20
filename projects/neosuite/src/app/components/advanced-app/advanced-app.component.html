@@ -1,0 +1,186 @@
+<ng-container
+  *ngIf="!componentLoadWidget?.titleBar; then template1; else template2"
+></ng-container>
+<ng-template #template1>
+<div class="parent">
+  <div *ngIf="!(filterAppWidgets.length == 1)">
+    <div id="slide-out" class="sidenav sidenav-fixed app-sidenav">
+      <a
+        class="center advancedUI_appIcon_container"
+        *ngFor="let widget of filterAppWidgets; let i = index"
+        [routerLink]="'../' + widget.routePath | lowercase"
+        routerLinkActive="active-widget"
+      >
+        <div
+          class="advancedUI_appIcon"
+          (mouseenter)="setWidgetIcon(widget, 'gif')"
+          (mouseleave)="setWidgetIcon(widget, 'img')"
+        >
+          <img
+            [hidden]="!widget.showImg"
+            class="ns-tile-icon"
+            [src]="widget.widgetIcon"
+            onerror="this.src='assets/WidgetIcon/defaulticon.jpg';"
+          />
+          <img
+            [hidden]="!widget.showGif"
+            class="ns-tile-icon"
+            [src]="widget.widgetGif"
+            onerror="this.src='assets/WidgetIcon/defaulticon.jpg';"
+          />
+        </div>
+        <div
+          class="logoName"
+          style="background: transparent"
+          [ngClass]="{ 'advancedUI_widget_selected_mob ': widget.visible }"
+          title="{{ widget.widgetName }}"
+        >
+          {{ widget.widgetName }}
+        </div>
+      </a>
+    </div>
+  </div>
+  <div
+    class="content-area"
+    [style.padding-left]="filterAppWidgets.length == 1 ? '0px' : null"
+  >
+    <div id="{{ 'capture_' + componentLoadWidget?.id }}" class="appDisplayCard">
+      <div class="card-title">
+        <div class="float-wrapper">
+          <div
+            style="padding: 0 1%"
+            class="left"
+            title="{{ componentLoadWidget?.widgetName }}"
+          >
+            <span
+              class="cursor-pointer sidenav-trigger hide-on-large-only"
+              data-target="slide-out"
+              [hidden]="filterAppWidgets.length == 1 ? true : null"
+            >
+              <i class="material-icons tiny" style="vertical-align: middle"
+                >menu</i
+              >
+              &nbsp;
+            </span>
+            <span style="font-size: 11px; font-weight: 600">{{
+              componentLoadWidget?.widgetName
+            }}</span>
+          </div>
+          <div class="right" style="margin-right: 7px">
+            <div class="left">
+              <span
+                class="cursor-pointer"
+                id="add_bookmark{{ componentLoadWidget?.id }}"
+                title="{{ 'Add to Favourites' | translate }}"
+                (click)="saveUserWidgetProfile(componentLoadWidget)"
+              >
+                <img src="assets/WidgetIcon/bookmark.png" />
+              </span>
+            </div>
+
+            <div
+              class="left"
+              [ngStyle]="{
+                display: componentLoadWidget?.helpIcon == true ? '' : 'none'
+              }"
+            >
+              <span
+                class="cursor-pointer"
+                title="{{ 'Help' | translate }}"
+                id="add_help{{ componentLoadWidget?.id }}"
+                (click)="openModel(componentLoadWidget)"
+              >
+                <img src="assets/WidgetIcon/help.png" />
+              </span>
+            </div>
+            <span
+              class="cursor-pointer"
+              title="{{ 'Close Widget' | translate }}"
+              routerLink="/home"
+              (click)="componentLoadWidget.visible = false; saveUserWidgetLog()"
+            >
+              <img class="widget-icons" src="assets/WidgetIcon/Close.png" />
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="card-content adv_appPortion">
+        <router-outlet></router-outlet>
+      </div>
+
+      <!--  Knowledge Base Help model -->
+      <div id="helpModel" class="modal" #helpmodal>
+        <div
+          class="modal-header white-text row"
+          style="background-color: #37474f; margin-bottom: 0px"
+        >
+          <label
+            translate
+            class="col s10 m10 l10 white-text"
+            style="font-size: 14px"
+          >
+            Help
+          </label>
+          <div class="col s2">
+            <a
+              href="javascript:void(0)"
+              class="right white-text"
+              title="{{ 'Close Model' | translate }}"
+              (click)="closeModel()"
+            >
+              <i class="material-icons">close</i>
+            </a>
+          </div>
+        </div>
+
+        <div class="">
+          <div class="row" id="kbRow">
+            <ul class="tabs" id="faq-tabs-swipe">
+              <li class="tab col s3" style="cursor: pointer">
+                <a
+                  class="active black-text"
+                  id="faq-faq-tab"
+                  (click)="setPage('faqPage')"
+                  translate
+                  >FAQ</a
+                >
+              </li>
+              <li class="tab col s3" style="cursor: pointer">
+                <a
+                  id="faq-faqTrendingPage-tab"
+                  class="black-text"
+                  (click)="setPage('faqTrendingPage')"
+                  translate
+                  >Trending
+                </a>
+              </li>
+              <li class="tab col s3" style="cursor: pointer">
+                <a
+                  class="black-text"
+                  (click)="setPage('knowledgebasePage')"
+                  translate
+                  >Knowledge Base
+                </a>
+              </li>
+              <li class="tab col s3" style="cursor: pointer">
+                <a class="black-text" (click)="setPage('ContactUs')" translate
+                  >Contact Us
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Faq, Knowledgebase, Trending And Contact Us Component -->
+
+          <div class="row" id="home" style="margin-top: 32px">
+            <div #homeComponent></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-template>
+<ng-template #template2>
+    <router-outlet></router-outlet>
+</ng-template>

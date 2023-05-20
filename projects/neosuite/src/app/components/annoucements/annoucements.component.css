@@ -1,0 +1,38 @@
+:host {
+  height: 100%;
+  width: 100%;
+}
+.chip.new_feature {
+  background-color: #2196f3;
+}
+.chip.planned_downtime {
+  background-color: #ffc107;
+}
+.chip.service_up {
+  background-color: #43a047;
+}
+.chip.service_down {
+  background-color: #ff5722;
+}
+.chip.emergency_downtime {
+  background-color: #f44336;
+}
+.new_feature {
+  color: #2196f3;
+}
+.planned_downtime {
+  color: #ffc107;
+}
+.service_up {
+  color: #43a047;
+}
+.service_down {
+  color: #ff5722;
+}
+
+.emergency_downtime {
+  color: #f44336;
+}
+.inline-icon {
+  vertical-align: bottom;
+}

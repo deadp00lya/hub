@@ -1,0 +1,43 @@
+export class PayrollDTO {
+    payrollId: number;
+    sid: number;
+    pid: number;
+    employeeId: string;
+    payCurrency: number;
+//    employee: EmployeeDTO = new EmployeeDTO();
+    payrollStartDate: Date;
+    payType: string;
+    paymentMethod: string;
+    payrollEmployeeStatus: string;
+    seniorityStartDate: Date;
+    previousEmploymentId: string;
+    payGrade: string;
+    payGroup: string;
+    modeOfPayment: string;
+    payFrequency: string;
+    compulsorilyInsured: string;
+    taxBracket: string;
+    taxCardCopyProvided: string;
+    taxDependants: number;
+    differentlyAbled: string;
+    exemptFromTax: string;
+    martialStatus: string;
+    dateOfMarraige: Date;
+    etinicity: string;
+    onsiteStatus: string;
+    accessCardNumber: string;
+    leaveStatus: string;
+    isExempt: boolean;
+    employeeWorkingHours: number;
+    timeStatus: string;
+    shiftCode: string;
+    effectiveStartDate: string;
+    effectiveEndDate: Date;
+    enabled: boolean;
+    approval: number;
+    error: string;
+    overwrite: boolean;
+    insuredType: any;
+    collectiveAgreement: string;
+
+}

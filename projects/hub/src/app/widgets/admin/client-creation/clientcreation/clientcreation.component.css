@@ -1,0 +1,56 @@
+#viewClientSelectPageSize {
+	overflow: inherit !important;
+	border-radius: 10px;
+	min-width: 43px !important;
+	width: 10px !important;
+	height: auto !important;
+}
+
+#viewClientSelectPageSize:after {
+	content: "";
+	position: absolute !important;
+	width: 25px !important;
+	height: 25px;
+	background: #ffffff;
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+	top: 0 !important;
+	right: 10px !important;
+	z-index: -1;
+}
+
+#viewClientSelectPageSize>li {
+	text-align: center !important;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	line-height: 45px;
+}
+
+#searchiconcss {
+	color: #07b1d4;
+}
+
+.tophalf {
+	margin-bottom: 10px !important;
+}
+
+#createClient {
+	overflow-x: hidden !important;
+}
+
+.modal {
+	height: 23% !important;
+	width: 50% !important;
+}
+
+::ng-deep .dropdown-content {
+	width: 371.828px !important;
+	height: 177px;
+}
+
+.loading {
+	top: 50%;
+	bottom: 50%;
+	position: absolute;
+	left: 50%;
+}

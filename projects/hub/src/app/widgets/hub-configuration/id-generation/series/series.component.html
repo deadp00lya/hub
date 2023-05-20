@@ -1,0 +1,201 @@
+<div id="seriesViewPage" style="height: 100%;">
+
+	<universal-list-view *ngIf="!viewNeoConfig" [(listViewFromSource)]="seriesList" totalCount="{{count}}"
+		itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="PexSeriesList"
+		(outPutToParentComponent)="outputFromListView($event)" rowBasedCheckBoxEvent="true">
+	</universal-list-view>
+	<!-- 	<div class="row">
+		<div class="col offset-s3"
+			style="border: 1px solid #07b1d4; position: relative; width: 41%; height: 37px; border-radius: 50px; margin-top: 2%;">
+			<i class="material-icons right" id="searchiconcss"
+				style="margin-top: 5px;">search</i> <input type="text"
+				placeholder="Search" [(ngModel)]="searchKey"
+				(change)="fetchSeries()"
+				style="position: absolute; width: 90%; margin-left: 16px; height: -webkit-fill-available; border: none;">
+		</div>
+	</div>
+
+
+	<div class="row">
+		<button class="col btn modal-trigger" href="#createSeries"
+			type="submit" name="action" id="NewEntryButtonCss"
+			style="border-radius: 50px; background-color: #26a69a">
+			<div style="display: inline-flex;">
+				<i class="material-icons "
+					[ngClass]="getHideShow('hide',widgetWidth,'le',4,null)">add_circle</i>&nbsp;<label
+					[ngClass]="getHideShow('hide',widgetWidth,'le',4,null)"
+					style="font-family: arial; color: white;">Create Series</label> <i
+					class="material-icons "
+					[ngClass]="getHideShow('show',widgetWidth,'le',4,null)">add</i>
+			</div>
+		</button>
+
+
+
+		<div class="right" style="display: inline-flex;">
+			<pagination-controls id="viewSeriesPagination"
+				(pageChange)="currentPage = $event;fetchSeries()"></pagination-controls>
+
+
+			<div class="right drop">
+				<a id="viewSeriesPageSizeDropdown" style="margin: 10px"
+					(click)="openDropdown()" data-target="viewSeriesSelectPageSize"
+					class="btn-floating  red viewEmployeePageSizeDropdown center z-depth-3 no-autoinit dropdown-trigger "><label
+					class="white-text buzzerPointer">{{itemsPerPage}} </label></a>
+				<ul id='viewSeriesSelectPageSize' class='dropdown-content'>
+					<li *ngFor="let row of pageSizeOption" (click)="setPageSize(row);">{{row}}</li>
+				</ul>
+			</div>
+		</div>
+	</div> -->
+
+
+	<!-- 	<div id="createSeries" class="modal"> -->
+	<!-- 		<div class="modal-content row" id="createSeriesModalCss"> -->
+	<!-- 			<input id="seriesName" placeholder="Enter Series Name" type="text" -->
+	<!-- 				class="col s4" [(ngModel)]="generationServiceDTO.series">  -->
+	<!-- 				<input -->
+	<!-- 				id="value" placeholder="Enter Value" type="text" class="col s4" -->
+	<!-- 				[(ngModel)]="generationServiceDTO.value"> <a -->
+	<!-- 				class="modal-close waves-effect btn-small col s3" -->
+	<!-- 				style="border-radius: 30px; margin-left: 3%; margin-top: 1%;" -->
+	<!-- 				(click)="saveSeries();">Submit</a> -->
+	<!-- 		</div> -->
+
+
+
+
+	<!-- 	</div> -->
+
+
+
+	<div id="createSeries" class="modal">
+		<div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+			<i id="closeModalIcon" class="col s2 material-icons left" (click)=" closeModal()">close</i>
+			<p id="modalname" class="col s8 center">Add Series</p>
+			<i id="saveModalIcon" class="col s2 material-icons right" (click)="saveSeries();">done</i>
+		</div>
+
+		<div class="modal-content">
+
+			<div class="row">
+				<div class="input-field col s12" style="margin-left: -8px;">
+					<i id="formIcon" class="material-icons prefix">description</i> <input id="seriesName" type="text"
+						[(ngModel)]="generationServiceDTO.series"> <label for="seriesName">Enter Series Name</label>
+				</div>
+				<div class="input-field col s12" style="margin-left: -8px;">
+					<i id="formIcon" class="material-icons prefix">description</i> <input id="value" type="text"
+						[(ngModel)]="generationServiceDTO.value">
+					<label for="value">Enter value</label>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<!-- <div class="row">
+		<div class="col s12">
+			<ul class="collection" style="background-color: #bbdcf5;"
+				[ngClass]="getResponsiveClasses(widgetWidth,[[4,3],[8,6],[12,3]],'s1 m6 l1')">
+				<li class="collection-item black-text"
+					style="background-color: #bbdcf5;">
+
+					<div class="col "
+						[ngClass]="getResponsiveClasses(widgetWidth,[[4,4],[8,4],[12,4]],'s2 m4 l4')"
+						style="display: inline-flex;">
+						<label style="font-size: 15px; color: black;">SeriesName</label>
+					</div>
+
+					<div class="col "
+						[ngClass]="getResponsiveClasses(widgetWidth,[[4,4],[8,4],[12,4]],'s2 m4 l4')"
+						style="display: inline-flex;">
+						<label style="font-size: 15px; color: black;">Value</label>
+					</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="col s12">
+			<ul class="collection"
+				style="border: 1px solid #bbdcf5; margin-top: -16px;">
+				<li class="collection-item" style="height: 50px; cursor: pointer;"
+					*ngFor="let serie of seriesList | paginate: { id:'viewSeriesPagination',itemsPerPage: itemsPerPage, currentPage: currentPage,totalItems: count  }">
+
+					<div class="col "
+						[ngClass]="getResponsiveClasses(widgetWidth,[[4,4],[8,4],[12,4]],'s2 m4 l4')">{{serie.series}}</div>
+					<div class="col "
+						[ngClass]="getResponsiveClasses(widgetWidth,[[4,4],[8,4],[12,4]],'s2 m4 l4')">{{serie.value}}</div>
+					<div class="col "
+						[ngClass]="getResponsiveClasses(widgetWidth,[[4,2],[8,4],[12,4]],'s2 m6 l2')">
+						<i class="material-icons modal-trigger " href="#updateSeries"
+							(click)="editSeries(serie)" title="Edit">mode_edit</i>
+													<i
+													class="material-icons" *ngIf="section.enabled==false"
+													(click)=updateSection(section.id,true)>flash_on</i> <i
+													class="material-icons" *ngIf="section.enabled==true"
+													(click)=updateSection(section.id,false)>flash_off</i>
+					</div>
+
+				</li>
+			</ul>
+		</div>
+	</div>
+
+  -->
+</div>
+
+<div id="updateSeries" class="modal">
+	<div class="modal-content row">
+		<input id="value" placeholder="Enter Value" type="text" class="col s6"
+			[(ngModel)]="generationServicesDTO.value">
+		<a class="modal-close waves-effect btn-small col s4"
+			style="border-radius: 30px; margin-left: 3%; margin-top: 1%;" (click)="updateSeries();">Submit</a>
+	</div>
+</div>
+
+
+
+
+
+<div>
+	<app-loader *ngIf="loader" class="loading"></app-loader>
+</div>
+
+<!-- Open Modal For Upload Button-->
+<div id="uploadModal" class="modal">
+	<div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+		<i id="closeModalIcon" class="col s2 material-icons left" (click)="closeUploadModal()"
+			style="cursor: pointer; margin-left: 30px" title="Close Modal">close</i>
+		<p id="modalname" class="col s8 center">Upload Series</p>
+		<i id="saveModalIcon" class="col material-icons right" style="cursor: pointer; margin-top: 5px"
+			(click)="onUpload()" title="Save Action">done</i>
+	</div>
+
+	<div class="modal-content">
+		<div class="row">
+			<div class="file-field input-field">
+				<div class="btn">
+					<span>Export</span>
+					<input type="file" (change)="fileChanged($event)" class="file-upload">
+				</div>
+				<div class="file-path-wrapper">
+					<input class="file-path validate file-upload" type="text">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Open Modal For neoConfig -->
+<!-- ***********************************check Neoconfig Version Starts ********************************** -->
+<div>
+	<app-neo-config-view *ngIf="viewNeoConfig" (versionEvent)="triggered($event)"
+	[configCode]='configCode'>
+    </app-neo-config-view>
+</div>
+
+<!-- ************************************ check Neoconfig Version Ends ****************************************** -->

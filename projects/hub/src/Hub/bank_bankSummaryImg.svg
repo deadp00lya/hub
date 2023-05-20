@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="86" height="86" viewBox="0 0 86 86">
+  <g id="Group_15205" data-name="Group 15205" transform="translate(-70 -40)">
+    <circle id="Ellipse_2141" data-name="Ellipse 2141" cx="43" cy="43" r="43" transform="translate(70 40)" fill="#007ee5"/>
+    <g id="bank_01" data-name="bank 01" transform="translate(51.611 41.225)">
+      <g id="pie-chart" transform="translate(42.531 19.145)">
+        <path id="Path_9909" data-name="Path 9909" d="M35,45.26H6.715A4.721,4.721,0,0,1,2,40.546V4.715A4.721,4.721,0,0,1,6.715,0H35a4.721,4.721,0,0,1,4.715,4.715V40.546A4.721,4.721,0,0,1,35,45.26ZM6.715,1.886A2.832,2.832,0,0,0,3.886,4.715V40.546a2.832,2.832,0,0,0,2.829,2.829H35a2.832,2.832,0,0,0,2.829-2.829V4.715A2.832,2.832,0,0,0,35,1.886Z" transform="translate(-2)" fill="#fff"/>
+        <path id="Path_9910" data-name="Path 9910" d="M20.715,12.886H16.943a.943.943,0,1,1,0-1.886h3.772a.943.943,0,1,1,0,1.886Z" transform="translate(10.402 9.744)" fill="#fff"/>
+        <path id="Path_9911" data-name="Path 9911" d="M20.715,9.886H16.943a.943.943,0,1,1,0-1.886h3.772a.943.943,0,1,1,0,1.886Z" transform="translate(10.402 7.087)" fill="#fff"/>
+        <path id="Path_9912" data-name="Path 9912" d="M20.715,15.886H16.943a.943.943,0,1,1,0-1.886h3.772a.943.943,0,1,1,0,1.886Z" transform="translate(10.402 12.402)" fill="#fff"/>
+        <path id="Path_9913" data-name="Path 9913" d="M20.715,18.886H16.943a.943.943,0,1,1,0-1.886h3.772a.943.943,0,1,1,0,1.886Z" transform="translate(10.402 15.059)" fill="#fff"/>
+        <path id="Path_9914" data-name="Path 9914" d="M30.459,21.886H5.943a.943.943,0,1,1,0-1.886H30.459a.943.943,0,1,1,0,1.886Z" transform="translate(0.658 17.717)" fill="#fff"/>
+        <path id="Path_9915" data-name="Path 9915" d="M14.429,26.858a9.429,9.429,0,1,1,9.429-9.429A9.44,9.44,0,0,1,14.429,26.858Zm0-16.973a7.543,7.543,0,1,0,7.543,7.543A7.551,7.551,0,0,0,14.429,9.886Z" transform="translate(0.658 7.087)" fill="#fff"/>
+        <path id="Path_9916" data-name="Path 9916" d="M7.261,24.373a.942.942,0,0,1-.668-1.609l5.725-5.725v-8.1a.943.943,0,1,1,1.886,0v8.486a.95.95,0,0,1-.275.668l-6,6A.947.947,0,0,1,7.261,24.373Z" transform="translate(1.825 7.087)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

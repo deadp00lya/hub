@@ -1,0 +1,169 @@
+<div id="log_fields">
+
+  <div *ngIf="sectionPage" class="row" style="margin: 0px 0px 20px 0px;">
+    <div class="col s12 chip chip-label center">
+      <div style="padding: 4px;">
+        <label class="header_label left" translate>Log Field
+          Configuration</label>
+      </div>
+    </div>
+  </div>
+
+  <!----------------------- Start : Section Page ------------------------>
+
+  <div id="sectionPage" *ngIf="sectionPage">
+    <fieldset>
+      <div class="row" style="margin: 0">
+        <div class="col s10">
+          <label class="labels" for="eventType">{{ 'Event'|
+						translate}}</label>
+          <ng-select [items]="eventList" placeholder="{{ 'Select Event' | translate}}" bindLabel="eventType"
+            bindValue="eventType" (open)="selectRefresh()" notFoundText="{{ 'Event Not Found' | translate}}"
+            [(ngModel)]="logFieldDto.eventType" (change)="getSectionList();"></ng-select>
+        </div>
+      </div>
+      <div class="row" style="margin: 10px 0px 0px 0px;">
+        <div class="inputBox col s5">
+          <label class="labels" for="sectionName">{{ 'Section Name'|
+						translate }}</label><input id="sectionName" type="text" name="sectionName" [(ngModel)]="logFieldDto.sectionName"
+            title="{{ 'Section Name' }}" [disabled]="logFieldDto.eventType == null">
+        </div>
+        <div class="inputBox col s5">
+          <label class="labels" for="sectionCode">{{ 'Section Code'|
+						translate }}</label><input id="sectionCode" type="text" name="sectionCode" [(ngModel)]="logFieldDto.sectionCode"
+            title="{{ 'Section Code' }}" [disabled]="logFieldDto.sectionName == null || updateSectionFlag">
+        </div>
+      </div>
+      <div class="row" style="margin: 0px; padding: 6px 0px 11px 70%">
+        <div id="btnResetData" class="col s2 m2 l2 configBtn right" data-(click)="resetData();"
+          style="margin-left: 20px;">Reset</div>
+        <div class="col s2 m2 l2 configBtn right" data-(click)="saveSection()" style="margin-left: 20px;">Save</div>
+        <div *ngIf="logFieldDto.sectionCode != null" class="col s2 m2 l2 configBtn right"
+          data-(click)="openFieldModal(logFieldDto)">Add Field</div>
+      </div>
+    </fieldset>
+
+    <div *ngIf="sectionList.length > 0" class="row" style="padding: 40px 15px 0px 15px;">
+      <universal-list-view [(listViewFromSource)]="sectionList" totalCount="{{count}}"
+        itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="PexLogSectionList"
+        (outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+    </div>
+  </div>
+
+  <!----------------------- End : Section Page ------------------------>
+
+  <!----------------------- Start : Field Page ------------------------>
+
+  <div id="fieldPage" *ngIf="fieldPage">
+    <div class="row" style="margin: 0px 5px 15px 5px;">
+      <div class="col s12 chip chip-label center">
+        <div class="col s5 left" style="padding: 4px;">
+          <label class="header_label left" translate>Section : <span
+              style="color: #007EE5">{{logFieldDto.sectionName}}</span></label>
+        </div>
+
+        <div class="col s1 right" style="margin-top: 10px;">
+          <img class="closeBtn" src="{{cdnUrl}}/Hub/close.svg" data-(click)="closeFieldPage();">
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin: 0px;">
+      <div class="row" style="padding: 0px 15px 0px 15px;">
+        <universal-list-view [(listViewFromSource)]="logFieldList" totalCount="{{count}}"
+          itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="LogFieldList"
+          (outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+      </div>
+    </div>
+  </div>
+
+  <!----------------------- End : Field Page ---------------------------->
+
+
+  <!----------------------- Start : Field Modal ------------------------>
+
+  <div id="section_field_modal" class="modal">
+    <div class="modal-content" style="padding: 0px;">
+      <div class="row" style="margin: 0px 0px 20px 0px;">
+        <div class="col s12 chip chip-label center">
+          <div class="col s5 left" style="padding: 4px;">
+            <label class="header_label left" translate>Section : <span
+                style="color: #007EE5">{{logFieldDto.sectionName}}</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin: 0px;">
+        <div *ngFor="let field of fieldDataList;let i=index">
+          <div class="row" style="margin: 0px;">
+            <div class="inputBox col s2">
+              <label class="labels" for="fieldTitle">{{ 'Field Title'|
+								translate }}</label><input id="fieldTitle" type="text" name="fieldTitle" [(ngModel)]="field.fieldTitle"
+                title="{{ 'Field Title' }}">
+            </div>
+            <div class="inputBox col s2">
+              <label class="labels" for="fieldName">{{ 'Field Name'|
+								translate }}</label><input id="fieldName" type="text" name="fieldName" [(ngModel)]="field.fieldName"
+                title="{{ 'Field Name' }}" [disabled]="updateFieldFlag">
+            </div>
+            <div class="col s2">
+              <label class="labels" for="fieldType">{{ 'Field Type'|
+								translate }}</label>
+              <ng-select [items]="fieldTypeList" placeholder="{{ 'Select Type' | translate}}" bindLabel="fieldType"
+                bindValue="fieldType" (open)="selectRefresh()" notFoundText="{{ 'Type Not Found' | translate}}"
+                [(ngModel)]="field.fieldType" (change)="onFieldTypeSelect(field.fieldType);"></ng-select>
+            </div>
+            <div class="inputBox col s2">
+              <label class="labels" for="fieldDisplay">{{ 'Field
+								Display'| translate }}</label><input id="fieldDisplay" type="text" name="fieldDisplay"
+                [(ngModel)]="field.fieldDisplay" title="{{ 'Field Display' }}" [disabled]="fieldDisplayFlag">
+            </div>
+            <div *ngIf="field.fieldType == 'Select'" class="col s2">
+              <label class="labels" for="fieldSource">{{ 'Field
+								Source'| translate }}</label>
+              <ng-select [items]="fieldSourceList" placeholder="{{ 'Select Source' | translate}}" bindLabel="sourceName"
+                bindValue="sourceName" (open)="selectRefresh()" notFoundText="{{ 'Source Not Found' | translate}}"
+                [(ngModel)]="field.fieldSource"></ng-select>
+            </div>
+            <div *ngIf="field.fieldSource == 'MDM'" class="col s2">
+              <label class="labels" for="api">{{ 'Api'| translate }}</label>
+              <ng-select [items]="apiList" placeholder="{{ 'Select Api' | translate}}" bindLabel="apiName"
+                bindValue="apiCode" (open)="selectRefresh()" notFoundText="{{ 'Api Not Found' | translate}}"
+                [(ngModel)]="field.sourceCode" [disabled]="field.fieldSource == null"></ng-select>
+            </div>
+            <div *ngIf="field.fieldSource == 'PickList'" class="inputBox col s2">
+              <label class="labels" for="sourceCode">{{ 'Field Code'|
+								translate }}</label> <input id="sourceCode" type="text" name="sourceCode" [(ngModel)]="field.sourceCode"
+                title="{{ 'Source Code' }}" [disabled]="field.fieldSource == null">
+            </div>
+          </div>
+          <div class="row" style="margin: 0px;">
+            <div class="col s1 right" *ngIf="!updateFieldFlag" style="padding: 0px 0px 0px 60px; cursor: pointer;">
+              <i class="material-icons" (click)="removeField(i);">delete</i>
+            </div>
+          </div>
+        </div>
+        <div class="col s2 right" *ngIf="!updateFieldFlag" style="padding: 5px 0px 0px 167px; cursor: pointer;">
+          <i class="material-icons" (click)="addNewField();">add</i>
+        </div>
+      </div>
+    </div>
+
+    <div class="row right" style="margin: 10px 0px;">
+      <a *ngIf="updateFieldFlag" class="modal-close btn-flat" (click)="updateFields()"><b>Update</b></a> <a
+        *ngIf="!updateFieldFlag" class="modal-close btn-flat" (click)="addFields('Save')"><b>Save</b></a> <a
+        class="modal-close btn-flat" (click)="addFields('Cancel')"><b>Cancel</b></a>
+    </div>
+  </div>
+
+  <!----------------------- End : Field Modal ------------------------>
+
+</div>
+
+<!----------------------- Start : Field Loader ------------------------>
+
+<span class="preloader-background" *ngIf="loader">
+  <div class="medium center active">
+    <img src="{{cdnUrl}}/Hub/loader50.gif">
+  </div>
+</span>
+
+<!----------------------- End : Field Loader ------------------------>

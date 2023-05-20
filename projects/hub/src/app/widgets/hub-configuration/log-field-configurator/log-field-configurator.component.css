@@ -1,0 +1,108 @@
+.chip {
+	background: #EAF3FA; 
+	height: 40px; 
+	border-radius: 5px;
+	margin: 0;
+}
+
+.header_label {
+	color: #212121; 
+	font-size: 15px; 
+	font-weight: 600;
+}
+
+fieldset {
+	border: 0.2px solid #007EE5; 
+	border-radius: 5px; 
+	padding-bottom: 0;
+}
+
+#log_fields ::ng-deep .ng-select {
+    font-size: 13px;
+}
+
+#log_fields ::ng-deep .ng-select .ng-select-container {
+    border: 0.2px solid #007EE5 !important;
+    height: 32px;
+    min-height: 35px;
+    margin: 0px;
+}
+
+#log_fields ::ng-deep .ng-select .ng-select-container .ng-value-container .ng-input>input {
+    height: 20px;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+#log_fields ::ng-deep .ng-dropdown-panel{
+    border: 1px solid #007EE5;
+}
+
+#log_fields .inputBox ::ng-deep input[type=text]:not(.browser-default) {
+	border: 0.2px solid #007EE5; 
+	border-radius: 5px;
+	text-align: center;
+	height: 34px;
+    min-height: 34px;
+    font-size: 13px;
+}
+
+.labels {
+	color: #212121;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.configBtn {
+	line-height: 30px !important;
+	font-size: 11px !important;
+	text-align: center !important;
+	letter-spacing: .5px !important;
+	-webkit-transition: .2s ease-out !important;
+	cursor: pointer !important;
+	height: 30px !important;
+	border-radius: 30px !important;
+	display: inline-block;
+	width: 25% !important;
+	color: #007ee5;
+	border: 0.2px solid #007EE5;
+	font-weight: bold;
+}
+
+.configBtn:hover {
+	background: #007EE5;
+	border: 0.2px solid #007EE5;
+	color: white;
+}
+
+.modal {
+	width: 95%;
+	min-height: 30%;
+	border-radius: 10px;
+	border: 5px solid #007EE5;
+}
+
+.closeBtn {
+	size: 18px !important; 
+	height: 20px; 
+	cursor: pointer; 
+	margin-right: -90px;
+}
+
+.preloader-background {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: transparent;
+	position: absolute;
+	z-index: 999;
+	height: 100%;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0; p { padding-top : 120px;
+	margin-left: -60px;
+	opacity: 0.8;
+	}
+}
+

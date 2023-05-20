@@ -1,0 +1,15 @@
+<div id="orgPrefrences" class="row fullHeight" style="overflow-y: auto !important;">
+  <div style="overflow: auto; height: 100% !important">
+    <a (click)="openSideNav()"><i class="material-icons" style="cursor: pointer" title="Menu">menu</i></a>
+    <ul id="orgSlideOut" class="sidenav orgsidenav  no-padding">
+      <li><a class="" (click)="setConfigPage(0)">Org Mapping</a></li>
+      <li>
+        <div class="divider"></div>
+      </li>
+      <li><a class="" (click)="setConfigPage(1)">Org Config</a></li>
+    </ul>
+    <app-org-role-config class="col s12 fullHeight" *ngIf="configPage==0"></app-org-role-config>
+    <app-org-config class="col s12 fullHeight" *ngIf="configPage==1">
+    </app-org-config>
+  </div>
+</div>

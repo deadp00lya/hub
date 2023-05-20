@@ -1,0 +1,52 @@
+#actionView{
+	height: 100%;
+}
+
+#actionModal {
+	width: 31% !important;
+	overflow-y: unset !important;
+}
+
+#closeModalIcon {
+	font-size: 34px !important;
+	margin-left: -5% !important;
+	cursor: pointer;
+	/* 	color: #F44336 !important; */
+	color: #95a1ab;
+	display: inline-flex;
+}
+
+#saveModalIcon {
+	font-size: 34px !important;
+	margin-right: -5% !important;
+	cursor: pointer;
+	/* 	color: #26a69a; */
+	color: #55b2f9;
+	display: inline-flex;
+}
+
+#modalname {
+	font-size: 22px !important;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+#formIcon {
+	font-size: 27px !important;
+	color: #7a8086;
+}
+
+#uploadModal{
+	max-height: 30%; 
+	width: 35%;
+}
+
+.modal .modal-content {
+    padding: 24px;
+    height: 210px;
+}
+#myTextarea{
+	width: 100%;
+    background-color: transparent;
+    height: 300px;
+}

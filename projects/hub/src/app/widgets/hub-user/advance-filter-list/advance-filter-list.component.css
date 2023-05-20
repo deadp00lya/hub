@@ -1,0 +1,114 @@
+#oed_advance_filter ::ng-deep .ng-select {
+	margin-top: 10px;
+	font-size: 12px;
+}
+
+#oed_advance_filter ::ng-deep .ng-select .ng-select-container {
+	border: 1px solid #2aa0d0;
+	height: 32px;
+	min-height: 34px;
+}
+
+#dateofJouiningborder{
+	border: 1px solid #2aa0d0;
+	height: 32px;
+	border-radius: 5px;
+	min-height: 34px;
+	display: flex;
+}
+
+#oed_advance_filter ::ng-deep .ng-select .ng-select-container .ng-value-container .ng-input>input {
+	height: 20px;
+}
+
+#oed_advance_filter ::ng-deep .ng-dropdown-panel {
+	border: 1px solid skyblue;
+}
+
+#oed_advance_filter ::ng-deep .ng-dropdown-panel-items {
+	max-height: 
+	100px !important;
+}
+
+#oed_advance_filter {
+	width: 650px;
+	height: 150px;
+}
+
+.oed_advance_filter_button {
+	border-radius: 30px;
+	border: 1px solid #007EE5;
+	height: 27px;
+	background: transparent;
+	color: #007EE5;
+	cursor: pointer;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+#oed_advance_filter ::ng-deep .completer-dropdown {
+	max-height: 200px !important;
+	width: 90% !important;
+	overflow-y: auto;
+	overflow-x: hidden;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 8px !important;
+	box-shadow: 10px 10px 10px #999;
+	position: absolute !important;
+	border: 2px groove gainsboro !important;
+}
+
+#oed_advance_filter .input-field ::ng-deep .completer-holder input[type=search]:focus {
+	border-bottom: 1px solid #44a07e !important; 
+}
+
+#oed_advance_filter ::ng-deep .completer-selected-row, #oed_advance_filter ::ng-deep .completer-row:HOVER {
+	background: green !important;
+	color: white !important;
+}
+
+#oed_advance_filter ::ng-deep .completer-dropdown {
+	max-height: 200px !important;
+	width: 93% !important;
+	overflow-y: auto;
+	overflow-x: hidden;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 8px !important;
+	box-shadow: 0 10px 10px 10px #999;
+}
+
+#oed_advance_filter .input-field ::ng-deep .completer-holder input[type=search]:focus {
+	border-bottom: 1px solid #44a07e !important;
+}
+
+#oed_advance_filter ::ng-deep .completer-selected-row,
+	#oed_advance_filter ::ng-deep .completer-row:HOVER {
+	background: green !important;
+	color: white !important;
+}
+
+#oed_advance_filter ::ng-deep .completer-input {
+	margin: 0px !important; 
+	border-radius: 5px !important;
+	text-align: center;
+    text-overflow: ellipsis;
+    color: black !important;
+    font-size: 12px;
+    border: 1px solid;
+    height: 30px;
+    background: white;
+}
+
+#oed_advance_filter ::ng-deep .completer-input::placeholder {
+	font-size: 12px;
+}
+
+#oed_advance_filter ::ng-deep .textBorder{
+	border-radius: 5px;
+	height: 32px;
+	text-align: center;
+	font-size: 12px;
+	background: white;
+}

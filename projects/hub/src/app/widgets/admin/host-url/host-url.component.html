@@ -1,0 +1,101 @@
+<div id="host">
+
+  <!-- <div id="hostUrl" class="modal">
+    <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+      <i id="closeModalIcon" class="col s2 material-icons left modal-close" (click)="reset();">close</i>
+      <p id="modalname" class="col s8 center">Create Hosts</p>
+      <i id="saveModalIcon" class="col s2 material-icons right" (click)="AddHosts();">done</i>
+    </div>
+
+    <div class="modal-content">
+
+      <div class="row">
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="hostUrl" [(ngModel)]="hosts.hosturl"
+            type="text" class="validate"> <label for="hostUrl">HostUrl</label>
+        </div>
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="hostName"
+            [(ngModel)]="hosts.hostName" type="text" class="validate"> <label for="header">HostName</label>
+        </div>
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="header" [(ngModel)]="hosts.headers"
+            type="text" class="validate"> <label for="header">Headers</label>
+        </div>
+
+      </div>
+    </div>
+  </div> -->
+
+  <universal-list-view [(listViewFromSource)]="allHost" totalCount="{{count}}"
+    itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="HostUrlListView"
+    (outPutToParentComponent)="outputFromListView($event)" rowBasedCheckBoxEvent="true">
+  </universal-list-view>
+
+</div>
+
+<!-- Open Modal For neoConfig -->
+<div id="neoConfigModal" class="modal" style="width: 40% !important;">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s4">
+        <h5>Request Body</h5>
+      </div>
+      <textarea name="" id="myTextarea" cols="30" rows="10"></textarea>
+    </div>
+  </div>
+</div>
+
+
+<!-- Open Modal For Upload Button-->
+<div id="uploadModal" class="modal" [class]="uploadModal">
+  <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+    <i id="closeModalIcon" class="col s2 material-icons left" (click)="closeUploadModal()"
+      style="cursor: pointer; margin: 20px" title="Close Modal">close</i>
+    <p style="	font-size: 22px !important; margin-bottom: 0px; margin-top: 19px;" class="col s8 center">Upload Hosts
+    </p>
+    <i id="saveModalIconUpload" class="col material-icons right" style="cursor: pointer; margin: 20px" title="Save Host"
+      (click)="validateClone(hostListArray)">done</i>
+  </div>
+
+  <div class="modal-content">
+    <div class="row">
+      <div class="file-field input-field">
+        <div class="btn">
+          <span>Export</span>
+          <input type="file" (change)="fileChanged($event)" class="file-upload">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate file-upload" type="text">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="UploadBoxHeight">
+
+    <div class="row" style="margin-bottom: 10px;">
+      <div class="row" style="margin-bottom: 10px;">
+        <table class="responsive-table col s12">
+          <tr>
+            <th>Host URL</th>
+            <th>Host Name</th>
+            <th>Basic Auth</th>
+          </tr>
+
+          <tr *ngFor="let host of hostListArray">
+            <td>
+              <input id="first_name" type="text" [(ngModel)]="host.hosturl">
+            </td>
+            <td>
+              <input id="first_name" type="text" [(ngModel)]="host.hostName">
+            </td>
+            <td>
+              <input id="first_name" type="text" [(ngModel)]="host.headers">
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

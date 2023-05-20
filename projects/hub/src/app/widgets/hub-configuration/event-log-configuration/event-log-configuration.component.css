@@ -1,0 +1,68 @@
+#hub_event_field ::ng-deep .ng-select {
+    font-size: 14px;
+}
+
+
+#hub_event_field ::ng-deep .ng-select .ng-select-container {
+    border: 1px solid #007ee5;
+    height: 32px;
+    min-height: 35px;
+}
+
+
+#hub_event_field ::ng-deep .ng-select .ng-select-container .ng-value-container .ng-input>input {
+    height: 20px;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+
+#hub_event_field ::ng-deep .ng-dropdown-panel{
+    border: 1px solid #007ee5;
+}
+
+#hub_event_field .inputBox ::ng-deep textarea[type=text]:not(.browser-default) {
+	border: 1px solid #007ee5; 
+	border-radius: 5px;
+	height: 170px !important;
+    min-height: 34px;
+    padding: 10px 10px 10px 10px;
+    overflow: auto;
+}
+
+.labels {
+	color: #007ee5;
+	font-weight: bold;
+	font-size: 13px;
+}
+
+.tabs {
+	border-radius: 35px;
+	border: 1px solid #007EE5;
+	line-height: 34px;
+	height: 34px;
+}
+
+.tabs .tab {
+	line-height: 34px;
+	height: 34px;
+	color: #007EE5 !important;
+}
+
+.tab a.active {
+	color: white !important;
+	background: #007EE5;
+	position: relative;
+	border: none;
+	border-radius: 25px;
+}
+
+#hub_event_field ::ng-deep .tabs .indicator {
+	background-color: transparent !important;
+}
+
+#hub_event_field ::ng-deep .tabs .tab a {
+	text-transform: none;
+	font-weight: bold;
+}
+

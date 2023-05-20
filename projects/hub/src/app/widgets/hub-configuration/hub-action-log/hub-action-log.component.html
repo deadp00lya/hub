@@ -1,0 +1,97 @@
+<div id="hub_action_log">
+
+  <!----------------------- Start : Selected Employee Log  ------------------------>
+
+  <div *ngIf="actionLogListView" id="actionLogListView">
+    <div class="row" style="margin: 0;">
+      <div class="col s12 chip chip-label center" style="background: #007ee5; height: 40px;">
+        <div style="padding: 4px;">
+          <label class="label-font left" style="color: white; font-size: 15px;"> ACTION LOG</label>
+        </div>
+      </div>
+    </div>
+    <fieldset style="border: 1px solid #007ee5; border-radius: 10px; padding-bottom: 0;">
+      <div class="row" style="margin-bottom: 0">
+        <div class="col s3">
+          <label class="labels" for="bu">{{ 'Business Unit'}}</label>
+          <ng-select [items]="businessUnitList" placeholder="{{ 'Select Businessunit' }}" bindLabel="businessunitName"
+            bindValue="businessunitCode" (open)="selectRefresh()" notFoundText="{{ 'Business unit Not Found' }}"
+            [(ngModel)]="actionLogData.businessunitCode"></ng-select>
+        </div>
+        <div class="col s3">
+          <label class="labels" for="event">{{ 'Event'}}</label>
+          <ng-select [items]="eventList" placeholder="{{ 'Select Event' }}" bindLabel="eventCode" bindValue="eventCode"
+            (open)="selectRefresh()" notFoundText="{{ 'Event Not Found' }}" [(ngModel)]="actionLogData.eventType">
+          </ng-select>
+        </div>
+        <div class="inputBox col s3">
+          <label class="labels" for="fromDate">{{ 'From Date' }}</label><input id="fromDate" type="text"
+            class="datepicker" name="fromDate" [(ngModel)]="actionLogData.fromDate" title="{{ 'From Date' }}"
+            (change)="actionLogData.fromDate = setDate($event.target.value);">
+        </div>
+        <div class="inputBox col s3">
+          <label class="labels" for="toDate">{{ 'Effective To Date'
+						}}</label><input id="toDate" type="text" class="datepicker" name="toDate" [(ngModel)]="actionLogData.toDate"
+            title="{{ 'From Date' }}" (change)="actionLogData.toDate = setDate($event.target.value);">
+        </div>
+      </div>
+      <div class="row" style="margin-bottom: 2px">
+        <div class="right">
+          <i class="material-icons" data-(click)="fetchActionLogList();" title="Get Log List"
+            style="border-radius: 5px; cursor: pointer; color: #007ee5;">view_list</i>
+        </div>
+      </div>
+    </fieldset>
+    <div *ngIf="actionLogsList.length > 0" class="row" style="padding-top: 5%;">
+      <universal-list-view [(listViewFromSource)]="actionLogsList" totalCount="{{count}}"
+        itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="PexAuditLogList"
+        (outPutToParentComponent)="outputFromListView($event)"></universal-list-view>
+    </div>
+  </div>
+
+  <!-------------------------- End : Selected Employee Log  ------------------------------>
+
+  <!----------------------- Start : Selected Employee Log Data --------------------------->
+
+  <div *ngIf="actionLogDataView" id="actionLogDataView">
+    <div class="row">
+      <div class="col s12 chip chip-label center" style="background: #007ee5; height: 40px;">
+        <div>
+          <i id="back" class="material-icons left" style="cursor: pointer; color: white; padding-top: 8px;"
+            (click)="backToListView()" title="Back">arrow_back</i>
+        </div>
+        <div style="padding: 4px;">
+          <label class="label-font" style="color: white; font-size: 15px;">LOG
+            DETAILS</label>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="auditDataMdm != null">
+      <ul class="collapsible" style="border-radius: 10px;">
+        <li *ngFor="let item of actionLogDataMdm | keyvalue">
+          <div *ngIf="item.value.length != 0" class="collapsible-header" style="font-weight: 600;"
+            (click)="collabsibleClick(item);">{{item.key}}</div>
+          <div *ngIf="item.value.length != 0" class="collapsible-body">
+            <div *ngFor="let data of collapsibleValues | keyvalue">
+              <div class="row" *ngFor="let finalData of data.value | keyvalue" style="margin: 0">
+                <div class="col s2">{{finalData.key}}</div>
+                <div class="col s1">:</div>
+                <div class="col s8">{{finalData.value}}</div>
+              </div>
+              <hr>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="row" *ngIf="auditDataMdm == null">
+      <i class="large material-icons" style="padding-left: 48%; padding-top: 10%;">assignment</i>
+      <div style="padding-left: 47%; font-weight: 600; font-size: 20px;">
+        <span>No Log Found</span>
+      </div>
+    </div>
+  </div>
+
+  <!----------------------- End : Selected Employee Log Data ----------------------------->
+
+</div>

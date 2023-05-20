@@ -1,0 +1,22 @@
+
+  <div style="background: white; height: 100%; width: 100%">
+    <app-advanced-header></app-advanced-header>
+    <main id="advHomeScroll"><router-outlet></router-outlet></main>
+  </div>
+
+
+<!-- Code for sessionExpireModal -->
+
+
+  <!-- Modal Structure -->
+  <div id="sessionExpireModal" class="modal " #reloadpopup>
+    <div class="modal-content center">
+      <h6>Session changed !</h6>
+      <p>Your session either changed or expired. Please <a href="javascript:void()" (click)="reload()">reload</a></p>
+    </div>
+    <!-- <div class="modal-footer">
+		<button (click)="reload()" class="btn-small waves-effect waves-light no-padding">Reload
+			<i class="material-icons left">refresh</i>
+		  </button>
+    </div> -->
+  </div>

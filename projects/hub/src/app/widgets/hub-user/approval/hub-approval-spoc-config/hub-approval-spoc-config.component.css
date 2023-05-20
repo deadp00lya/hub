@@ -1,0 +1,68 @@
+.selectdisclasss ::ng-deep select:disabled {
+	color: #000;
+	font-weight: bold;
+}
+
+#viewSpocCompleter ::ng-deep .dropdown-content {
+	max-height: 150px !important;
+	overflow-y: auto;
+}
+
+#viewSpocCompleter ::ng-deep input[type=search]:not(.browser-default){
+	width:170% !important;
+}
+
+#viewSpoc ::ng-deep .dropdown-content {
+	max-height: 200px !important;
+	overflow: auto !important;
+	backface-visibility: hidden !important;
+}
+
+#pexAuto ::ng-deep .completer-dropdown {
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	width: 350px;
+}
+
+#notificationModal {
+	width: 40% !important;
+	overflow-y: auto !important;
+	overflow-x: hide !important;
+}
+
+#closeModalIcon {
+	font-size: 34px !important;
+	margin-left: -1% !important;
+	cursor: pointer;
+	/* 	color: #F44336 !important; */
+	color: #95a1ab;
+	display: inline-flex;
+}
+
+#saveModalIcon {
+	font-size: 34px !important;
+	margin-right: -1% !important;
+	cursor: pointer;
+	/* 	color: #26a69a; */
+	color: #55b2f9;
+	display: inline-flex;
+	margin-top: -6%;
+}
+
+#modalname {
+	font-size: 22px !important;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+#formIcon {
+	font-size: 27px !important;
+	color: #7a8086;
+}
+
+#neosuiteNotificationSpocModal {
+	width: 40% !important;
+	overflow-y: auto !important;
+	overflow-x: hide !important;
+}

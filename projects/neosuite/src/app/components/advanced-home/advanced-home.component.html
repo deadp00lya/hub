@@ -1,0 +1,125 @@
+<div style="top: 57px; position: absolute;"
+  id="advanced_BgImg"
+  [ngStyle]="{
+    background: true
+      ? 'url(' + backgroundImage + ')no-repeat center center'
+      : ''
+  }"
+>
+<div class="adv_homeParentContainer" style="background: #21212173; height: 100%; width: 100%">
+<!-- <div id="advanced_BgImg"
+	[ngStyle]="{background:true?'url(' + backgroundImage + ')no-repeat center center fixed':''}"> -->
+	<div class="adv_welcomeText center white-text"  id="adv_zoom" translate>&nbsp;</div>
+	<div class="row col s12 m12 l12 advWidgetsWrap adv_searchWrap hide-on-med-and-up" style="max-width: 600px;">
+			<div class="col s11 l4 m6 container adv_inputText"  [style.visibility]="showFakeSarch ? 'visible' : 'hidden'">
+				<a><i class="material-icons adv_searchIcon">search</i> </a>
+				<input
+					type="text" class="adv_inputText" placeholder="{{ 'Search Widgets | Applications' | translate}}" (click)="searchOpen();onFocus()">
+			</div>
+	</div>
+		<div class="row col s12 m12 l12 advWidgetsWrap adv_searchWrap hide-on-small-only">
+			<div class="col s11 l4 m6 container adv_inputText"  [style.visibility]="showFakeSarch ? 'visible' : 'hidden'">
+				<a><i class="material-icons adv_searchIcon">search</i> </a>
+				<input
+					type="text" class="adv_inputText" placeholder="{{ 'Search Widgets | Applications' | translate}}" (click)="searchOpen();onFocus()">
+			</div>
+	</div>
+	<div class="row col s12 m12 l12 advWidgetsWrap">
+		<div class="col s11 m9 l8 xl7 zeroPadding" style="margin: 0 auto;">
+			<div class="col s12 m12 l12 adv_wid_app_label">
+				<a> <img class="left white-text"
+					style="    width: 12px;padding: 2px 0px 0px 0px;margin-left: 7px;" 
+					src="assets/WidgetIcon/advAppIcon.svg"></a> <label *ngIf="ShowAllApps" (click)="recentAppGrid();getRecentApplication();"
+					class="left white-text cursor-pointer" style="margin-left: 10px;cursor:pointer;" translate>All 
+					Applications</label>
+					<label *ngIf="!ShowAllApps" (click)="allAppGrid();"
+					class="left white-text cursor-pointer" style="margin-left: 10px;cursor:pointer;" translate>Recent
+					Applications</label>
+			</div>
+			<div class="allWidgetsWrap col s12 m12 l12" style="padding:0;">
+			<div *ngIf="ShowAllApps" class="col s12 m12 l12 center adv_appDrawer scrollOnHover" id="allWidgetsTray">
+				<div class="col s4 m3 l2" *ngFor="let app of applications; let i = index" style="margin:3px auto;">
+					<a class="advancedUI_recentWidget_container" id="{{app.appName}}"
+						(mouseenter)="setAppIcon(app,'gif')"
+						(mouseleave)="setAppIcon(app,'img')"
+						(click)="recentApp(app.appName)"
+						[routerLink]="'/'+app.url|lowercase">
+						
+						<div class="advancedUI_appIcon">
+							
+							<img [hidden]="!app.showImg" class="ns-tile-icon"
+								[src]="app.iconName"
+								onerror="this.src='assets/WidgetIcon/defaulticon.jpg';"> <img
+								[hidden]="!app.showGif" class="ns-tile-icon" [src]="app.gifName"
+								onerror="this.src='assets/WidgetIcon/defaulticon.jpg';">	
+						</div>
+						<div class="adv_logoName truncate "title="{{app.appName | translate}}" translate>{{app.appName}}</div>
+					</a>
+				</div>
+				</div>
+				<!-- Recent application code -->
+				<div *ngIf="!ShowAllApps" class="col s12 m12 l12 center adv_appDrawer scrollOnHover" id="allWidgetsTray">
+				<div class="col s4 m2 l2" *ngFor="let app of recentAppList ; let i = index" style="margin:3px auto;">
+					<div class="advancedUI_recentWidget_container" 
+						(mouseenter)="setAppIcon(app,'gif')"
+						(mouseleave)="setAppIcon(app,'img')"
+						id="{{app.appName}}"
+						[routerLink]="'/'+app.url|lowercase">
+						<div class="advancedUI_appIcon">
+							
+							<img [hidden]="!app.showImg" class="ns-tile-icon"
+								[src]="app.iconName"
+								onerror="this.src='assets/WidgetIcon/defaulticon.jpg';"> <img
+								[hidden]="!app.showGif" class="ns-tile-icon" [src]="app.gifName"
+								onerror="this.src='assets/WidgetIcon/defaulticon.jpg';">	
+						</div>
+						<div class="adv_logoName truncate "title="{{app.appName  | translate}}" translate>{{app.appName}}</div>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- </div> -->
+
+<div class="modal " #elSearchModal style="max-width: 600px;">
+		<!-------------------------------- Modal view Header Start----------------------------------------------->
+		<div class="row" style="margin-bottom: 0px;">
+		<div class="col input-field s12 l12 m12">
+			<i class="material-icons prefix tiny" style="font-size: 1.5rem;">search</i>
+          <input style="margin-left: 2rem;" type="text" class=" " [(ngModel)]="searchWidget" (click)="showSuggestion()" [autofocus]="true" >
+		  <label class='active' for="icon_prefix">{{ 'Search Widgets | Applications' | translate}}</label>
+			
+				
+				</div>
+		</div>
+		<!-------------------------------- Modal view Header END----------------------------------------------->
+		<!-------------------------------- Modal view Content Start----------------------------------------------->
+		<div class="modal-content" style="padding:0;">
+			<form>
+			<div class="row adv_searchContent zeroMargin">
+				<div class="row adv_inBetweenGap" *ngFor="let searchWidget of searchWidgetList| searchWidget : searchWidget">
+					<div class="col s12 l12 m12" (click)="openWidget(searchWidget)">
+						<div class="col s12 l12 m12 zeroPadding cursor-pointer">
+							<div class="adv_text col s6 m6 l6 ">{{searchWidget.name | translate}}</div>
+							<div class=" col s6 m6 l6 right-align applicationText">{{searchWidget.type | translate}}</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</form>
+		</div>
+		<!-------------------------------- Modal view Content End----------------------------------------------->
+	</div>
+</div>
+<div style="bottom: 0px; position: fixed; font-size: 12px; width: 99%; bottom: 10px;"
+	class="cursor-pointer hide-on-med-and-down customFooter center ">
+
+	<label style="color:white;">&COPY; 2023 Neeyamo Enterprise Solutions</label>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a
+		style="float: center;" href="https://www.neeyamo.com/privacy-policy/"
+		title="{{ 'Privacy Policy' | translate}}" target="_blank" class=" "
+		translate>Privacy Policy</a>
+</div></div>

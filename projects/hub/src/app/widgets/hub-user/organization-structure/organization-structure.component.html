@@ -1,0 +1,18 @@
+<div *ngIf="showOrgList">
+  <div class="col l12"
+    style="display: flex; flex-wrap: wrap; margin: 20px; margin-top: 0px; justify-content: center; width: 95%;">
+    <div class="col l4 center" *ngFor="let orgStructure of orgCodeList ">
+      <div class=" center" id="iconDiv" style="padding:  10px 40px">
+        <div (click)="showOrgFunction(orgStructure.orgCode)" class="card center pointer"
+          style="cursor: pointer; height: 140px; margin-left: auto; margin-right: auto; width: 140px; border-radius: 50%;">
+          <i class="material-icons large" style="margin: 25px;">account_circle</i>
+        </div>
+        <p class="center truncate">{{orgStructure.orgStructureName}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showOrg">
+  <org-structure [orgCode]="orgCode" [startNode]="startNode" (outputFromORGComponent)="outputFromORGComponent($event)">
+  </org-structure>
+</div>

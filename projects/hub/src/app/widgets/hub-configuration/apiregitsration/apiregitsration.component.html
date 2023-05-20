@@ -1,0 +1,154 @@
+<div id="apiView">
+  <div id="apiList" class="modal">
+
+    <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+      <i id="closeModalIcon" class="col s2 material-icons left modal-close" (click)="reset();">close</i>
+      <p id="modalname" class="col s8 center">Create API</p>
+      <i id="saveModalIcon" class="col s2 material-icons right" (click)="saveApiList();">done</i>
+    </div>
+
+    <div class="modal-content">
+
+      <div class="row">
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <select [(ngModel)]="api.hosturlId.id" id="fatch">
+            <option value="" disabled selected>Choose your option</option>
+            <option *ngFor="let host of allHost;" [value]="host.id">{{host.hostName}}</option>
+          </select> <label for="form_code">HostUrl</label>
+        </div>
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="api_name" [(ngModel)]="api.apiName"
+            type="text" class="validate"> <label for="api_name">APIName</label>
+        </div>
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="api_code" [(ngModel)]="api.apiCode"
+            type="text" class="validate"> <label for="api_code">APICode</label>
+        </div>
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">http</i> <input id="api" [(ngModel)]="api.api" type="text"
+            class="validate">
+          <label for="api">API</label>
+        </div>
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="query_Code"
+            [(ngModel)]="api.queryCode" type="text" class="validate"> <label for="query_Code">QueryCode
+            (Optional)</label>
+        </div>
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="api_searchQueryCode"
+            [(ngModel)]="api.searchQueryCode" type="text" class="validate"> <label
+            for="api_searchQueryCode">SearchQueryCode</label>
+        </div>
+        <div class="input-field col s12" style="margin-left: -8px;">
+          <i id="formIcon" class="material-icons prefix">description</i> <input id="api_type" [(ngModel)]="api.apiType"
+            type="text" class="validate"> <label for="api_type">APIType</label>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <universal-list-view *ngIf="!viewNeoConfig" [(listViewFromSource)]="apiList" totalCount="{{count}}"
+    itemsPerPageToDisplay={{itemsPerPageToDisplay}} listViewUniqueCode="ApiListView"
+    (outPutToParentComponent)="outputFromListView($event)" rowBasedCheckBoxEvent="true">
+  </universal-list-view>
+
+
+</div>
+
+
+
+<!-- Open Modal For Upload Button-->
+<div id="uploadModal" class="modal" [class]="uploadModal">
+  <div class="row card" style="margin: 0px; padding-left: 10px; padding-right: 10px;">
+    <i id="closeModalIcon" class="col s2 material-icons left" (click)="closeUploadModal()"
+      style="cursor: pointer; margin: 20px" title="Close Modal">close</i>
+    <p style="	font-size: 22px !important; margin-bottom: 0px; margin-top: 19px;" class="col s8 center">Upload Hosts
+    </p>
+    <i id="saveModalIconUpload" class="col material-icons right" style="cursor: pointer; margin: 20px" title="Save Host"
+      (click)="validateClone(apiListArray)">done</i>
+  </div>
+
+  <div class="modal-content">
+    <div class="row">
+      <div class="file-field input-field">
+        <div class="btn">
+          <span>Export</span>
+          <input type="file" (change)="fileChanged($event)" class="file-upload">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate file-upload" type="text">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="UploadBoxHeight">
+
+    <div class="row" style="margin-bottom: 10px;">
+      <div class="row" style="margin-bottom: 10px;">
+        <table class="responsive-table col s12">
+          <tr>
+            <th>Host URL</th>
+            <th>Api Name</th>
+            <th>Api Code</th>
+            <th>Api</th>
+            <th>Query Code</th>
+            <th>Search Query Code</th>
+            <th>Api type</th>
+
+          </tr>
+
+          <tr *ngFor="let api of apiListArray">
+            <td>
+              <ng-select [items]="allHost" bindLabel="hostName" bindValue="id" [(ngModel)]="api.hosturlId.id">
+              </ng-select>
+            </td>
+            <td>
+              <input id="first_name" type="text" [(ngModel)]="api.apiName">
+            </td>
+            <td>
+              <input id="first_name" type="text" [(ngModel)]="api.apiCode">
+            </td>
+            <td>
+              <input id="first_name" type="text" [(ngModel)]="api.api">
+            </td>
+            <td>
+              <input id="first_name" type="text" [(ngModel)]="api.queryCode">
+            </td>
+            <td>
+              <input id="first_name" type="text" [(ngModel)]="api.searchQueryCode">
+            </td>
+            <td>
+              <input id="first_name" type="text" [(ngModel)]="api.apiType">
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Open Modal For neoConfig -->
+<!-- 
+<div id="neoConfigModal" class="modal" style="width: 40% !important;">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s4">
+        <h5>Request Body</h5>
+      </div>
+      <textarea name="" id="myTextarea" cols="30" rows="10"></textarea>
+    </div>
+  </div>
+</div> -->
+
+
+<!-- ***********************************check Neoconfig Version Starts ********************************** -->
+<div>
+	<app-neo-config-view *ngIf="viewNeoConfig" (versionEvent)="triggered($event)"
+	[configCode]='configCode'>
+    </app-neo-config-view>
+</div>
+
+<!-- ************************************ check Neoconfig Version Ends ****************************************** -->

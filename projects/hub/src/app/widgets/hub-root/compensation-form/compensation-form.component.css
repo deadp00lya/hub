@@ -1,0 +1,21 @@
+.configBtn {
+	line-height: 30px !important;
+	font-size: 11px !important;
+	text-align: center !important;
+	letter-spacing: .5px !important;
+	-webkit-transition: .2s ease-out !important;
+	cursor: pointer !important;
+	height: 30px !important;
+	border-radius: 30px !important;
+	display: inline-block;
+	width: 6% !important;
+	color: #007EE5;
+	border: 0.2px solid #007EE5;
+	font-weight: bold;
+}
+
+.configBtn:hover {
+	background: #007EE5;
+	border: 0.2px solid #007EE5;
+	color: white;
+}

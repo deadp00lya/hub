@@ -1,0 +1,93 @@
+#groupListPage1 {
+	overflow: inherit !important;
+	border-radius: 10px;
+	min-width: 43px !important;
+	width: 10px !important;
+	height: auto !important;
+}
+
+#groupListPage1:after {
+	content: "";
+	position: absolute !important;
+	width: 25px !important;
+	height: 25px;
+	background: #ffffff;
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+	top: 0 !important;
+	right: 10px !important;
+	z-index: -1;
+}
+
+#groupListPage1>li {
+	text-align: center !important;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	line-height: 45px;
+}
+
+#viewGroupParticipant ::ng-deep .dropdown-content {
+	max-height: 150px !important;
+	overflow-y: auto;
+}
+
+#viewGroupParticipant {
+	border: #00000021;
+	border-style: groove;
+	border-radius: 50px;
+	border-width: 2px;
+	border: 1;
+}
+
+:host> >> .completer-input {
+	border-bottom: none !important;
+	padding-left: 15px !important;
+}
+
+#closeModalIcon {
+	font-size: 34px !important;
+	cursor: pointer;
+	color: #95a1ab;
+	display: inline-flex;
+}
+
+#saveModalIcon {
+	font-size: 34px !important;
+	margin-right: -5% !important;
+	cursor: pointer;
+	color: #55b2f9;
+	display: inline-flex;
+}
+
+#modalname {
+	font-size: 22px !important;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+.preloader-background {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent;
+	position: absolute;
+	z-index: 999;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0; p { padding-top : 120px;
+	margin-left: -60px;
+	opacity: 0.8;
+}
+
+}
+#group {
+	width: 31% !important;
+	overflow-y: unset !important;
+}
+
+#myTextarea{
+	width: 100%;
+    background-color: transparent;
+    height: 300px;
+}
